@@ -1,9 +1,18 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
-
-  <PropertyGroup>
-    <TargetFramework>net10.0</TargetFramework>
-    <ImplicitUsings>enable</ImplicitUsings>
-    <Nullable>enable</Nullable>
-  </PropertyGroup>
-
+	<PropertyGroup>
+		<IsPackable>false</IsPackable>
+		<GenerateDocumentationFile>true</GenerateDocumentationFile>
+		<NoWarn>$(NoWarn);CS1591</NoWarn>
+		<Description>UniversalRemote Application preview SDK.</Description>
+		<PackageReadmeFile>README.md</PackageReadmeFile>
+	</PropertyGroup>
+	<ItemGroup>
+		<ProjectReference Include="../UniversalRemote.Core/UniversalRemote.Core.csproj" />
+		<PackageReference Include="DomainRelay.DependencyInjection" Version="3.1.3" />
+		<PackageReference Include="DomainRelay.Diagnostics" Version="3.1.3" />
+		<PackageReference Include="DomainRelay.Mapping.DependencyInjection" Version="3.1.3" />
+		<PackageReference Include="DomainRelay.Validation" Version="3.1.3" />
+		<PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="10.0.0" />
+		<None Include="../../README.md" Pack="true" PackagePath="/" />
+	</ItemGroup>
 </Project>
