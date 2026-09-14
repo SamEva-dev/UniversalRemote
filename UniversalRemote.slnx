@@ -1,0 +1,20 @@
+<Solution>
+  <Folder Name="/build/">
+    <File Path="verify.ps1" />
+  </Folder>
+  <Folder Name="/docs/" />
+  <Folder Name="/samples/">
+    <Project Path="samples/UniversalRemote.Console.Sample/UniversalRemote.Console.Sample.csproj" Id="549dc08a-fcd1-4455-8c1e-ff06d1bb8986" />
+    <Project Path="samples/UniversalRemote.PackageSmoke/UniversalRemote.PackageSmoke.csproj" Id="7cd1bc60-ce5c-44d3-beed-7ef5347cb1cb" />
+  </Folder>
+  <Folder Name="/src/">
+    <Project Path="src/UniversalRemote.Abstractions/UniversalRemote.Abstractions.csproj" Id="07df9502-3b1f-48c0-b6af-c8f25701a0ac" />
+    <Project Path="src/UniversalRemote.Application/UniversalRemote.Application.csproj" Id="ca9f23b0-b617-44e4-8aa2-63c4238bc46a" />
+    <Project Path="src/UniversalRemote.Core/UniversalRemote.Core.csproj" Id="f5665047-e8de-4ae8-a6e6-3045c92b39a6" />
+    <Project Path="src/UniversalRemote.Provider.Simulator/UniversalRemote.Provider.Simulator.csproj" Id="f7e180d8-435a-42d3-b0d0-6ea01b3196b9" />
+  </Folder>
+  <Folder Name="/tests/">
+    <Project Path="tests/UniversalRemote.Tests/UniversalRemote.Tests.csproj" Id="bbd610af-1c53-4329-baf5-ee945dce1f63" />
+  </Folder>
+  <Folder Name="/Éléments de solution/" />
+</Solution>

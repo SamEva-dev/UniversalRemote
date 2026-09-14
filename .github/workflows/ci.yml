@@ -1,0 +1,43 @@
+name: SDK validation
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          path: UniversalRemote
+      - name: Check DomainRelay source configuration
+        shell: bash
+        env:
+          REPO: ${{ vars.DOMAINRELAY_REPOSITORY }}
+          REF: ${{ vars.DOMAINRELAY_REF }}
+        run: |
+          test -n "$REPO" || { echo 'Configure DOMAINRELAY_REPOSITORY (owner/repository).'; exit 1; }
+          test -n "$REF" || { echo 'Configure DOMAINRELAY_REF (reviewed commit SHA).'; exit 1; }
+      - uses: actions/checkout@v4
+        with:
+          repository: ${{ vars.DOMAINRELAY_REPOSITORY }}
+          ref: ${{ vars.DOMAINRELAY_REF }}
+          token: ${{ secrets.DOMAINRELAY_READ_TOKEN || github.token }}
+          path: DomainRelay
+      - uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '10.0.x'
+      - name: Build test pack and consume
+        shell: pwsh
+        working-directory: UniversalRemote
+        run: ./build/verify.ps1 -DomainRelayRoot ../DomainRelay
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: sdk-validation
+          path: |
+            UniversalRemote/artifacts/packages/
+            UniversalRemote/artifacts/test-results/
+          if-no-files-found: warn

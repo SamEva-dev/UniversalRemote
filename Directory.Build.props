@@ -1,0 +1,16 @@
+<Project>
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <LangVersion>14.0</LangVersion>
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    <Deterministic>true</Deterministic>
+    <ShouldUnsetParentConfigurationAndPlatform>false</ShouldUnsetParentConfigurationAndPlatform>
+    <Version>0.1.0-preview.1</Version>
+    <Authors>Sam FOKAM</Authors>
+    <IsPackable>false</IsPackable>
+    <DomainRelayRoot Condition="'$(DomainRelayRoot)' == ''">$(MSBuildThisFileDirectory)../DomainRelay</DomainRelayRoot>
+    <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
+  </PropertyGroup>
+</Project>
