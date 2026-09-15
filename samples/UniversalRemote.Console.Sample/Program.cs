@@ -2,11 +2,14 @@
 using Microsoft.Extensions.DependencyInjection;
 using UniversalRemote.Abstractions;
 using UniversalRemote.Application;
+using UniversalRemote.Core;
 using UniversalRemote.Provider.Simulator;
 
 var services = new ServiceCollection();
 services.AddUniversalRemoteApplication();
-services.AddSingleton<IDeviceRepository, DemoDeviceRepository>();
+var repository = new InMemoryDeviceRepository(await new DemoDeviceRepository().ListAsync());
+services.AddSingleton<IDeviceRepository>(repository);
+services.AddSingleton<IDeviceRegistrar>(repository);
 services.AddSingleton<IRemoteProvider, SimulatorProvider>();
 using var container = services.BuildServiceProvider(new ServiceProviderOptions { ValidateScopes = true, ValidateOnBuild = true });
 using var scope = container.CreateScope();

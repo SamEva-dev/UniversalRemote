@@ -3,6 +3,9 @@
 		<IsTestProject>true</IsTestProject>
 	</PropertyGroup>
 	<ItemGroup>
+		<ProjectReference Include="../../src/UniversalRemote.Theming/UniversalRemote.Theming.csproj" />
+		<ProjectReference Include="../../src/UniversalRemote.Provider.LG/UniversalRemote.Provider.LG.csproj" />
+		<ProjectReference Include="../../src/UniversalRemote.Provider.Samsung/UniversalRemote.Provider.Samsung.csproj" />
 		<PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.14.1" />
 		<PackageReference Include="xunit" Version="2.9.3" />
 		<PackageReference Include="xunit.runner.visualstudio" Version="3.1.4">
@@ -11,5 +14,11 @@
 		<PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="10.0.0" />
 		<ProjectReference Include="../../src/UniversalRemote.Application/UniversalRemote.Application.csproj" />
 		<ProjectReference Include="../../src/UniversalRemote.Provider.Simulator/UniversalRemote.Provider.Simulator.csproj" />
+		<ProjectReference Include="../../src/UniversalRemote.Provider.AndroidTv/UniversalRemote.Provider.AndroidTv.csproj" />
+		<ProjectReference Include="../../src/UniversalRemote.Discovery/UniversalRemote.Discovery.csproj" />
+		<ProjectReference Include="../../src/UniversalRemote.Presentation/UniversalRemote.Presentation.csproj" />
+		<ProjectReference Include="../../src/UniversalRemote.Provider.Freebox/UniversalRemote.Provider.Freebox.csproj" />
+		<ProjectReference Include="../../src/UniversalRemote.Provider.GenericUpnp/UniversalRemote.Provider.GenericUpnp.csproj" />
+		<ProjectReference Include="..\..\src\UniversalRemote.Provider.GenericIr\UniversalRemote.Provider.GenericIr.csproj" />
 	</ItemGroup>
 </Project>

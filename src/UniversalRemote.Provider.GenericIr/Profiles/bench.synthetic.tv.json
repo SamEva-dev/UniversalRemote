@@ -1,0 +1,22 @@
+{
+  "version": 1,
+  "id": "bench.synthetic.tv",
+  "displayName": "Banc IR synthétique",
+  "verified": false,
+  "source": "UniversalRemote synthetic bench profile; not verified against a real appliance",
+  "carrierFrequencyHz": 38000,
+  "commands": [
+    {
+      "actionId": "power.toggle",
+      "patternMicroseconds": [9000, 4500, 560, 560, 560, 1690, 560, 560]
+    },
+    {
+      "actionId": "volume.up",
+      "patternMicroseconds": [9000, 2250, 560, 560, 560, 560, 560, 1690]
+    },
+    {
+      "actionId": "volume.down",
+      "patternMicroseconds": [4500, 4500, 560, 1690, 560, 560, 560, 560]
+    }
+  ]
+}

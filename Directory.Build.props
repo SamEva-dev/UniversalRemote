@@ -1,16 +1,18 @@
 <Project>
   <PropertyGroup>
-    <TargetFramework>net10.0</TargetFramework>
+    <!-- Repository-wide defaults. MAUI clears TargetFramework and declares TargetFrameworks itself. -->
+    <TargetFramework Condition="'$(TargetFramework)' == '' and '$(TargetFrameworks)' == ''">net10.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
-    <LangVersion>14.0</LangVersion>
-    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    <LangVersion>latest</LangVersion>
     <Deterministic>true</Deterministic>
-    <ShouldUnsetParentConfigurationAndPlatform>false</ShouldUnsetParentConfigurationAndPlatform>
-    <Version>0.1.0-preview.1</Version>
-    <Authors>Sam FOKAM</Authors>
-    <IsPackable>false</IsPackable>
-    <DomainRelayRoot Condition="'$(DomainRelayRoot)' == ''">$(MSBuildThisFileDirectory)../DomainRelay</DomainRelayRoot>
-    <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
+
+    <!-- One source of truth for UniversalRemote package versions. -->
+    <UniversalRemoteVersion>0.8.0-preview.3</UniversalRemoteVersion>
+    <Version>$(UniversalRemoteVersion)</Version>
+    <PackageVersion>$(UniversalRemoteVersion)</PackageVersion>
+
+    <!-- Used by UniversalRemote.Maui.csproj. -->
+    <MauiVersion>10.0.0</MauiVersion>
   </PropertyGroup>
 </Project>

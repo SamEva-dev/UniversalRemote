@@ -1,0 +1,18 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>net10.0-android</TargetFramework>
+    <OutputType>Exe</OutputType>
+    <ApplicationId>com.itech.universalremote.irsample</ApplicationId>
+    <ApplicationVersion>1</ApplicationVersion>
+    <ApplicationDisplayVersion>0.8.2</ApplicationDisplayVersion>
+    <SupportedOSPlatformVersion>21.0</SupportedOSPlatformVersion>
+  </PropertyGroup>
+  <ItemGroup>
+    <ProjectReference Include="../../src/UniversalRemote.Application/UniversalRemote.Application.csproj" />
+    <ProjectReference Include="../../src/UniversalRemote.Core/UniversalRemote.Core.csproj" />
+    <ProjectReference Include="../../src/UniversalRemote.Platform.Android/UniversalRemote.Platform.Android.csproj" />
+    <ProjectReference Include="../../src/UniversalRemote.Provider.GenericIr/UniversalRemote.Provider.GenericIr.csproj" />
+    <ProjectReference Include="../../src/UniversalRemote.Provider.Simulator/UniversalRemote.Provider.Simulator.csproj" />
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="10.0.0" />
+  </ItemGroup>
+</Project>

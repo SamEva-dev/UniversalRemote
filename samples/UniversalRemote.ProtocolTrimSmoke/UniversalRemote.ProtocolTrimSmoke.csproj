@@ -1,0 +1,14 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <PublishTrimmed>true</PublishTrimmed>
+    <TrimMode>full</TrimMode>
+    <JsonSerializerIsReflectionEnabledByDefault>false</JsonSerializerIsReflectionEnabledByDefault>
+    <ILLinkTreatWarningsAsErrors>true</ILLinkTreatWarningsAsErrors>
+  </PropertyGroup>
+  <ItemGroup>
+    <!-- Compile the exact production protocol sources; no copied implementation. -->
+    <Compile Include="../../src/UniversalRemote.Provider.LG/LgProtocol.cs" Link="LgProtocol.cs" />
+    <Compile Include="../../src/UniversalRemote.Provider.Samsung/SamsungProtocol.cs" Link="SamsungProtocol.cs" />
+  </ItemGroup>
+</Project>

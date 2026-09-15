@@ -13,6 +13,7 @@
 
 	<ItemGroup>
 	  <ProjectReference Include="..\..\src\UniversalRemote.Core\UniversalRemote.Core.csproj" />
+	  <ProjectReference Include="..\..\src\UniversalRemote.Theming\UniversalRemote.Theming.csproj" />
 	</ItemGroup>
 
 </Project>

@@ -18,6 +18,7 @@ public sealed class ApplicationTests
         services.AddUniversalRemoteApplication();
         services.AddUniversalRemoteApplication();
         services.AddSingleton<IDeviceRepository, DemoDeviceRepository>();
+        services.AddSingleton<IDeviceRegistrar, UniversalRemote.Core.InMemoryDeviceRepository>();
         services.AddSingleton<IRemoteProvider, SimulatorProvider>();
         return services.BuildServiceProvider(new ServiceProviderOptions { ValidateScopes = true, ValidateOnBuild = true });
     }
@@ -84,7 +85,7 @@ public sealed class ApplicationTests
             ActivityStopped = activity => observed.Add(activity)
         };
         ActivitySource.AddActivityListener(listener);
-        var behavior = new DomainRelay.Diagnostics.Behaviors.DiagnosticsBehavior<ListDevices, IReadOnlyList<DeviceSummary>>();
+        var behavior = new SanitizedDiagnosticsBehavior<ListDevices, IReadOnlyList<DeviceSummary>>();
         await Assert.ThrowsAsync<InvalidOperationException>(() => behavior.Handle(new ListDevices(),
             () => throw new InvalidOperationException("pairing-token=secret"), CancellationToken.None));
         Assert.Contains(observed, a => a.GetTagItem("domainrelay.exception.type") is not null);

@@ -1,6 +1,7 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using UniversalRemote.Abstractions;
 using UniversalRemote.Core;
+using UniversalRemote.Theming;
 
 var services = new ServiceCollection();
 services.AddUniversalRemoteCore();
@@ -9,7 +10,10 @@ using var root = services.BuildServiceProvider(new ServiceProviderOptions { Vali
 using var scope = root.CreateScope();
 var result = await scope.ServiceProvider.GetRequiredService<IRemoteControl>().ExecuteAsync(Guid.NewGuid(), RemoteActions.VolumeUp);
 Console.WriteLine($"NuGet smoke: {result.Error}");
-return result.Error == RemoteErrorCode.DeviceNotFound ? 0 : 1;
+var style = RemoteLayoutPreferences.ForLayout("neo");
+var roundTrip = RemoteLayoutPreferencesJson.ParseOrDefault(RemoteLayoutPreferencesJson.Serialize(style));
+Console.WriteLine($"NuGet styles: {BuiltInRemoteStyles.Layouts.Count}; restored={roundTrip.LayoutId}");
+return result.Error == RemoteErrorCode.DeviceNotFound && BuiltInRemoteStyles.Layouts.Count == 7 && roundTrip == style ? 0 : 1;
 
 sealed class EmptyRepository : IDeviceRepository
 {

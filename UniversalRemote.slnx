@@ -4,14 +4,29 @@
   </Folder>
   <Folder Name="/docs/" />
   <Folder Name="/samples/">
+    <Project Path="samples/UniversalRemote.AndroidIr.Sample/UniversalRemote.AndroidIr.Sample.csproj" Id="8385764a-73d3-481f-9519-dc6d51ccb004" />
     <Project Path="samples/UniversalRemote.Console.Sample/UniversalRemote.Console.Sample.csproj" Id="549dc08a-fcd1-4455-8c1e-ff06d1bb8986" />
     <Project Path="samples/UniversalRemote.PackageSmoke/UniversalRemote.PackageSmoke.csproj" Id="7cd1bc60-ce5c-44d3-beed-7ef5347cb1cb" />
+    <Project Path="samples/UniversalRemote.ProtocolTrimSmoke/UniversalRemote.ProtocolTrimSmoke.csproj" Id="b49dd4f2-92b9-4621-a002-f551a082aebf" />
   </Folder>
   <Folder Name="/src/">
     <Project Path="src/UniversalRemote.Abstractions/UniversalRemote.Abstractions.csproj" Id="07df9502-3b1f-48c0-b6af-c8f25701a0ac" />
     <Project Path="src/UniversalRemote.Application/UniversalRemote.Application.csproj" Id="ca9f23b0-b617-44e4-8aa2-63c4238bc46a" />
     <Project Path="src/UniversalRemote.Core/UniversalRemote.Core.csproj" Id="f5665047-e8de-4ae8-a6e6-3045c92b39a6" />
+    <Project Path="src/UniversalRemote.Discovery/UniversalRemote.Discovery.csproj" Id="7267f11a-1973-4b5c-86ef-5a7e97c9104e" />
+    <Project Path="src/UniversalRemote.Maui/UniversalRemote.Maui.csproj" Id="2884ad03-55fa-45a7-8d8e-3aaa7489be35">
+      <Deploy Solution="Debug|*" />
+    </Project>
+    <Project Path="src/UniversalRemote.Platform.Android/UniversalRemote.Platform.Android.csproj" Id="e415d5e2-e859-4823-8b33-a630c68da70e" />
+    <Project Path="src/UniversalRemote.Presentation/UniversalRemote.Presentation.csproj" Id="a264b314-855c-427d-9759-aa2543973cfe" />
+    <Project Path="src/UniversalRemote.Provider.AndroidTv/UniversalRemote.Provider.AndroidTv.csproj" Id="43194082-1764-45cb-95af-cb2da92ac31d" />
+    <Project Path="src/UniversalRemote.Provider.Freebox/UniversalRemote.Provider.Freebox.csproj" Id="fa4ebfdc-ae2a-4b41-a37f-abf651bac9da" />
+    <Project Path="src/UniversalRemote.Provider.GenericIr/UniversalRemote.Provider.GenericIr.csproj" Id="2fb8556a-7b9a-44d0-a832-7f853fb822e1" />
+    <Project Path="src/UniversalRemote.Provider.GenericUpnp/UniversalRemote.Provider.GenericUpnp.csproj" Id="2d4c57d5-335e-45d2-9423-5f91fa14bc6f" />
+    <Project Path="src/UniversalRemote.Provider.LG/UniversalRemote.Provider.LG.csproj" Id="9579632f-9be7-45ea-a57d-a8e284a02803" />
+    <Project Path="src/UniversalRemote.Provider.Samsung/UniversalRemote.Provider.Samsung.csproj" Id="25cac8c9-a3c3-46f8-af75-fe94fb91371c" />
     <Project Path="src/UniversalRemote.Provider.Simulator/UniversalRemote.Provider.Simulator.csproj" Id="f7e180d8-435a-42d3-b0d0-6ea01b3196b9" />
+    <Project Path="src/UniversalRemote.Theming/UniversalRemote.Theming.csproj" Id="e73a0652-66e8-4e09-a50c-9eb8194474c6" />
   </Folder>
   <Folder Name="/tests/">
     <Project Path="tests/UniversalRemote.Tests/UniversalRemote.Tests.csproj" Id="bbd610af-1c53-4329-baf5-ee945dce1f63" />
