@@ -1,4 +1,4 @@
-﻿using UniversalRemote.Abstractions;
+using UniversalRemote.Abstractions;
 
 namespace UniversalRemote.Presentation;
 
@@ -20,10 +20,17 @@ public sealed class CapabilityRemoteUiModelBuilder : IRemoteUiModelBuilder
             [RemoteActions.Right.Id] = new("navigation", "remote.action.right", RemoteControlRole.Navigation, 33),
             [RemoteActions.Down.Id] = new("navigation", "remote.action.down", RemoteControlRole.Navigation, 34),
             [RemoteActions.Back.Id] = new("navigation", "remote.action.back", RemoteControlRole.Secondary, 35),
-            [RemoteActions.Home.Id] = new("navigation", "remote.action.home", RemoteControlRole.Secondary, 36)
+            [RemoteActions.Home.Id] = new("navigation", "remote.action.home", RemoteControlRole.Secondary, 36),
+            [RemoteActions.Menu.Id] = new("navigation", "remote.action.menu", RemoteControlRole.Secondary, 37),
+            [RemoteActions.ChannelUp.Id] = new("channel", "remote.action.channelUp", RemoteControlRole.Extra, 40),
+            [RemoteActions.ChannelDown.Id] = new("channel", "remote.action.channelDown", RemoteControlRole.Extra, 41),
+            [RemoteActions.PlayPause.Id] = new("media", "remote.action.playPause", RemoteControlRole.Extra, 50),
+            [RemoteActions.Rewind.Id] = new("media", "remote.action.rewind", RemoteControlRole.Extra, 51),
+            [RemoteActions.FastForward.Id] = new("media", "remote.action.fastForward", RemoteControlRole.Extra, 52),
+            [RemoteActions.Record.Id] = new("media", "remote.action.record", RemoteControlRole.Extra, 53)
         };
 
-    private static readonly string[] SectionOrder = ["power", "navigation", "audio", "extras"];
+    private static readonly string[] SectionOrder = ["power", "navigation", "channel", "audio", "media", "extras"];
 
     public RemoteUiModel Build(Device device)
     {

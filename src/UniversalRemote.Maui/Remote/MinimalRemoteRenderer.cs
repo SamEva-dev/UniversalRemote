@@ -7,6 +7,7 @@ public sealed class MinimalRemoteRenderer : IRemoteLayoutRenderer
     public View Render(RemoteUiModel model, RemoteThemeDefinition theme, Func<RemoteUiControl, Task> executeAsync)
     {
         var root = new VerticalStackLayout { Spacing = theme.Tokens.SpacingDp };
+        if (RemoteFavoritesFactory.Render(model, theme, executeAsync) is { } favorites) root.Children.Add(favorites);
         foreach (var section in RemoteLayoutProjection.Sections(model, BuiltInRemoteStyles.Minimal))
             foreach (var control in section.Controls)
             {

@@ -1,4 +1,5 @@
-﻿using System.Text.Json;
+using System.Text.Json;
+using UniversalRemote.Maui.Storage;
 using UniversalRemote.Provider.AndroidTv;
 
 namespace UniversalRemote.Maui.AndroidTv;
@@ -12,13 +13,13 @@ public sealed class SecureAndroidTvCredentialStore : IAndroidTvCredentialStore
         cancellationToken.ThrowIfCancellationRequested();
         var json = await SecureStorage.Default.GetAsync(Key(host)).ConfigureAwait(false);
         cancellationToken.ThrowIfCancellationRequested();
-        return string.IsNullOrWhiteSpace(json) ? null : JsonSerializer.Deserialize<AndroidTvCredentials>(json);
+        return string.IsNullOrWhiteSpace(json) ? null : JsonSerializer.Deserialize(json, CredentialJsonContext.Default.AndroidTvCredentials);
     }
 
     public async Task SaveAsync(AndroidTvCredentials credentials, CancellationToken cancellationToken)
     {
         cancellationToken.ThrowIfCancellationRequested();
-        await SecureStorage.Default.SetAsync(Key(credentials.Host), JsonSerializer.Serialize(credentials)).ConfigureAwait(false);
+        await SecureStorage.Default.SetAsync(Key(credentials.Host), JsonSerializer.Serialize(credentials, CredentialJsonContext.Default.AndroidTvCredentials)).ConfigureAwait(false);
         cancellationToken.ThrowIfCancellationRequested();
     }
 }

@@ -11,9 +11,12 @@ public sealed class ClassicRemoteRenderer : IRemoteLayoutRenderer
     public View Render(RemoteUiModel model, RemoteThemeDefinition theme, Func<RemoteUiControl, Task> executeAsync)
     {
         var root = new VerticalStackLayout { Spacing = theme.Tokens.SpacingDp };
+        if (RemoteFavoritesFactory.Render(model, theme, executeAsync) is { } favorites) root.Children.Add(favorites);
         AddLinearSection(root, model, "power", theme, executeAsync);
         AddNavigation(root, model, theme, executeAsync);
+        AddLinearSection(root, model, "channel", theme, executeAsync);
         AddLinearSection(root, model, "audio", theme, executeAsync);
+        AddLinearSection(root, model, "media", theme, executeAsync);
         AddLinearSection(root, model, "extras", theme, executeAsync);
         return root;
     }

@@ -1,5 +1,6 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
+    <IsPackable>true</IsPackable>
     <Description>SQLite-backed local device persistence for UniversalRemote.</Description>
     <PackageId>UniversalRemote.Persistence.Sqlite</PackageId>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>

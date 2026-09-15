@@ -24,6 +24,33 @@ public sealed class GetPairingCandidatesHandler(IEnumerable<IDevicePairingProvid
     }
 }
 
+public sealed record GetManualPairingCandidates(string DeviceKey, string? DisplayName = null) : IRequest<IReadOnlyList<PairingCandidate>>;
+
+public sealed class GetManualPairingCandidatesValidator : AbstractValidator<GetManualPairingCandidates>
+{
+    public GetManualPairingCandidatesValidator()
+    {
+        RuleFor(x => x.DeviceKey).NotEmpty().MaximumLength(255);
+        RuleFor(x => x.DisplayName).MaximumLength(200);
+    }
+}
+
+public sealed class GetManualPairingCandidatesHandler(IEnumerable<IManualPairingProvider> providers)
+    : IRequestHandler<GetManualPairingCandidates, IReadOnlyList<PairingCandidate>>
+{
+    private readonly IManualPairingProvider[] providers = providers.ToArray();
+
+    public Task<IReadOnlyList<PairingCandidate>> Handle(GetManualPairingCandidates request, CancellationToken ct)
+    {
+        ct.ThrowIfCancellationRequested();
+        IReadOnlyList<PairingCandidate> matches = providers
+            .Select(x => x.CreateManualCandidate(request.DeviceKey, request.DisplayName))
+            .OfType<PairingCandidate>()
+            .ToArray();
+        return Task.FromResult(matches);
+    }
+}
+
 public sealed record StartPairing(string ProviderId, string DeviceKey, string DisplayName) : IRequest<PairingChallenge>;
 
 public sealed class StartPairingValidator : AbstractValidator<StartPairing>

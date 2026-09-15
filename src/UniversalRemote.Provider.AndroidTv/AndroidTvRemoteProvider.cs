@@ -1,4 +1,4 @@
-﻿using System.Collections.Concurrent;
+using System.Collections.Concurrent;
 using System.Net.Security;
 using System.Net.Sockets;
 using System.Security.Authentication;
@@ -14,7 +14,8 @@ public sealed class AndroidTvRemoteProvider(IAndroidTvCredentialStore credential
     public static IReadOnlyCollection<RemoteAction> Capabilities { get; } =
         [RemoteActions.PowerToggle, RemoteActions.VolumeUp, RemoteActions.VolumeDown, RemoteActions.MuteToggle,
          RemoteActions.Up, RemoteActions.Down, RemoteActions.Left, RemoteActions.Right, RemoteActions.Ok,
-         RemoteActions.Back, RemoteActions.Home];
+         RemoteActions.Back, RemoteActions.Home,
+         RemoteActions.Menu, RemoteActions.ChannelUp, RemoteActions.ChannelDown, RemoteActions.PlayPause, RemoteActions.Rewind, RemoteActions.FastForward, RemoteActions.Record, RemoteActions.Input, RemoteActions.Tv, RemoteActions.Hdmi1, RemoteActions.Hdmi2, RemoteActions.Apps, RemoteActions.Guide, RemoteActions.Delete, RemoteActions.Red, RemoteActions.Green, RemoteActions.Yellow, RemoteActions.Blue, RemoteActions.Digit0, RemoteActions.Digit1, RemoteActions.Digit2, RemoteActions.Digit3, RemoteActions.Digit4, RemoteActions.Digit5, RemoteActions.Digit6, RemoteActions.Digit7, RemoteActions.Digit8, RemoteActions.Digit9];
 
     private static readonly IReadOnlyDictionary<string, int> KeyCodes = new Dictionary<string, int>(StringComparer.Ordinal)
     {
@@ -28,7 +29,35 @@ public sealed class AndroidTvRemoteProvider(IAndroidTvCredentialStore credential
         [RemoteActions.VolumeUp.Id] = 24,
         [RemoteActions.VolumeDown.Id] = 25,
         [RemoteActions.PowerToggle.Id] = 26,
-        [RemoteActions.MuteToggle.Id] = 164
+        [RemoteActions.MuteToggle.Id] = 164,
+        [RemoteActions.Menu.Id] = 82,
+        [RemoteActions.ChannelUp.Id] = 166,
+        [RemoteActions.ChannelDown.Id] = 167,
+        [RemoteActions.PlayPause.Id] = 85,
+        [RemoteActions.Rewind.Id] = 89,
+        [RemoteActions.FastForward.Id] = 90,
+        [RemoteActions.Record.Id] = 130,
+        [RemoteActions.Input.Id] = 178,
+        [RemoteActions.Tv.Id] = 170,
+        [RemoteActions.Hdmi1.Id] = 243,
+        [RemoteActions.Hdmi2.Id] = 244,
+        [RemoteActions.Apps.Id] = 284,
+        [RemoteActions.Guide.Id] = 172,
+        [RemoteActions.Delete.Id] = 67,
+        [RemoteActions.Red.Id] = 183,
+        [RemoteActions.Green.Id] = 184,
+        [RemoteActions.Yellow.Id] = 185,
+        [RemoteActions.Blue.Id] = 186,
+        [RemoteActions.Digit0.Id] = 7,
+        [RemoteActions.Digit1.Id] = 8,
+        [RemoteActions.Digit2.Id] = 9,
+        [RemoteActions.Digit3.Id] = 10,
+        [RemoteActions.Digit4.Id] = 11,
+        [RemoteActions.Digit5.Id] = 12,
+        [RemoteActions.Digit6.Id] = 13,
+        [RemoteActions.Digit7.Id] = 14,
+        [RemoteActions.Digit8.Id] = 15,
+        [RemoteActions.Digit9.Id] = 16
     };
 
     private readonly ConcurrentDictionary<string, AndroidTvRemoteSession> sessions = new(StringComparer.OrdinalIgnoreCase);

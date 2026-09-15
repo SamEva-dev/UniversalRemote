@@ -13,6 +13,13 @@
     <ProjectReference Include="../../src/UniversalRemote.Platform.Android/UniversalRemote.Platform.Android.csproj" />
     <ProjectReference Include="../../src/UniversalRemote.Provider.GenericIr/UniversalRemote.Provider.GenericIr.csproj" />
     <ProjectReference Include="../../src/UniversalRemote.Provider.Simulator/UniversalRemote.Provider.Simulator.csproj" />
+    <ProjectReference Include="..\..\src\UniversalRemote.Abstractions\UniversalRemote.Abstractions.csproj" />
+    <ProjectReference Include="..\..\src\UniversalRemote.Compatibility\UniversalRemote.Compatibility.csproj" />
+    <ProjectReference Include="..\..\src\UniversalRemote.Hub.Ble\UniversalRemote.Hub.Ble.csproj" />
+    <ProjectReference Include="..\..\src\UniversalRemote.Hub.Wifi\UniversalRemote.Hub.Wifi.csproj" />
+    <ProjectReference Include="..\..\src\UniversalRemote.Hub\UniversalRemote.Hub.csproj" />
+    <ProjectReference Include="..\..\src\UniversalRemote.Persistence.Sqlite\UniversalRemote.Persistence.Sqlite.csproj" />
+    <ProjectReference Include="..\..\src\UniversalRemote.Theming\UniversalRemote.Theming.csproj" />
     <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="10.0.0" />
   </ItemGroup>
 </Project>

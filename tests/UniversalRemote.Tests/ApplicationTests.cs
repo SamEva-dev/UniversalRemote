@@ -77,7 +77,7 @@ public sealed class ApplicationTests
     [Fact]
     public async Task DomainRelay_exception_messages_are_not_exported()
     {
-        var observed = new ConcurrentBag<Activity>();
+        var observed = new ConcurrentBag<System.Diagnostics.Activity>();
         using var listener = new ActivityListener
         {
             ShouldListenTo = source => source.Name.StartsWith("DomainRelay", StringComparison.Ordinal),

@@ -1,0 +1,55 @@
+using UniversalRemote.Abstractions;
+
+namespace UniversalRemote.Presentation;
+
+/// <summary>Sample capabilities only. Never merge these into a physical device's routes.</summary>
+public static class RemoteConceptCatalog
+{
+    public static IReadOnlyList<RemoteAction> DemoActions { get; } = Array.AsReadOnly(new[]
+    {
+        RemoteActions.PowerToggle,
+        RemoteActions.VolumeUp,
+        RemoteActions.VolumeDown,
+        RemoteActions.MuteToggle,
+        RemoteActions.Up,
+        RemoteActions.Down,
+        RemoteActions.Left,
+        RemoteActions.Right,
+        RemoteActions.Ok,
+        RemoteActions.Back,
+        RemoteActions.Home,
+        RemoteActions.Menu,
+        RemoteActions.ChannelUp,
+        RemoteActions.ChannelDown,
+        RemoteActions.PlayPause,
+        RemoteActions.Rewind,
+        RemoteActions.FastForward,
+        RemoteActions.Record,
+        RemoteActions.Input,
+        RemoteActions.Tv,
+        RemoteActions.Hdmi1,
+        RemoteActions.Hdmi2,
+        RemoteActions.Apps,
+        RemoteActions.Guide,
+        RemoteActions.Exit,
+        RemoteActions.Delete,
+        RemoteActions.Red,
+        RemoteActions.Green,
+        RemoteActions.Yellow,
+        RemoteActions.Blue,
+        RemoteActions.Digit0,
+        RemoteActions.Digit1,
+        RemoteActions.Digit2,
+        RemoteActions.Digit3,
+        RemoteActions.Digit4,
+        RemoteActions.Digit5,
+        RemoteActions.Digit6,
+        RemoteActions.Digit7,
+        RemoteActions.Digit8,
+        RemoteActions.Digit9,
+        RemoteActions.Netflix,
+        RemoteActions.YouTube,
+        RemoteActions.PrimeVideo,
+        RemoteActions.DisneyPlus,
+    });
+}

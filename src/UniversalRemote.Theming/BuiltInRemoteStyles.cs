@@ -3,24 +3,24 @@ namespace UniversalRemote.Theming;
 /// <summary>All built-in styles are data, independent of MAUI and device providers.</summary>
 public static class BuiltInRemoteStyles
 {
-    public static readonly RemoteThemeDefinition DefaultTheme = Theme("classic", "Classic", "#F4F6FA", "#FFFFFF", "#162238", "#2455C5", "#FFFFFF", 12, 16);
-    public static readonly RemoteLayoutDefinition Classic = Layout("classic", "Classic", ["power", "navigation", "audio", "extras"]);
-    public static readonly RemoteLayoutDefinition Minimal = Layout("minimal", "Minimal", ["power", "audio", "navigation", "extras"], RemoteVisualDensity.Spacious);
-    public static readonly RemoteLayoutDefinition Nova = Layout("nova", "Nova", ["power", "audio", "navigation", "extras"]);
-    public static readonly RemoteLayoutDefinition Elite = Layout("elite", "Elite", ["power", "navigation", "audio", "extras"]);
-    public static readonly RemoteLayoutDefinition Horizon = Layout("horizon", "Horizon", ["navigation", "power", "audio", "extras"]);
-    public static readonly RemoteLayoutDefinition Fusion = Layout("fusion", "Fusion", ["audio", "navigation", "power", "extras"]);
-    public static readonly RemoteLayoutDefinition Neo = Layout("neo", "Neo", ["power", "navigation", "audio", "extras"]);
+    public static readonly RemoteThemeDefinition DefaultTheme = Theme("classic", "Classic", "#ECEDED", "#E3E5E7", "#15191F", "#D42E29", "#FFFFFF", 12, 16);
+    public static readonly RemoteLayoutDefinition Classic = Layout("classic", "Classic", ["power", "navigation", "channel", "audio", "media", "extras"]);
+    public static readonly RemoteLayoutDefinition Minimal = Layout("minimal", "Minimal", ["power", "channel", "audio", "navigation", "media", "extras"], RemoteVisualDensity.Spacious);
+    public static readonly RemoteLayoutDefinition Nova = Layout("nova", "Nova", ["power", "channel", "audio", "navigation", "media", "extras"]);
+    public static readonly RemoteLayoutDefinition Elite = Layout("elite", "Elite", ["power", "navigation", "channel", "audio", "media", "extras"]);
+    public static readonly RemoteLayoutDefinition Horizon = Layout("horizon", "Horizon", ["navigation", "channel", "power", "audio", "media", "extras"]);
+    public static readonly RemoteLayoutDefinition Fusion = Layout("fusion", "Fusion", ["channel", "audio", "navigation", "media", "power", "extras"]);
+    public static readonly RemoteLayoutDefinition Neo = Layout("neo", "Neo", ["power", "navigation", "channel", "audio", "media", "extras"]);
     public static IReadOnlyList<RemoteLayoutDefinition> Layouts { get; } = Array.AsReadOnly(new[] { Classic, Minimal, Nova, Elite, Horizon, Fusion, Neo });
     private static readonly IReadOnlyDictionary<string, RemoteThemeDefinition> Themes = new Dictionary<string, RemoteThemeDefinition>(StringComparer.Ordinal)
     {
         ["classic"] = DefaultTheme,
         ["minimal"] = Theme("minimal", "Minimal", "#FFFFFF", "#F0F2F5", "#101820", "#172B4D", "#FFFFFF", 16, 12),
-        ["nova"] = Theme("nova", "Nova", "#EFF5FF", "#FFFFFF", "#172B4D", "#215AC4", "#FFFFFF", 12, 24),
-        ["elite"] = Theme("elite", "Elite", "#17191E", "#272A32", "#F6F0E4", "#E2C278", "#17191E", 14, 16),
-        ["horizon"] = Theme("horizon", "Horizon", "#E8F1F8", "#FFFFFF", "#163A52", "#145D86", "#FFFFFF", 16, 20),
-        ["fusion"] = Theme("fusion", "Fusion", "#102C30", "#1C4145", "#F1FAF9", "#80DFD3", "#102C30", 12, 18),
-        ["neo"] = Theme("neo", "Neo", "#16142D", "#2A2548", "#F7F3FF", "#C6ADFF", "#16142D", 14, 32) with
+        ["nova"] = Theme("nova", "Nova", "#F8FAFF", "#EDF0F6", "#101A2A", "#2168C8", "#FFFFFF", 12, 24),
+        ["elite"] = Theme("elite", "Elite", "#070B0E", "#1B2025", "#F4F6F8", "#DD3838", "#FFFFFF", 14, 16),
+        ["horizon"] = Theme("horizon", "Horizon", "#031E30", "#173E55", "#FFFFFF", "#16B4EB", "#002237", 16, 20),
+        ["fusion"] = Theme("fusion", "Fusion", "#080E17", "#19232F", "#F4F7FC", "#28BDF2", "#081827", 12, 18),
+        ["neo"] = Theme("neo", "Neo", "#090E21", "#182541", "#F5F5FF", "#47A7FF", "#FFFFFF", 14, 32) with
         { Tokens = new(56, 14, 32, RemoteControlShape.Pill) }
     };
     public static RemoteLayoutDefinition Resolve(string? id) => Layouts.FirstOrDefault(x => x.Id == id) ?? Classic;

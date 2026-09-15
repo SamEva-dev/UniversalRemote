@@ -1,4 +1,4 @@
-﻿using System.Collections.Concurrent;
+using System.Collections.Concurrent;
 using System.Net.Security;
 using System.Net.Sockets;
 using System.Security.Authentication;
@@ -26,42 +26,57 @@ public sealed class AndroidTvPairingProvider(IAndroidTvCredentialStore credentia
         if (!string.Equals(candidate.ProviderId, Id, StringComparison.Ordinal))
             throw new InvalidOperationException("Pairing candidate does not belong to Android TV.");
 
+        foreach (var item in pending.ToArray())
+            if (DateTimeOffset.UtcNow - item.Value.CreatedAt > TimeSpan.FromMinutes(3)
+                && pending.TryRemove(item.Key, out var expired))
+                await expired.DisposeAsync().ConfigureAwait(false);
+
+        using var deadline = CancellationTokenSource.CreateLinkedTokenSource(cancellationToken);
+        deadline.CancelAfter(TimeSpan.FromSeconds(60));
+        var ct = deadline.Token;
         var clientCertificate = AndroidTvProtocol.CreateClientCertificate(out var password);
         X509Certificate2? serverCertificate = null;
         var tcp = new TcpClient();
-        await tcp.ConnectAsync(candidate.DeviceKey, AndroidTvProtocol.PairingPort, cancellationToken).ConfigureAwait(false);
-        var ssl = new SslStream(tcp.GetStream(), false, (_, certificate, _, _) =>
-        {
-            serverCertificate?.Dispose();
-            serverCertificate = certificate is null ? null : new X509Certificate2(certificate);
-            return certificate is not null;
-        });
-        await ssl.AuthenticateAsClientAsync(new SslClientAuthenticationOptions
-        {
-            TargetHost = candidate.DeviceKey,
-            ClientCertificates = new X509CertificateCollection { clientCertificate },
-            EnabledSslProtocols = SslProtocols.Tls12 | SslProtocols.Tls13,
-            CertificateRevocationCheckMode = X509RevocationMode.NoCheck
-        }, cancellationToken).ConfigureAwait(false);
-
+        SslStream? ssl = null;
         var writeGate = new SemaphoreSlim(1, 1);
-        await AndroidTvProtocol.WriteFrameAsync(ssl, AndroidTvProtocol.PairingRequest("UniversalRemote", "UniversalRemote"), writeGate, cancellationToken).ConfigureAwait(false);
-        Expect(await AndroidTvProtocol.ReadFrameAsync(ssl, cancellationToken).ConfigureAwait(false), 11, "pairing request acknowledgement");
-        await AndroidTvProtocol.WriteFrameAsync(ssl, AndroidTvProtocol.PairingOptions(), writeGate, cancellationToken).ConfigureAwait(false);
-        Expect(await AndroidTvProtocol.ReadFrameAsync(ssl, cancellationToken).ConfigureAwait(false), 20, "pairing options");
-        await AndroidTvProtocol.WriteFrameAsync(ssl, AndroidTvProtocol.PairingConfiguration(), writeGate, cancellationToken).ConfigureAwait(false);
-        Expect(await AndroidTvProtocol.ReadFrameAsync(ssl, cancellationToken).ConfigureAwait(false), 31, "pairing configuration acknowledgement");
-
-        if (serverCertificate is null)
+        var retained = false;
+        try
         {
-            ssl.Dispose(); tcp.Dispose(); clientCertificate.Dispose(); writeGate.Dispose();
-            throw new AuthenticationException("Android TV did not provide a pairing certificate.");
+            await tcp.ConnectAsync(candidate.DeviceKey, AndroidTvProtocol.PairingPort, ct).ConfigureAwait(false);
+            ssl = new SslStream(tcp.GetStream(), false, (_, certificate, _, _) =>
+            {
+                serverCertificate?.Dispose();
+                serverCertificate = certificate is null ? null : new X509Certificate2(certificate);
+                return certificate is not null;
+            });
+            await ssl.AuthenticateAsClientAsync(new SslClientAuthenticationOptions
+            {
+                TargetHost = candidate.DeviceKey,
+                ClientCertificates = new X509CertificateCollection { clientCertificate },
+                EnabledSslProtocols = SslProtocols.Tls12 | SslProtocols.Tls13,
+                CertificateRevocationCheckMode = X509RevocationMode.NoCheck
+            }, ct).ConfigureAwait(false);
+            await AndroidTvProtocol.WriteFrameAsync(ssl, AndroidTvProtocol.PairingRequest("UniversalRemote", "UniversalRemote"), writeGate, ct).ConfigureAwait(false);
+            Expect(await AndroidTvProtocol.ReadFrameAsync(ssl, ct).ConfigureAwait(false), 11, "pairing request acknowledgement");
+            await AndroidTvProtocol.WriteFrameAsync(ssl, AndroidTvProtocol.PairingOptions(), writeGate, ct).ConfigureAwait(false);
+            Expect(await AndroidTvProtocol.ReadFrameAsync(ssl, ct).ConfigureAwait(false), 20, "pairing options");
+            await AndroidTvProtocol.WriteFrameAsync(ssl, AndroidTvProtocol.PairingConfiguration(), writeGate, ct).ConfigureAwait(false);
+            Expect(await AndroidTvProtocol.ReadFrameAsync(ssl, ct).ConfigureAwait(false), 31, "pairing configuration acknowledgement");
+            if (serverCertificate is null) throw new AuthenticationException("Android TV did not provide a pairing certificate.");
+            var id = Guid.NewGuid();
+            pending[id] = new PendingPairing(candidate, tcp, ssl, writeGate, clientCertificate, serverCertificate, password, DateTimeOffset.UtcNow);
+            retained = true;
+            return new PairingChallenge(id, Id, candidate.DeviceKey, candidate.DisplayName,
+                "Saisis le code hexadécimal à 6 caractères affiché sur Android TV / Google TV.", 6);
         }
-
-        var id = Guid.NewGuid();
-        pending[id] = new PendingPairing(candidate, tcp, ssl, writeGate, clientCertificate, serverCertificate, password, DateTimeOffset.UtcNow);
-        return new PairingChallenge(id, Id, candidate.DeviceKey, candidate.DisplayName,
-            "Saisis le code hexadécimal à 6 caractères affiché sur Android TV / Google TV.", 6);
+        finally
+        {
+            if (!retained)
+            {
+                ssl?.Dispose(); tcp.Dispose(); writeGate.Dispose();
+                clientCertificate.Dispose(); serverCertificate?.Dispose();
+            }
+        }
     }
 
     public async Task<PairingCompletion> CompleteAsync(Guid challengeId, string code, CancellationToken cancellationToken)

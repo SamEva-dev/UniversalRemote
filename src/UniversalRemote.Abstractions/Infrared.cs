@@ -70,6 +70,12 @@ public interface IInfraredTransmitter
         CancellationToken cancellationToken = default);
 }
 
+/// <summary>
+/// Marker for an emitter physically embedded in the current device. It allows the product to choose a hub before
+/// sending when the phone has no suitable native emitter, without ever performing a post-send fallback.
+/// </summary>
+public interface IOnDeviceInfraredTransmitter : IInfraredTransmitter { }
+
 /// <summary>Shared safety limits used before invoking a platform IR API.</summary>
 public static class InfraredSignalLimits
 {

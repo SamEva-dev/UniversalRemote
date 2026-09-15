@@ -1,4 +1,4 @@
-﻿using DomainRelay.Abstractions;
+using DomainRelay.Abstractions;
 using FluentValidation;
 using UniversalRemote.Abstractions;
 using UniversalRemote.Presentation;
@@ -13,13 +13,17 @@ public sealed class GetRemoteUiModelValidator : AbstractValidator<GetRemoteUiMod
         => RuleFor(x => x.DeviceId).NotEmpty().WithMessage("A device identifier is required.");
 }
 
-public sealed class GetRemoteUiModelHandler(IDeviceRepository devices, IRemoteUiModelBuilder builder)
+public sealed class GetRemoteUiModelHandler(IDeviceRepository devices, IFavoriteRepository favorites, IRemoteUiModelBuilder builder)
     : IRequestHandler<GetRemoteUiModel, RemoteUiModel?>
 {
     public async Task<RemoteUiModel?> Handle(GetRemoteUiModel request, CancellationToken ct)
     {
         var device = await devices.FindAsync(request.DeviceId, ct).ConfigureAwait(false);
         ct.ThrowIfCancellationRequested();
-        return device is null ? null : builder.Build(device);
+        if (device is null) return null;
+
+        var shortcuts = await favorites.ListAsync(device.Id, ct).ConfigureAwait(false);
+        ct.ThrowIfCancellationRequested();
+        return RemoteUiFavoriteProjection.Apply(builder.Build(device), shortcuts.Select(x => x.Action.Id).ToArray());
     }
 }

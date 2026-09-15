@@ -1,5 +1,6 @@
 using Microsoft.Maui.Storage;
 using System.Text.Json;
+using UniversalRemote.Maui.Storage;
 using UniversalRemote.Provider.Samsung;
 namespace UniversalRemote.Maui.Samsung;
 public sealed class SecureSamsungCredentialStore : ISamsungCredentialStore
@@ -9,11 +10,11 @@ public sealed class SecureSamsungCredentialStore : ISamsungCredentialStore
     {
         cancellationToken.ThrowIfCancellationRequested();
         var json = await SecureStorage.Default.GetAsync(Key(host)).ConfigureAwait(false);
-        return string.IsNullOrWhiteSpace(json) ? null : JsonSerializer.Deserialize<SamsungCredentials>(json);
+        return string.IsNullOrWhiteSpace(json) ? null : JsonSerializer.Deserialize(json, CredentialJsonContext.Default.SamsungCredentials);
     }
     public Task SaveAsync(SamsungCredentials credentials, CancellationToken cancellationToken = default)
     {
         cancellationToken.ThrowIfCancellationRequested();
-        return SecureStorage.Default.SetAsync(Key(credentials.Host), JsonSerializer.Serialize(credentials));
+        return SecureStorage.Default.SetAsync(Key(credentials.Host), JsonSerializer.Serialize(credentials, CredentialJsonContext.Default.SamsungCredentials));
     }
 }

@@ -21,7 +21,10 @@ public static class ServiceCollectionExtensions
         services.AddSingleton(new RegistrationMarker());
         services.AddUniversalRemoteCore(configure);
         services.AddUniversalRemoteDiscovery();
+        services.TryAddSingleton<ITelemetryRecorder>(_ => NullTelemetryRecorder.Instance);
         services.TryAddSingleton<IRemoteUiModelBuilder, CapabilityRemoteUiModelBuilder>();
+        services.TryAddSingleton<IFavoriteRepository, InMemoryFavoriteRepository>();
+        services.TryAddSingleton<IActivityRepository, InMemoryActivityRepository>();
         services.AddDomainRelay(
             configureOptions: options => options.WrapExceptions = false,
             configureRegistration: registration => registration.EnableAssemblyScanning = false);
@@ -35,9 +38,11 @@ public static class ServiceCollectionExtensions
         services.AddTransient<IRequestHandler<DiscoverDevices, IReadOnlyList<DiscoveredDeviceSummary>>, DiscoverDevicesHandler>();
         services.AddTransient<IRequestHandler<ExecuteRemoteAction, RemoteResult>, ExecuteRemoteActionHandler>();
         services.AddTransient<IRequestHandler<ListDevices, IReadOnlyList<DeviceSummary>>, ListDevicesHandler>();
+        services.AddTransient<IValidator<GetManualPairingCandidates>, GetManualPairingCandidatesValidator>();
         services.AddTransient<IValidator<StartPairing>, StartPairingValidator>();
         services.AddTransient<IValidator<CompletePairing>, CompletePairingValidator>();
         services.AddTransient<IRequestHandler<GetPairingCandidates, IReadOnlyList<PairingCandidate>>, GetPairingCandidatesHandler>();
+        services.AddTransient<IRequestHandler<GetManualPairingCandidates, IReadOnlyList<PairingCandidate>>, GetManualPairingCandidatesHandler>();
         services.AddTransient<IRequestHandler<StartPairing, PairingChallenge>, StartPairingHandler>();
         services.AddTransient<IRequestHandler<CompletePairing, PairedDeviceSummary>, CompletePairingHandler>();
         services.AddTransient<IValidator<CreateRoom>, CreateRoomValidator>();
@@ -51,6 +56,23 @@ public static class ServiceCollectionExtensions
         services.AddTransient<IRequestHandler<DeleteRoom, bool>, DeleteRoomHandler>();
         services.AddTransient<IRequestHandler<AssignDeviceToRoom, RoomSummary>, AssignDeviceToRoomHandler>();
         services.AddTransient<IRequestHandler<UnassignDeviceFromRoom, RoomSummary>, UnassignDeviceFromRoomHandler>();
+        services.AddTransient<IValidator<ListDeviceFavorites>, ListDeviceFavoritesValidator>();
+        services.AddTransient<IValidator<AddDeviceFavorite>, AddDeviceFavoriteValidator>();
+        services.AddTransient<IValidator<RemoveDeviceFavorite>, RemoveDeviceFavoriteValidator>();
+        services.AddTransient<IRequestHandler<ListDeviceFavorites, IReadOnlyList<FavoriteSummary>>, ListDeviceFavoritesHandler>();
+        services.AddTransient<IRequestHandler<AddDeviceFavorite, FavoriteSummary>, AddDeviceFavoriteHandler>();
+        services.AddTransient<IRequestHandler<RemoveDeviceFavorite, bool>, RemoveDeviceFavoriteHandler>();
+        services.AddTransient<IValidator<GetActivity>, GetActivityValidator>();
+        services.AddTransient<IValidator<CreateActivity>, CreateActivityValidator>();
+        services.AddTransient<IValidator<SaveActivity>, SaveActivityValidator>();
+        services.AddTransient<IValidator<DeleteActivity>, DeleteActivityValidator>();
+        services.AddTransient<IValidator<RunActivity>, RunActivityValidator>();
+        services.AddTransient<IRequestHandler<ListActivities, IReadOnlyList<ActivitySummary>>, ListActivitiesHandler>();
+        services.AddTransient<IRequestHandler<GetActivity, ActivitySummary?>, GetActivityHandler>();
+        services.AddTransient<IRequestHandler<CreateActivity, ActivitySummary>, CreateActivityHandler>();
+        services.AddTransient<IRequestHandler<SaveActivity, ActivitySummary>, SaveActivityHandler>();
+        services.AddTransient<IRequestHandler<DeleteActivity, bool>, DeleteActivityHandler>();
+        services.AddTransient<IRequestHandler<RunActivity, ActivityRunReport>, RunActivityHandler>();
         services.AddDomainRelayMapping(builder => builder.AddProfile<DeviceMappingProfile>());
         return services;
     }

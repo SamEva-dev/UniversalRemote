@@ -6,7 +6,7 @@ public sealed record DiscoveryScanOptions
 {
     public TimeSpan Timeout { get; init; } = TimeSpan.FromSeconds(3);
     public IReadOnlyList<string> MdnsServiceTypes { get; init; } =
-        ["_googlecast._tcp.local", "_androidtvremote2._tcp.local", "_fbx-api._tcp.local", "_airplay._tcp.local", "_http._tcp.local"];
+        ["_googlecast._tcp.local", "_androidtvremote2._tcp.local", "_fbx-api._tcp.local", "_airplay._tcp.local", "_http._tcp.local", "_universalremote-ir._tcp.local"];
 
     public void Validate()
     {

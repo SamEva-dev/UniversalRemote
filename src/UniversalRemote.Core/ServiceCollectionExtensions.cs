@@ -15,6 +15,8 @@ public static class ServiceCollectionExtensions
         services.TryAddSingleton(options);
         services.TryAddScoped<ProviderResolver>();
         services.TryAddScoped<IRemoteControl, CommandDispatcher>();
+        services.TryAddSingleton<IActivityDelayScheduler, SystemActivityDelayScheduler>();
+        services.TryAddScoped<IActivityRunner, ActivityRunner>();
         return services;
     }
 }

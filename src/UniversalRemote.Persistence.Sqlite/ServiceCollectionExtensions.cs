@@ -14,6 +14,10 @@ public static class ServiceCollectionExtensions
         services.AddSingleton<IDeviceRegistrar>(sp => sp.GetRequiredService<SqliteDeviceRepository>());
         services.AddSingleton<SqliteRoomRepository>();
         services.AddSingleton<IRoomRepository>(sp => sp.GetRequiredService<SqliteRoomRepository>());
+        services.AddSingleton<SqliteFavoriteRepository>();
+        services.AddSingleton<IFavoriteRepository>(sp => sp.GetRequiredService<SqliteFavoriteRepository>());
+        services.AddSingleton<SqliteActivityRepository>();
+        services.AddSingleton<IActivityRepository>(sp => sp.GetRequiredService<SqliteActivityRepository>());
         return services;
     }
 }

@@ -11,6 +11,8 @@ public sealed record DiscoveredDeviceItem(DiscoveredDeviceSummary Device, IReadO
 public sealed class DiscoveryViewModel(IMediator mediator, DeviceSelectionState selection) : INotifyPropertyChanged
 {
     private IReadOnlyList<DiscoveredDeviceItem> devices = Array.Empty<DiscoveredDeviceItem>();
+    private IReadOnlyList<DeviceSummary> savedDevices = Array.Empty<DeviceSummary>();
+    public IReadOnlyList<DeviceSummary> SavedDevices { get => savedDevices; private set => Set(ref savedDevices, value); }
     private string status = "Prêt à rechercher les appareils du réseau local.";
     private bool isBusy;
 
@@ -18,6 +20,20 @@ public sealed class DiscoveryViewModel(IMediator mediator, DeviceSelectionState 
     public IReadOnlyList<DiscoveredDeviceItem> Devices { get => devices; private set => Set(ref devices, value); }
     public string Status { get => status; private set => Set(ref status, value); }
     public bool IsBusy { get => isBusy; private set => Set(ref isBusy, value); }
+
+    public async Task RefreshSavedDevicesAsync(CancellationToken ct = default)
+    {
+        try { SavedDevices = await mediator.Send(new ListDevices(), ct); }
+        catch (OperationCanceledException) when (ct.IsCancellationRequested) { }
+        catch (Exception) { Status = "Impossible de charger les appareils enregistrés. Réessaie."; }
+    }
+
+    public void SelectSavedDevice(DeviceSummary device)
+    {
+        if (!SavedDevices.Any(x => x.Id == device.Id)) return;
+        selection.ActiveDeviceId = device.Id;
+        Status = $"{device.DisplayName} sélectionné.";
+    }
 
     public async Task ScanAsync(CancellationToken cancellationToken = default)
     {
@@ -43,6 +59,23 @@ public sealed class DiscoveryViewModel(IMediator mediator, DeviceSelectionState 
         finally { IsBusy = false; }
     }
 
+    public async Task<IReadOnlyList<PairingCandidate>> FindManualPairingCandidatesAsync(string deviceKey, CancellationToken ct = default)
+    {
+        if (IsBusy) return Array.Empty<PairingCandidate>();
+        try
+        {
+            IsBusy = true;
+            var candidates = await mediator.Send(new GetManualPairingCandidates(deviceKey), ct);
+            Status = candidates.Count == 0
+                ? "Aucun provider ne reconnaît cette adresse locale. Vérifie l’adresse IP et le type d’appareil."
+                : $"{candidates.Count} possibilité(s) d’association trouvée(s).";
+            return candidates;
+        }
+        catch (OperationCanceledException) { Status = "Ajout manuel annulé."; return Array.Empty<PairingCandidate>(); }
+        catch (Exception) { Status = "Adresse locale invalide ou provider indisponible."; return Array.Empty<PairingCandidate>(); }
+        finally { IsBusy = false; }
+    }
+
     public async Task<PairingChallenge> StartPairingAsync(PairingCandidate candidate, CancellationToken ct = default)
     {
         Status = $"Association avec {candidate.DisplayName}…";
@@ -53,6 +86,7 @@ public sealed class DiscoveryViewModel(IMediator mediator, DeviceSelectionState 
     {
         var result = await mediator.Send(new CompletePairing(candidate.ProviderId, challenge.Id, code, candidate.DisplayName), ct);
         selection.ActiveDeviceId = result.DeviceId;
+        await RefreshSavedDevicesAsync(ct);
         Status = $"{result.DisplayName} associé. Ouvre l’onglet Télécommande pour le piloter.";
     }
 

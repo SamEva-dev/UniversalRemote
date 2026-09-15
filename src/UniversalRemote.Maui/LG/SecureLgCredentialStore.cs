@@ -1,5 +1,6 @@
 using Microsoft.Maui.Storage;
 using System.Text.Json;
+using UniversalRemote.Maui.Storage;
 using UniversalRemote.Provider.LG;
 namespace UniversalRemote.Maui.LG;
 public sealed class SecureLgCredentialStore : ILgCredentialStore
@@ -9,11 +10,11 @@ public sealed class SecureLgCredentialStore : ILgCredentialStore
     {
         cancellationToken.ThrowIfCancellationRequested();
         var json = await SecureStorage.Default.GetAsync(Key(host)).ConfigureAwait(false);
-        return string.IsNullOrWhiteSpace(json) ? null : JsonSerializer.Deserialize<LgCredentials>(json);
+        return string.IsNullOrWhiteSpace(json) ? null : JsonSerializer.Deserialize(json, CredentialJsonContext.Default.LgCredentials);
     }
     public Task SaveAsync(LgCredentials credentials, CancellationToken cancellationToken = default)
     {
         cancellationToken.ThrowIfCancellationRequested();
-        return SecureStorage.Default.SetAsync(Key(credentials.Host), JsonSerializer.Serialize(credentials));
+        return SecureStorage.Default.SetAsync(Key(credentials.Host), JsonSerializer.Serialize(credentials, CredentialJsonContext.Default.LgCredentials));
     }
 }

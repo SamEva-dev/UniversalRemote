@@ -27,6 +27,13 @@ public interface IDevicePairingProvider
     Task<PairingCompletion> CompleteAsync(Guid challengeId, string code, CancellationToken cancellationToken);
 }
 
+/// <summary>Optional generic entry point for providers that can safely onboard a device from a local address.</summary>
+public interface IManualPairingProvider
+{
+    string Id { get; }
+    PairingCandidate? CreateManualCandidate(string deviceKey, string? displayName = null);
+}
+
 /// <summary>Writes paired devices without forcing persistence technology into the Core.</summary>
 public interface IDeviceRegistrar
 {

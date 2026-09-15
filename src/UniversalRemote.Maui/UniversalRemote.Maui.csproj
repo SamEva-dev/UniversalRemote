@@ -79,8 +79,13 @@
 	
 	<ItemGroup>
 		<ProjectReference Include="../UniversalRemote.Application/UniversalRemote.Application.csproj" />
+		<ProjectReference Include="../UniversalRemote.Compatibility/UniversalRemote.Compatibility.csproj" />
+		<ProjectReference Include="../UniversalRemote.Hub/UniversalRemote.Hub.csproj" />
+		<ProjectReference Include="../UniversalRemote.Hub.Wifi/UniversalRemote.Hub.Wifi.csproj" />
+		<ProjectReference Include="../UniversalRemote.Hub.Ble/UniversalRemote.Hub.Ble.csproj" />
 		<ProjectReference Include="../UniversalRemote.Discovery/UniversalRemote.Discovery.csproj" />
 		<ProjectReference Include="../UniversalRemote.Theming/UniversalRemote.Theming.csproj" />
+		<ProjectReference Include="../UniversalRemote.Telemetry/UniversalRemote.Telemetry.csproj" />
 		<ProjectReference Include="../UniversalRemote.Persistence.Sqlite/UniversalRemote.Persistence.Sqlite.csproj" />
 		<ProjectReference Include="../UniversalRemote.Provider.Simulator/UniversalRemote.Provider.Simulator.csproj" />
 		<ProjectReference Include="../UniversalRemote.Provider.AndroidTv/UniversalRemote.Provider.AndroidTv.csproj" />
@@ -88,6 +93,7 @@
 		<ProjectReference Include="../UniversalRemote.Provider.LG/UniversalRemote.Provider.LG.csproj" />
 		<ProjectReference Include="../UniversalRemote.Provider.Samsung/UniversalRemote.Provider.Samsung.csproj" />
 		<ProjectReference Include="../UniversalRemote.Provider.GenericUpnp/UniversalRemote.Provider.GenericUpnp.csproj" />
+    <ProjectReference Include="../UniversalRemote.Provider.OrangeTv/UniversalRemote.Provider.OrangeTv.csproj" />
 		<ProjectReference Include="../UniversalRemote.Provider.GenericIr/UniversalRemote.Provider.GenericIr.csproj" />
 		<ProjectReference Include="../UniversalRemote.Platform.Android/UniversalRemote.Platform.Android.csproj" Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'android'" />
 	</ItemGroup>

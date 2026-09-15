@@ -31,6 +31,7 @@ public sealed class IrProfile
     public string Source { get; }
     public int CarrierFrequencyHz { get; }
     public IReadOnlyCollection<RemoteAction> Capabilities { get; }
+    public IReadOnlyList<IrCommand> Commands { get; }
 
     public IrProfile(
         int version,
@@ -69,6 +70,7 @@ public sealed class IrProfile
         Source = source;
         CarrierFrequencyHz = carrierFrequencyHz;
         this.commands = dictionary.ToFrozenDictionary(StringComparer.Ordinal);
+        Commands = Array.AsReadOnly(snapshot);
         Capabilities = Array.AsReadOnly(snapshot.Select(command => command.Action).ToArray());
     }
 

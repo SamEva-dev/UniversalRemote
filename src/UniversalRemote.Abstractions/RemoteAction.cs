@@ -1,4 +1,4 @@
-﻿namespace UniversalRemote.Abstractions;
+namespace UniversalRemote.Abstractions;
 
 /// <summary>Stable, extensible wire identifier; never serialize enum ordinals as action IDs.</summary>
 public sealed record RemoteAction
@@ -28,4 +28,38 @@ public static class RemoteActions
     public static readonly RemoteAction Ok = new("navigation.ok");
     public static readonly RemoteAction Back = new("navigation.back");
     public static readonly RemoteAction Home = new("navigation.home");
+    public static readonly RemoteAction Menu = new("navigation.menu");
+    public static readonly RemoteAction ChannelUp = new("channel.up");
+    public static readonly RemoteAction ChannelDown = new("channel.down");
+    public static readonly RemoteAction PlayPause = new("media.playpause");
+    public static readonly RemoteAction Rewind = new("media.rewind");
+    public static readonly RemoteAction FastForward = new("media.fastforward");
+    public static readonly RemoteAction Record = new("media.record");
+    public static readonly RemoteAction Input = new("input.select");
+    public static readonly RemoteAction Tv = new("input.tv");
+    public static readonly RemoteAction Hdmi1 = new("input.hdmi1");
+    public static readonly RemoteAction Hdmi2 = new("input.hdmi2");
+    public static readonly RemoteAction Apps = new("apps.open");
+    public static readonly RemoteAction Guide = new("navigation.guide");
+    public static readonly RemoteAction Exit = new("navigation.exit");
+    public static readonly RemoteAction Delete = new("text.delete");
+    public static readonly RemoteAction Red = new("key.red");
+    public static readonly RemoteAction Green = new("key.green");
+    public static readonly RemoteAction Yellow = new("key.yellow");
+    public static readonly RemoteAction Blue = new("key.blue");
+    public static readonly RemoteAction Digit0 = new("digit.0");
+    public static readonly RemoteAction Digit1 = new("digit.1");
+    public static readonly RemoteAction Digit2 = new("digit.2");
+    public static readonly RemoteAction Digit3 = new("digit.3");
+    public static readonly RemoteAction Digit4 = new("digit.4");
+    public static readonly RemoteAction Digit5 = new("digit.5");
+    public static readonly RemoteAction Digit6 = new("digit.6");
+    public static readonly RemoteAction Digit7 = new("digit.7");
+    public static readonly RemoteAction Digit8 = new("digit.8");
+    public static readonly RemoteAction Digit9 = new("digit.9");
+    public static readonly RemoteAction Netflix = new("app.netflix");
+    public static readonly RemoteAction YouTube = new("app.youtube");
+    public static readonly RemoteAction PrimeVideo = new("app.primevideo");
+    public static readonly RemoteAction DisneyPlus = new("app.disneyplus");
+
 }

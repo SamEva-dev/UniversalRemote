@@ -6,7 +6,7 @@ using UniversalRemote.Abstractions;
 namespace UniversalRemote.Platform.Android;
 
 /// <summary>ConsumerIrManager adapter. Emission is serialized process-wide and never retried.</summary>
-public sealed class AndroidInfraredTransmitter : IInfraredTransmitter
+public sealed class AndroidInfraredTransmitter : IOnDeviceInfraredTransmitter
 {
     private static readonly SemaphoreSlim TransmissionGate = new(1, 1);
 

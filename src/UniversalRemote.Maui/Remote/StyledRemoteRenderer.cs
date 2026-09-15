@@ -9,6 +9,8 @@ public sealed class StyledRemoteRenderer(RemoteLayoutDefinition layout) : IRemot
     public string LayoutId => layout.Id;
     public View Render(RemoteUiModel model, RemoteThemeDefinition theme, Func<RemoteUiControl, Task> executeAsync)
     {
+        var container = new VerticalStackLayout { Spacing = theme.Tokens.SpacingDp };
+        if (RemoteFavoritesFactory.Render(model, theme, executeAsync) is { } favorites) container.Children.Add(favorites);
         var root = new FlexLayout { Direction = FlexDirection.Row, Wrap = FlexWrap.Wrap, AlignItems = FlexAlignItems.Start };
         foreach (var section in RemoteLayoutProjection.Sections(model, layout))
         {
@@ -40,6 +42,7 @@ public sealed class StyledRemoteRenderer(RemoteLayoutDefinition layout) : IRemot
             var columns = root.Width >= 600 && layout.Id is "fusion" or "horizon" or "nova" ? 2 : 1;
             foreach (var card in root.Children) FlexLayout.SetBasis((BindableObject)card, new FlexBasis((float)Math.Max(1, root.Width / columns - 12)));
         };
-        return root;
+        container.Children.Add(root);
+        return container;
     }
 }
