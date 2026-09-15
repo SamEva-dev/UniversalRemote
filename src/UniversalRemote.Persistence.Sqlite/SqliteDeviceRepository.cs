@@ -121,38 +121,7 @@ public sealed class SqliteDeviceRepository : IDeviceRepository, IDeviceRegistrar
             if (!string.IsNullOrEmpty(directory)) Directory.CreateDirectory(directory);
 
             await using var connection = await OpenConnectionAsync(cancellationToken, configure: false).ConfigureAwait(false);
-            await using var command = connection.CreateCommand();
-            command.CommandText = """
-                PRAGMA foreign_keys = ON;
-                PRAGMA journal_mode = WAL;
-                PRAGMA busy_timeout = 5000;
-
-                CREATE TABLE IF NOT EXISTS devices (
-                    id TEXT NOT NULL PRIMARY KEY,
-                    display_name TEXT NOT NULL,
-                    updated_utc TEXT NOT NULL
-                );
-
-                CREATE TABLE IF NOT EXISTS device_routes (
-                    device_id TEXT NOT NULL,
-                    route_order INTEGER NOT NULL,
-                    provider_id TEXT NOT NULL,
-                    device_key TEXT NOT NULL,
-                    PRIMARY KEY (device_id, route_order),
-                    UNIQUE (provider_id, device_key),
-                    FOREIGN KEY (device_id) REFERENCES devices(id) ON DELETE CASCADE
-                );
-
-                CREATE TABLE IF NOT EXISTS route_capabilities (
-                    device_id TEXT NOT NULL,
-                    route_order INTEGER NOT NULL,
-                    action_id TEXT NOT NULL,
-                    PRIMARY KEY (device_id, route_order, action_id),
-                    FOREIGN KEY (device_id, route_order)
-                        REFERENCES device_routes(device_id, route_order) ON DELETE CASCADE
-                );
-                """;
-            await command.ExecuteNonQueryAsync(cancellationToken).ConfigureAwait(false);
+            await SqliteSchema.EnsureCreatedAsync(connection, cancellationToken).ConfigureAwait(false);
             Volatile.Write(ref initialized, 1);
         }
         finally { initializationGate.Release(); }

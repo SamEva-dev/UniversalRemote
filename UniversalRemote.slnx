@@ -4,7 +4,9 @@
   </Folder>
   <Folder Name="/docs/" />
   <Folder Name="/samples/">
-    <Project Path="samples/UniversalRemote.AndroidIr.Sample/UniversalRemote.AndroidIr.Sample.csproj" Id="8385764a-73d3-481f-9519-dc6d51ccb004" />
+    <Project Path="samples/UniversalRemote.AndroidIr.Sample/UniversalRemote.AndroidIr.Sample.csproj" Id="8385764a-73d3-481f-9519-dc6d51ccb004">
+      <Deploy Solution="Debug|*" />
+    </Project>
     <Project Path="samples/UniversalRemote.Console.Sample/UniversalRemote.Console.Sample.csproj" Id="549dc08a-fcd1-4455-8c1e-ff06d1bb8986" />
     <Project Path="samples/UniversalRemote.PackageSmoke/UniversalRemote.PackageSmoke.csproj" Id="7cd1bc60-ce5c-44d3-beed-7ef5347cb1cb" />
     <Project Path="samples/UniversalRemote.ProtocolTrimSmoke/UniversalRemote.ProtocolTrimSmoke.csproj" Id="b49dd4f2-92b9-4621-a002-f551a082aebf" />
@@ -14,6 +16,9 @@
     <Project Path="src/UniversalRemote.Application/UniversalRemote.Application.csproj" Id="ca9f23b0-b617-44e4-8aa2-63c4238bc46a" />
     <Project Path="src/UniversalRemote.Core/UniversalRemote.Core.csproj" Id="f5665047-e8de-4ae8-a6e6-3045c92b39a6" />
     <Project Path="src/UniversalRemote.Discovery/UniversalRemote.Discovery.csproj" Id="7267f11a-1973-4b5c-86ef-5a7e97c9104e" />
+    <Project Path="src/UniversalRemote.Maui/UniversalRemote.Maui.csproj">
+      <Deploy Solution="Debug|*" />
+    </Project>
     <Project Path="src/UniversalRemote.Persistence.Sqlite/UniversalRemote.Persistence.Sqlite.csproj" Id="5f1acc94-c33b-4cd4-8726-ebd4b57ae974" />
     <Project Path="src/UniversalRemote.Platform.Android/UniversalRemote.Platform.Android.csproj" Id="e415d5e2-e859-4823-8b33-a630c68da70e" />
     <Project Path="src/UniversalRemote.Presentation/UniversalRemote.Presentation.csproj" Id="a264b314-855c-427d-9759-aa2543973cfe" />

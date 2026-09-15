@@ -26,10 +26,16 @@ try
     var second = await registrar.RegisterPairingAsync("Smoke TV", new DeviceRoute("smoke", "stable-key", [RemoteActions.PowerToggle, RemoteActions.VolumeUp]));
     Console.WriteLine($"NuGet persistence: stable={first.Id == second.Id}");
 
+    var rooms = scope.ServiceProvider.GetRequiredService<IRoomRepository>();
+    var room = await rooms.CreateAsync("Smoke Room");
+    room = await rooms.AssignDeviceAsync(room.Id, second.Id);
+    Console.WriteLine($"NuGet rooms: assigned={room.DeviceIds.Contains(second.Id)}");
+
     return result.Error == RemoteErrorCode.DeviceNotFound
         && BuiltInRemoteStyles.Layouts.Count == 7
         && roundTrip == style
-        && first.Id == second.Id ? 0 : 1;
+        && first.Id == second.Id
+        && room.DeviceIds.Contains(second.Id) ? 0 : 1;
 }
 finally
 {

@@ -1,4 +1,4 @@
-﻿using DomainRelay.Abstractions;
+using DomainRelay.Abstractions;
 using DomainRelay.DependencyInjection;
 using DomainRelay.Mapping.DependencyInjection.Extensions;
 using DomainRelay.Validation;
@@ -40,6 +40,17 @@ public static class ServiceCollectionExtensions
         services.AddTransient<IRequestHandler<GetPairingCandidates, IReadOnlyList<PairingCandidate>>, GetPairingCandidatesHandler>();
         services.AddTransient<IRequestHandler<StartPairing, PairingChallenge>, StartPairingHandler>();
         services.AddTransient<IRequestHandler<CompletePairing, PairedDeviceSummary>, CompletePairingHandler>();
+        services.AddTransient<IValidator<CreateRoom>, CreateRoomValidator>();
+        services.AddTransient<IValidator<RenameRoom>, RenameRoomValidator>();
+        services.AddTransient<IValidator<DeleteRoom>, DeleteRoomValidator>();
+        services.AddTransient<IValidator<AssignDeviceToRoom>, AssignDeviceToRoomValidator>();
+        services.AddTransient<IValidator<UnassignDeviceFromRoom>, UnassignDeviceFromRoomValidator>();
+        services.AddTransient<IRequestHandler<ListRooms, IReadOnlyList<RoomSummary>>, ListRoomsHandler>();
+        services.AddTransient<IRequestHandler<CreateRoom, RoomSummary>, CreateRoomHandler>();
+        services.AddTransient<IRequestHandler<RenameRoom, RoomSummary>, RenameRoomHandler>();
+        services.AddTransient<IRequestHandler<DeleteRoom, bool>, DeleteRoomHandler>();
+        services.AddTransient<IRequestHandler<AssignDeviceToRoom, RoomSummary>, AssignDeviceToRoomHandler>();
+        services.AddTransient<IRequestHandler<UnassignDeviceFromRoom, RoomSummary>, UnassignDeviceFromRoomHandler>();
         services.AddDomainRelayMapping(builder => builder.AddProfile<DeviceMappingProfile>());
         return services;
     }

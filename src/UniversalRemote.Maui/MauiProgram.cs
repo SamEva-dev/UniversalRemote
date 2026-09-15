@@ -7,6 +7,7 @@ using UniversalRemote.Discovery;
 using UniversalRemote.Maui.AndroidTv;
 using UniversalRemote.Maui.Discovery;
 using UniversalRemote.Maui.Remote;
+using UniversalRemote.Maui.Rooms;
 using UniversalRemote.Maui.Freebox;
 using UniversalRemote.Maui.Samsung;
 using UniversalRemote.Maui.LG;
@@ -65,6 +66,8 @@ public static class MauiProgram
         foreach (var layout in UniversalRemote.Theming.BuiltInRemoteStyles.Layouts.Where(x => x.Id is not ("classic" or "minimal")))
             builder.Services.AddSingleton<IRemoteLayoutRenderer>(new StyledRemoteRenderer(layout));
         builder.Services.AddSingleton<RemotePage>();
+        builder.Services.AddSingleton<RoomsViewModel>();
+        builder.Services.AddSingleton<RoomsPage>();
         builder.Services.AddSingleton<AppShell>();
 
         var app = builder.Build();
