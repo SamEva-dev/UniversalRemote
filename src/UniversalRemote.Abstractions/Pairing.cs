@@ -1,4 +1,4 @@
-﻿namespace UniversalRemote.Abstractions;
+namespace UniversalRemote.Abstractions;
 
 public sealed record PairingProbe(
     string DisplayName,
@@ -31,4 +31,21 @@ public interface IDevicePairingProvider
 public interface IDeviceRegistrar
 {
     Task UpsertAsync(Device device, CancellationToken cancellationToken = default);
+
+    /// <summary>
+    /// Registers a completed pairing. Persistent registrars should preserve the existing Device.Id when the
+    /// same provider/device key is paired again. The default implementation preserves compatibility for
+    /// third-party registrars but cannot provide stable identity by itself.
+    /// </summary>
+    async Task<Device> RegisterPairingAsync(
+        string displayName,
+        DeviceRoute route,
+        CancellationToken cancellationToken = default)
+    {
+        ArgumentException.ThrowIfNullOrWhiteSpace(displayName);
+        ArgumentNullException.ThrowIfNull(route);
+        var device = new Device(Guid.NewGuid(), displayName, [route]);
+        await UpsertAsync(device, cancellationToken).ConfigureAwait(false);
+        return device;
+    }
 }

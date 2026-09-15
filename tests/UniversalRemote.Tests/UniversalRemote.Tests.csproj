@@ -19,6 +19,7 @@
 		<ProjectReference Include="../../src/UniversalRemote.Presentation/UniversalRemote.Presentation.csproj" />
 		<ProjectReference Include="../../src/UniversalRemote.Provider.Freebox/UniversalRemote.Provider.Freebox.csproj" />
 		<ProjectReference Include="../../src/UniversalRemote.Provider.GenericUpnp/UniversalRemote.Provider.GenericUpnp.csproj" />
+		<ProjectReference Include="..\..\src\UniversalRemote.Persistence.Sqlite\UniversalRemote.Persistence.Sqlite.csproj" />
 		<ProjectReference Include="..\..\src\UniversalRemote.Provider.GenericIr\UniversalRemote.Provider.GenericIr.csproj" />
 	</ItemGroup>
 </Project>

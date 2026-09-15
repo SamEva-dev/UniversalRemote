@@ -1,8 +1,8 @@
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Maui.Hosting;
+using Microsoft.Maui.Storage;
 using UniversalRemote.Abstractions;
 using UniversalRemote.Application;
-using UniversalRemote.Core;
 using UniversalRemote.Discovery;
 using UniversalRemote.Maui.AndroidTv;
 using UniversalRemote.Maui.Discovery;
@@ -10,6 +10,7 @@ using UniversalRemote.Maui.Remote;
 using UniversalRemote.Maui.Freebox;
 using UniversalRemote.Maui.Samsung;
 using UniversalRemote.Maui.LG;
+using UniversalRemote.Persistence.Sqlite;
 using UniversalRemote.Provider.AndroidTv;
 using UniversalRemote.Provider.Freebox;
 using UniversalRemote.Provider.GenericUpnp;
@@ -17,7 +18,6 @@ using UniversalRemote.Provider.Samsung;
 using UniversalRemote.Provider.LG;
 using UniversalRemote.Provider.Simulator;
 using Device = UniversalRemote.Abstractions.Device;
-
 using UniversalRemote.Provider.GenericIr;
 #if ANDROID
 using UniversalRemote.Platform.Android;
@@ -38,18 +38,11 @@ public static class MauiProgram
 #if ANDROID
         builder.Services.AddUniversalRemoteAndroidInfrared();
         builder.Services.AddUniversalRemoteGenericIr();
-#endif
-#if ANDROID
         builder.Services.AddSingleton<IDiscoveryNetworkLease, AndroidDiscoveryNetworkLease>();
 #endif
 
-        var demo = new Device(DemoDeviceId, "TV de démonstration — simulation",
-            [new DeviceRoute(SimulatorProvider.ProviderId, "demo-tv",
-                [RemoteActions.PowerToggle, RemoteActions.VolumeUp, RemoteActions.VolumeDown, RemoteActions.Ok])]);
-        var repository = new InMemoryDeviceRepository([demo]);
-        builder.Services.AddSingleton(repository);
-        builder.Services.AddSingleton<IDeviceRepository>(sp => sp.GetRequiredService<InMemoryDeviceRepository>());
-        builder.Services.AddSingleton<IDeviceRegistrar>(sp => sp.GetRequiredService<InMemoryDeviceRepository>());
+        var databasePath = Path.Combine(FileSystem.AppDataDirectory, "universalremote.devices.db");
+        builder.Services.AddUniversalRemoteSqlitePersistence(databasePath);
         builder.Services.AddSingleton<IRemoteProvider, SimulatorProvider>();
 
         builder.Services.AddSingleton<IAndroidTvCredentialStore, SecureAndroidTvCredentialStore>();
@@ -73,6 +66,17 @@ public static class MauiProgram
             builder.Services.AddSingleton<IRemoteLayoutRenderer>(new StyledRemoteRenderer(layout));
         builder.Services.AddSingleton<RemotePage>();
         builder.Services.AddSingleton<AppShell>();
-        return builder.Build();
+
+        var app = builder.Build();
+        SeedDemoDevice(app.Services);
+        return app;
+    }
+
+    private static void SeedDemoDevice(IServiceProvider services)
+    {
+        var demo = new Device(DemoDeviceId, "TV de démonstration — simulation",
+            [new DeviceRoute(SimulatorProvider.ProviderId, "demo-tv",
+                [RemoteActions.PowerToggle, RemoteActions.VolumeUp, RemoteActions.VolumeDown, RemoteActions.Ok])]);
+        services.GetRequiredService<IDeviceRegistrar>().UpsertAsync(demo).GetAwaiter().GetResult();
     }
 }

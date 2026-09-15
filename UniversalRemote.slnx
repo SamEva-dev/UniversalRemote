@@ -14,9 +14,7 @@
     <Project Path="src/UniversalRemote.Application/UniversalRemote.Application.csproj" Id="ca9f23b0-b617-44e4-8aa2-63c4238bc46a" />
     <Project Path="src/UniversalRemote.Core/UniversalRemote.Core.csproj" Id="f5665047-e8de-4ae8-a6e6-3045c92b39a6" />
     <Project Path="src/UniversalRemote.Discovery/UniversalRemote.Discovery.csproj" Id="7267f11a-1973-4b5c-86ef-5a7e97c9104e" />
-    <Project Path="src/UniversalRemote.Maui/UniversalRemote.Maui.csproj" Id="2884ad03-55fa-45a7-8d8e-3aaa7489be35">
-      <Deploy Solution="Debug|*" />
-    </Project>
+    <Project Path="src/UniversalRemote.Persistence.Sqlite/UniversalRemote.Persistence.Sqlite.csproj" Id="5f1acc94-c33b-4cd4-8726-ebd4b57ae974" />
     <Project Path="src/UniversalRemote.Platform.Android/UniversalRemote.Platform.Android.csproj" Id="e415d5e2-e859-4823-8b33-a630c68da70e" />
     <Project Path="src/UniversalRemote.Presentation/UniversalRemote.Presentation.csproj" Id="a264b314-855c-427d-9759-aa2543973cfe" />
     <Project Path="src/UniversalRemote.Provider.AndroidTv/UniversalRemote.Provider.AndroidTv.csproj" Id="43194082-1764-45cb-95af-cb2da92ac31d" />

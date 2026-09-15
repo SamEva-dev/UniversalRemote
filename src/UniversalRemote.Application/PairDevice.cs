@@ -80,10 +80,8 @@ public sealed class CompletePairingHandler(
         var provider = providers.FirstOrDefault(x => string.Equals(x.Id, request.ProviderId, StringComparison.Ordinal));
         if (provider is null) throw new InvalidOperationException("Requested pairing provider is unavailable.");
         var completion = await provider.CompleteAsync(request.ChallengeId, request.Code, ct).ConfigureAwait(false);
-        var id = Guid.NewGuid();
         var displayName = string.IsNullOrWhiteSpace(completion.DisplayName) ? request.DisplayName : completion.DisplayName;
-        var device = new Device(id, displayName, [completion.Route]);
-        await registrar.UpsertAsync(device, ct).ConfigureAwait(false);
-        return new PairedDeviceSummary(id, displayName, completion.Route.ProviderId);
+        var device = await registrar.RegisterPairingAsync(displayName, completion.Route, ct).ConfigureAwait(false);
+        return new PairedDeviceSummary(device.Id, device.DisplayName, completion.Route.ProviderId);
     }
 }

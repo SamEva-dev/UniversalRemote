@@ -1,12 +1,13 @@
-﻿using System.Collections.Concurrent;
+using System.Collections.Concurrent;
 using UniversalRemote.Abstractions;
 
 namespace UniversalRemote.Core;
 
-/// <summary>Thread-safe volatile registry used by samples and the first MAUI client.</summary>
+/// <summary>Thread-safe volatile registry used by samples and tests. Production MAUI uses SQLite.</summary>
 public sealed class InMemoryDeviceRepository : IDeviceRepository, IDeviceRegistrar
 {
     private readonly ConcurrentDictionary<Guid, Device> devices = new();
+    private readonly SemaphoreSlim writeGate = new(1, 1);
 
     public InMemoryDeviceRepository(IEnumerable<Device>? seed = null)
     {
@@ -28,11 +29,43 @@ public sealed class InMemoryDeviceRepository : IDeviceRepository, IDeviceRegistr
         return Task.FromResult(result);
     }
 
-    public Task UpsertAsync(Device device, CancellationToken cancellationToken = default)
+    public async Task UpsertAsync(Device device, CancellationToken cancellationToken = default)
     {
         ArgumentNullException.ThrowIfNull(device);
-        cancellationToken.ThrowIfCancellationRequested();
-        devices[device.Id] = device;
-        return Task.CompletedTask;
+        await writeGate.WaitAsync(cancellationToken).ConfigureAwait(false);
+        try { devices[device.Id] = device; }
+        finally { writeGate.Release(); }
     }
+
+    public async Task<Device> RegisterPairingAsync(
+        string displayName,
+        DeviceRoute route,
+        CancellationToken cancellationToken = default)
+    {
+        ArgumentException.ThrowIfNullOrWhiteSpace(displayName);
+        ArgumentNullException.ThrowIfNull(route);
+        await writeGate.WaitAsync(cancellationToken).ConfigureAwait(false);
+        try
+        {
+            var existing = devices.Values.FirstOrDefault(device => device.Routes.Any(existingRoute => SameRoute(existingRoute, route)));
+            Device updated;
+            if (existing is null)
+            {
+                updated = new Device(Guid.NewGuid(), displayName, [route]);
+            }
+            else
+            {
+                var routes = existing.Routes.Select(existingRoute => SameRoute(existingRoute, route) ? route : existingRoute).ToArray();
+                updated = new Device(existing.Id, displayName, routes);
+            }
+
+            devices[updated.Id] = updated;
+            return updated;
+        }
+        finally { writeGate.Release(); }
+    }
+
+    private static bool SameRoute(DeviceRoute left, DeviceRoute right)
+        => string.Equals(left.ProviderId, right.ProviderId, StringComparison.Ordinal)
+           && string.Equals(left.DeviceKey, right.DeviceKey, StringComparison.Ordinal);
 }

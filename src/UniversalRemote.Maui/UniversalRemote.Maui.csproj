@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
 
 	<PropertyGroup>
 		<TargetFramework />
@@ -81,6 +81,7 @@
 		<ProjectReference Include="../UniversalRemote.Application/UniversalRemote.Application.csproj" />
 		<ProjectReference Include="../UniversalRemote.Discovery/UniversalRemote.Discovery.csproj" />
 		<ProjectReference Include="../UniversalRemote.Theming/UniversalRemote.Theming.csproj" />
+		<ProjectReference Include="../UniversalRemote.Persistence.Sqlite/UniversalRemote.Persistence.Sqlite.csproj" />
 		<ProjectReference Include="../UniversalRemote.Provider.Simulator/UniversalRemote.Provider.Simulator.csproj" />
 		<ProjectReference Include="../UniversalRemote.Provider.AndroidTv/UniversalRemote.Provider.AndroidTv.csproj" />
 		<ProjectReference Include="../UniversalRemote.Provider.Freebox/UniversalRemote.Provider.Freebox.csproj" />
