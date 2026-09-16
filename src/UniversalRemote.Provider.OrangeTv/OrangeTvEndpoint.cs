@@ -34,7 +34,7 @@ internal static class OrangeTvEndpoint
         if (!TryNormalizeLocalAddress(address, out var normalized))
             throw new ArgumentException("Orange TV endpoint must be a private local IP address.", nameof(address));
 
-        return new UriBuilder(Uri.UriSchemeHttp, normalized, Port, Path, query).Uri;
+        return new UriBuilder(Uri.UriSchemeHttp, normalized, Port, Path) { Query = query }.Uri;
     }
 
     private static bool IsAllowedLocalAddress(IPAddress ip)

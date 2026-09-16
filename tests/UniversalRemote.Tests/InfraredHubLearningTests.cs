@@ -204,8 +204,8 @@ public sealed class InfraredHubLearningTests
         Assert.Contains(RemoteActions.VolumeDown, recipe.RequiredActions);
     }
 
-    private static string InfoJson(InfraredHubId id, bool canLearn, string transport) => $$"""
-    {"schemaVersion":1,"hubId":"{{id.Value}}","displayName":"Learning Hub","firmwareVersion":"1.0.0","state":"ready","capabilities":{"canTransmit":true,"canLearn":{{canLearn.ToString().ToLowerInvariant()}},"carrierFrequencies":[{"minHz":36000,"maxHz":60000}],"maxPatternValues":4096,"maxTotalDurationMicroseconds":2000000}}
+    private static string InfoJson(InfraredHubId id, bool canLearn, string transport) => $$$"""
+    {"schemaVersion":1,"hubId":"{{{id.Value}}}","displayName":"Learning Hub","firmwareVersion":"1.0.0","state":"ready","capabilities":{"canTransmit":true,"canLearn":{{{canLearn.ToString().ToLowerInvariant()}}},"carrierFrequencies":[{"minHz":36000,"maxHz":60000}],"maxPatternValues":4096,"maxTotalDurationMicroseconds":2000000}}
     """;
 
     private static HttpResponseMessage Json(HttpStatusCode status, string json)

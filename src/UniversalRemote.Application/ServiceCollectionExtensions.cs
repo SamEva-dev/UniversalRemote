@@ -24,6 +24,7 @@ public static class ServiceCollectionExtensions
         services.TryAddSingleton<ITelemetryRecorder>(_ => NullTelemetryRecorder.Instance);
         services.TryAddSingleton<IRemoteUiModelBuilder, CapabilityRemoteUiModelBuilder>();
         services.TryAddSingleton<IFavoriteRepository, InMemoryFavoriteRepository>();
+        services.TryAddSingleton<IRoomRepository, InMemoryRoomRepository>();
         services.TryAddSingleton<IActivityRepository, InMemoryActivityRepository>();
         services.AddDomainRelay(
             configureOptions: options => options.WrapExceptions = false,

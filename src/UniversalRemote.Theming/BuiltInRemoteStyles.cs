@@ -17,10 +17,10 @@ public static class BuiltInRemoteStyles
         ["classic"] = DefaultTheme,
         ["minimal"] = Theme("minimal", "Minimal", "#FFFFFF", "#F0F2F5", "#101820", "#172B4D", "#FFFFFF", 16, 12),
         ["nova"] = Theme("nova", "Nova", "#F8FAFF", "#EDF0F6", "#101A2A", "#2168C8", "#FFFFFF", 12, 24),
-        ["elite"] = Theme("elite", "Elite", "#070B0E", "#1B2025", "#F4F6F8", "#DD3838", "#FFFFFF", 14, 16),
+        ["elite"] = Theme("elite", "Elite", "#070B0E", "#1B2025", "#F4F6F8", "#D42E29", "#FFFFFF", 14, 16),
         ["horizon"] = Theme("horizon", "Horizon", "#031E30", "#173E55", "#FFFFFF", "#16B4EB", "#002237", 16, 20),
         ["fusion"] = Theme("fusion", "Fusion", "#080E17", "#19232F", "#F4F7FC", "#28BDF2", "#081827", 12, 18),
-        ["neo"] = Theme("neo", "Neo", "#090E21", "#182541", "#F5F5FF", "#47A7FF", "#FFFFFF", 14, 32) with
+        ["neo"] = Theme("neo", "Neo", "#090E21", "#182541", "#F5F5FF", "#47A7FF", "#090E21", 14, 32) with
         { Tokens = new(56, 14, 32, RemoteControlShape.Pill) }
     };
     public static RemoteLayoutDefinition Resolve(string? id) => Layouts.FirstOrDefault(x => x.Id == id) ?? Classic;

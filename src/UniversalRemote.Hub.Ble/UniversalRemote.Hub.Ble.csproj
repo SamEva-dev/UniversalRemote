@@ -1,4 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
+  <ItemGroup>
+    <InternalsVisibleTo Include="UniversalRemote.Tests" />
+  </ItemGroup>
   <PropertyGroup>
     <IsPackable>true</IsPackable>
     <PackageId>UniversalRemote.Hub.Ble</PackageId>

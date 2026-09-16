@@ -60,6 +60,7 @@ internal sealed class WifiInfraredHubLearnClient(HttpClient httpClient)
         writer.WriteString("requestId", requestId);
         writer.WriteString("hubId", hubId.Value);
         writer.WriteEndObject();
+        writer.Flush();
         return buffer.WrittenMemory.ToArray();
     }
 

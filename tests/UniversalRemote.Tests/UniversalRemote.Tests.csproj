@@ -5,7 +5,6 @@
 	</PropertyGroup>
 	<ItemGroup>
         <Compile Include="../../src/UniversalRemote.Maui/Storage/CredentialJsonContext.cs" Link="CredentialJsonContext.cs" />
-        <Compile Include="../TelemetryTests.cs" Link="TelemetryTests.cs" />
         <ProjectReference Include="../../src/UniversalRemote.Telemetry/UniversalRemote.Telemetry.csproj" />
         <ProjectReference Include="../../src/UniversalRemote.Hub.Wifi/UniversalRemote.Hub.Wifi.csproj" />
         <ProjectReference Include="../../src/UniversalRemote.Hub.Ble/UniversalRemote.Hub.Ble.csproj" />

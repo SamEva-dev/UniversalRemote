@@ -8,6 +8,10 @@
     <SupportedOSPlatformVersion>21.0</SupportedOSPlatformVersion>
   </PropertyGroup>
   <ItemGroup>
+    <!-- Android starts MainActivity rather than a console entry point. -->
+    <Compile Remove="Program.cs" />
+  </ItemGroup>
+  <ItemGroup>
     <ProjectReference Include="../../src/UniversalRemote.Application/UniversalRemote.Application.csproj" />
     <ProjectReference Include="../../src/UniversalRemote.Core/UniversalRemote.Core.csproj" />
     <ProjectReference Include="../../src/UniversalRemote.Platform.Android/UniversalRemote.Platform.Android.csproj" />
