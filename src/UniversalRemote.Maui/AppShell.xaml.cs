@@ -3,6 +3,7 @@ using UniversalRemote.Maui.Compatibility;
 using UniversalRemote.Maui.Discovery;
 using UniversalRemote.Maui.Favorites;
 using UniversalRemote.Maui.Hub;
+using UniversalRemote.Maui.Media;
 using UniversalRemote.Maui.Privacy;
 using UniversalRemote.Maui.Remote;
 using UniversalRemote.Maui.Rooms;
@@ -19,7 +20,19 @@ public sealed partial class AppShell : Shell
         ActivitiesPage activitiesPage,
         CompatibilityPage compatibilityPage,
         HubPage hubPage,
-        PrivacyPage privacyPage)
+        PrivacyPage privacyPage,
+        MediaHubPage mediaHubPage,
+        LiveTvPage liveTvPage,
+        MoviesPage moviesPage,
+        SeriesPage seriesPage,
+        MediaSearchPage mediaSearchPage,
+        MediaLibraryPage mediaLibraryPage,
+        MediaDetailsPage mediaDetailsPage,
+        PlaybackTargetPage playbackTargetPage,
+        PlaybackPage playbackPage,
+        TvGuidePage tvGuidePage,
+        MediaActivitiesPage mediaActivitiesPage,
+        MediaProfilesPage mediaProfilesPage)
     {
         InitializeComponent();
 
@@ -39,7 +52,23 @@ public sealed partial class AppShell : Shell
         AddRootPage("Compatibilité", "compatibility", compatibilityPage);
         AddRootPage("Hub IR", "ir-hub", hubPage);
         AddRootPage("Confidentialité", "privacy", privacyPage);
+        AddRootPage("Média", "media", mediaHubPage);
+        AddRootPage("TV en direct", "media-live", liveTvPage);
+        AddRootPage("Films", "media-movies", moviesPage);
+        AddRootPage("Séries", "media-series", seriesPage);
+        AddRootPage("Recherche Media", "media-search", mediaSearchPage);
+        AddRootPage("Bibliothèque Media", "media-library", mediaLibraryPage);
+        AddRootPage("Détail Media", "media-details", mediaDetailsPage);
+        AddRootPage("Où regarder ?", "playback-targets", playbackTargetPage);
+        AddRootPage("Guide TV", "tv-guide", tvGuidePage);
+        AddRootPage("Scénarios Media", "media-activities", mediaActivitiesPage);
+        AddRootPage("Profils Media", "media-profiles", mediaProfilesPage);
+        AddRootPage("Lecteur", "media-player", playbackPage);
         AddRootPage("Télécommande", "remote", remotePage);
+
+        // MEDIA 10: Control ↔ Media stays one tap away on every supported UI shell.
+        AddModeNavigationToolbarItem("Contrôle", "remote", 0);
+        AddModeNavigationToolbarItem("Médias", "media", 1);
 
 #if ANDROID
         AddAndroidNavigationToolbar();
@@ -56,17 +85,41 @@ public sealed partial class AppShell : Shell
         });
     }
 
+    private void AddModeNavigationToolbarItem(string title, string route, int priority)
+    {
+        var item = new ToolbarItem
+        {
+            Text = title,
+            Order = ToolbarItemOrder.Primary,
+            Priority = priority
+        };
+
+        item.Clicked += async (_, _) =>
+        {
+            try { await GoToAsync($"//{route}"); }
+            catch (Exception)
+            {
+                await DisplayAlertAsync("Navigation", "Impossible d’ouvrir cette page. Réessayez.", "OK");
+            }
+        };
+
+        ToolbarItems.Add(item);
+    }
+
 #if ANDROID
     private void AddAndroidNavigationToolbar()
     {
         AddNavigationToolbarItem("Appareils", "devices", 0);
-        AddNavigationToolbarItem("Télécommande", "remote", 1);
-        AddNavigationToolbarItem("Pièces", "rooms", 2);
-        AddNavigationToolbarItem("Favoris", "favorites", 3);
-        AddNavigationToolbarItem("Activités", "activities", 4);
-        AddNavigationToolbarItem("Compatibilité", "compatibility", 5);
-        AddNavigationToolbarItem("Hub IR", "ir-hub", 6);
-        AddNavigationToolbarItem("Confidentialité", "privacy", 7);
+        AddNavigationToolbarItem("Pièces", "rooms", 1);
+        AddNavigationToolbarItem("Favoris", "favorites", 2);
+        AddNavigationToolbarItem("Activités", "activities", 3);
+        AddNavigationToolbarItem("Compatibilité", "compatibility", 4);
+        AddNavigationToolbarItem("Hub IR", "ir-hub", 5);
+        AddNavigationToolbarItem("Confidentialité", "privacy", 6);
+        AddNavigationToolbarItem("Guide TV", "tv-guide", 7);
+        AddNavigationToolbarItem("Lecteur", "media-player", 8);
+        AddNavigationToolbarItem("Scénarios Media", "media-activities", 9);
+        AddNavigationToolbarItem("Profils Media", "media-profiles", 10);
     }
 
     private void AddNavigationToolbarItem(string title, string route, int priority)

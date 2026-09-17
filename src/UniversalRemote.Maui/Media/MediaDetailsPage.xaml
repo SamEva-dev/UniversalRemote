@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="UniversalRemote.Maui.Media.MediaDetailsPage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    Title="Détail Media"
+    BackgroundColor="{StaticResource MediaHorizonBackground}">
+
+    <ScrollView>
+        <VerticalStackLayout
+            Padding="18,16,18,30"
+            Spacing="18"
+            MaximumWidthRequest="1100"
+            HorizontalOptions="Center">
+
+            <Border
+                HeightRequest="248"
+                Padding="0"
+                Background="{StaticResource MediaHorizonHeroBrush}"
+                Stroke="#315A82"
+                StrokeShape="RoundRectangle 24">
+                <Grid>
+                    <Image x:Name="artworkImage" Aspect="AspectFill" Opacity="0.82" />
+                    <BoxView BackgroundColor="#6B06111F" />
+                    <Border
+                        WidthRequest="88"
+                        HeightRequest="88"
+                        HorizontalOptions="Center"
+                        VerticalOptions="Center"
+                        BackgroundColor="#B3162A42"
+                        Stroke="#4E7DA7"
+                        StrokeShape="RoundRectangle 26">
+                        <Label
+                            x:Name="heroInitial"
+                            Text="M"
+                            FontSize="44"
+                            FontAttributes="Bold"
+                            TextColor="#A8DFFF"
+                            HorizontalTextAlignment="Center"
+                            VerticalTextAlignment="Center" />
+                    </Border>
+                    <Border Margin="16" HorizontalOptions="Start" VerticalOptions="Start" Style="{StaticResource MediaHorizonChip}">
+                        <Label Text="HORIZON MEDIA" Style="{StaticResource MediaHorizonEyebrow}" FontSize="9" />
+                    </Border>
+                </Grid>
+            </Border>
+
+            <VerticalStackLayout Spacing="7">
+                <Label x:Name="titleLabel" Text="Média" Style="{StaticResource MediaHorizonPageTitle}" />
+                <Label x:Name="metadataLabel" Text="" Style="{StaticResource MediaHorizonMutedText}" />
+                <Label x:Name="sourceLabel" Text="" Style="{StaticResource MediaHorizonSubtleText}" />
+                <Border x:Name="resumeCard" Style="{StaticResource MediaHorizonCard}" Padding="12,9" IsVisible="True">
+                    <Grid ColumnDefinitions="Auto,*" ColumnSpacing="8">
+                        <Label Text="↻" TextColor="{StaticResource MediaHorizonAccent}" FontSize="16" />
+                        <Label x:Name="resumeLabel" Grid.Column="1" Text="" TextColor="{StaticResource MediaHorizonAccent}" FontSize="12" VerticalTextAlignment="Center" />
+                    </Grid>
+                </Border>
+            </VerticalStackLayout>
+
+            <Grid ColumnDefinitions="2*,*" ColumnSpacing="10">
+                <Button x:Name="playButton" Text="▶  Regarder" Style="{StaticResource MediaHorizonPrimaryButton}" AutomationId="media-details-play" />
+                <Button x:Name="favoriteButton" Grid.Column="1" Text="★  Favori" Style="{StaticResource MediaHorizonSecondaryButton}" AutomationId="media-details-favorite" />
+            </Grid>
+
+            <Border Style="{StaticResource MediaHorizonCard}" Padding="14">
+                <Grid ColumnDefinitions="*,Auto" ColumnSpacing="12">
+                    <VerticalStackLayout Spacing="2">
+                        <Label Text="Destination de lecture" TextColor="{StaticResource MediaHorizonText}" FontAttributes="Bold" />
+                        <Label Text="La cible est choisie juste avant la lecture pour rester indépendante de la source." Style="{StaticResource MediaHorizonSubtleText}" MaxLines="2" />
+                    </VerticalStackLayout>
+                    <Label Grid.Column="1" Text="›" TextColor="{StaticResource MediaHorizonAccent}" FontSize="28" VerticalTextAlignment="Center" />
+                </Grid>
+            </Border>
+
+            <Grid ColumnDefinitions="*,*" ColumnSpacing="10">
+                <Button x:Name="guideButton" Text="▦  Ouvrir le Guide TV" Style="{StaticResource MediaHorizonSecondaryButton}" IsVisible="False" />
+                <Button x:Name="scenarioButton" Grid.Column="1" Text="⚡  Scénario Media" Style="{StaticResource MediaHorizonSecondaryButton}" />
+            </Grid>
+
+            <VerticalStackLayout x:Name="seriesSection" IsVisible="False" Spacing="12">
+                <Grid ColumnDefinitions="*,Auto">
+                    <VerticalStackLayout Spacing="2">
+                        <Label Text="Épisodes" Style="{StaticResource MediaHorizonSectionTitle}" />
+                        <Label x:Name="seriesStatusLabel" Text="" Style="{StaticResource MediaHorizonSubtleText}" />
+                    </VerticalStackLayout>
+                    <ActivityIndicator x:Name="seriesLoading" Grid.Column="1" IsRunning="False" IsVisible="False" Color="{StaticResource MediaHorizonAccent}" />
+                </Grid>
+
+                <CollectionView x:Name="episodeList" SelectionMode="Single" HeightRequest="390">
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate>
+                            <Border Margin="0,0,0,9" Style="{StaticResource MediaHorizonCard}" Padding="13">
+                                <Grid ColumnDefinitions="Auto,*,Auto" ColumnSpacing="12">
+                                    <Border WidthRequest="42" HeightRequest="42" BackgroundColor="#16304A" Stroke="#2F5D83" StrokeShape="RoundRectangle 13">
+                                        <Label Text="▶" TextColor="{StaticResource MediaHorizonAccent}" FontSize="13" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" />
+                                    </Border>
+                                    <VerticalStackLayout Grid.Column="1" Spacing="3" VerticalOptions="Center">
+                                        <Label Text="{Binding Title}" TextColor="{StaticResource MediaHorizonText}" FontAttributes="Bold" MaxLines="2" />
+                                        <Label Text="{Binding Subtitle}" Style="{StaticResource MediaHorizonSubtleText}" />
+                                    </VerticalStackLayout>
+                                    <Label Grid.Column="2" Text="›" TextColor="{StaticResource MediaHorizonAccent}" FontSize="24" VerticalTextAlignment="Center" />
+                                </Grid>
+                            </Border>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+            </VerticalStackLayout>
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>

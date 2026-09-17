@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="UniversalRemote.Maui.Media.MediaProfilesPage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    Title="Profils Media"
+    BackgroundColor="{StaticResource MediaHorizonBackground}">
+
+    <ScrollView>
+        <VerticalStackLayout Padding="18,16,18,30" Spacing="16" MaximumWidthRequest="920" HorizontalOptions="Center">
+            <VerticalStackLayout Spacing="3">
+                <Label Text="PROFILS" Style="{StaticResource MediaHorizonEyebrow}" />
+                <Label Text="Profils Media" Style="{StaticResource MediaHorizonPageTitle}" />
+                <Label Text="Adulte, enfant ou invité • PIN • restrictions • préférences" Style="{StaticResource MediaHorizonMutedText}" />
+            </VerticalStackLayout>
+
+            <Border Style="{StaticResource MediaHorizonRaisedCard}">
+                <Grid ColumnDefinitions="Auto,*" ColumnSpacing="12">
+                    <Border WidthRequest="48" HeightRequest="48" BackgroundColor="#18314B" Stroke="#2F5D83" StrokeShape="RoundRectangle 15" VerticalOptions="Center">
+                        <Label Text="◉" TextColor="{StaticResource MediaHorizonAccent}" FontSize="20" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" />
+                    </Border>
+                    <VerticalStackLayout Grid.Column="1" Spacing="4">
+                        <Label Text="PROFIL ACTIF" Style="{StaticResource MediaHorizonEyebrow}" FontSize="9" />
+                        <Label x:Name="activeProfileLabel" Text="Chargement…" TextColor="{StaticResource MediaHorizonText}" FontSize="18" FontAttributes="Bold" />
+                        <Label x:Name="statusLabel" Text="" Style="{StaticResource MediaHorizonSubtleText}" />
+                    </VerticalStackLayout>
+                </Grid>
+            </Border>
+
+            <CollectionView x:Name="profilesList" SelectionMode="Single" HeightRequest="220">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <Border Margin="0,0,0,9" Style="{StaticResource MediaHorizonCard}" Padding="13">
+                            <VisualStateManager.VisualStateGroups>
+                                <VisualStateGroup x:Name="CommonStates">
+                                    <VisualState x:Name="Normal" />
+                                    <VisualState x:Name="Selected">
+                                        <VisualState.Setters>
+                                            <Setter Property="Stroke" Value="{StaticResource MediaHorizonAccent}" />
+                                            <Setter Property="BackgroundColor" Value="#132B43" />
+                                        </VisualState.Setters>
+                                    </VisualState>
+                                </VisualStateGroup>
+                            </VisualStateManager.VisualStateGroups>
+                            <Grid ColumnDefinitions="Auto,*,Auto" RowDefinitions="Auto,Auto" ColumnSpacing="12">
+                                <Border Grid.RowSpan="2" WidthRequest="42" HeightRequest="42" BackgroundColor="#16304A" Stroke="#2F5D83" StrokeShape="RoundRectangle 13" VerticalOptions="Center">
+                                    <Label Text="●" TextColor="{StaticResource MediaHorizonCyan}" FontSize="13" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" />
+                                </Border>
+                                <Label Grid.Column="1" Text="{Binding Name}" TextColor="{StaticResource MediaHorizonText}" FontAttributes="Bold" />
+                                <Border Grid.Column="2" Style="{StaticResource MediaHorizonChip}" IsVisible="True">
+                                    <Label Text="{Binding ActiveText}" TextColor="{StaticResource MediaHorizonAccent}" FontSize="9" FontAttributes="Bold" />
+                                </Border>
+                                <Label Grid.Row="1" Grid.Column="1" Text="{Binding Subtitle}" Style="{StaticResource MediaHorizonSubtleText}" />
+                            </Grid>
+                        </Border>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+
+            <Grid ColumnDefinitions="*,*,*" ColumnSpacing="8">
+                <Button x:Name="newAdultButton" Text="+ Adulte" Style="{StaticResource MediaHorizonSecondaryButton}" />
+                <Button x:Name="newChildButton" Grid.Column="1" Text="+ Enfant" Style="{StaticResource MediaHorizonSecondaryButton}" />
+                <Button x:Name="newGuestButton" Grid.Column="2" Text="+ Invité" Style="{StaticResource MediaHorizonSecondaryButton}" />
+            </Grid>
+
+            <Border x:Name="editorPanel" Style="{StaticResource MediaHorizonRaisedCard}" IsVisible="False">
+                <VerticalStackLayout Spacing="14">
+                    <Label Text="Configurer le profil" Style="{StaticResource MediaHorizonSectionTitle}" />
+                    <Entry x:Name="nameEntry" Placeholder="Nom du profil" Style="{StaticResource MediaHorizonEntry}" />
+                    <Picker x:Name="kindPicker" Title="Type de profil" Style="{StaticResource MediaHorizonPicker}" />
+
+                    <Label Text="PROTECTION" Style="{StaticResource MediaHorizonEyebrow}" />
+                    <Grid ColumnDefinitions="*,Auto">
+                        <Label Text="Protéger le profil par PIN" TextColor="{StaticResource MediaHorizonText}" VerticalTextAlignment="Center" />
+                        <Switch x:Name="pinSwitch" Grid.Column="1" Style="{StaticResource MediaHorizonSwitch}" />
+                    </Grid>
+                    <Entry x:Name="pinEntry" Placeholder="Nouveau PIN (4 à 8 chiffres)" IsPassword="True" Keyboard="Numeric" Style="{StaticResource MediaHorizonEntry}" />
+                    <Label Text="Le PIN n’est jamais enregistré en clair dans le fichier des profils." Style="{StaticResource MediaHorizonSubtleText}" />
+
+                    <Label Text="RESTRICTIONS" Style="{StaticResource MediaHorizonEyebrow}" />
+                    <Grid ColumnDefinitions="*,Auto">
+                        <Label Text="TV en direct" TextColor="{StaticResource MediaHorizonText}" VerticalTextAlignment="Center" />
+                        <Switch x:Name="liveSwitch" Grid.Column="1" IsToggled="True" Style="{StaticResource MediaHorizonSwitch}" />
+                    </Grid>
+                    <Grid ColumnDefinitions="*,Auto">
+                        <Label Text="Films" TextColor="{StaticResource MediaHorizonText}" VerticalTextAlignment="Center" />
+                        <Switch x:Name="movieSwitch" Grid.Column="1" IsToggled="True" Style="{StaticResource MediaHorizonSwitch}" />
+                    </Grid>
+                    <Grid ColumnDefinitions="*,Auto">
+                        <Label Text="Séries / épisodes" TextColor="{StaticResource MediaHorizonText}" VerticalTextAlignment="Center" />
+                        <Switch x:Name="seriesSwitch" Grid.Column="1" IsToggled="True" Style="{StaticResource MediaHorizonSwitch}" />
+                    </Grid>
+                    <Entry x:Name="maxAgeEntry" Placeholder="Âge maximal (ex. 12) — vide = sans limite" Keyboard="Numeric" Style="{StaticResource MediaHorizonEntry}" />
+                    <Grid ColumnDefinitions="*,Auto">
+                        <Label Text="Bloquer les contenus non classés" TextColor="{StaticResource MediaHorizonText}" VerticalTextAlignment="Center" />
+                        <Switch x:Name="unratedSwitch" Grid.Column="1" Style="{StaticResource MediaHorizonSwitch}" />
+                    </Grid>
+                    <Editor x:Name="blockedCategoriesEditor" Placeholder="Catégories bloquées, séparées par des virgules" AutoSize="TextChanges" Style="{StaticResource MediaHorizonEditor}" />
+
+                    <Label Text="PRÉFÉRENCES" Style="{StaticResource MediaHorizonEyebrow}" />
+                    <Entry x:Name="languageEntry" Placeholder="Langue préférée (fr, en…)" Text="fr" Style="{StaticResource MediaHorizonEntry}" />
+                    <Grid ColumnDefinitions="*,Auto">
+                        <Label Text="Lecture auto. épisode suivant" TextColor="{StaticResource MediaHorizonText}" VerticalTextAlignment="Center" />
+                        <Switch x:Name="autoplaySwitch" Grid.Column="1" IsToggled="True" Style="{StaticResource MediaHorizonSwitch}" />
+                    </Grid>
+                    <Grid ColumnDefinitions="*,Auto">
+                        <Label Text="Sous-titres par défaut" TextColor="{StaticResource MediaHorizonText}" VerticalTextAlignment="Center" />
+                        <Switch x:Name="subtitlesSwitch" Grid.Column="1" Style="{StaticResource MediaHorizonSwitch}" />
+                    </Grid>
+
+                    <Button x:Name="activateButton" Text="Activer ce profil" Style="{StaticResource MediaHorizonPrimaryButton}" />
+                    <Grid ColumnDefinitions="*,*" ColumnSpacing="8">
+                        <Button x:Name="saveButton" Text="Enregistrer" Style="{StaticResource MediaHorizonSecondaryButton}" />
+                        <Button x:Name="deleteButton" Grid.Column="1" Text="Supprimer" Style="{StaticResource MediaHorizonGhostButton}" TextColor="{StaticResource MediaHorizonDanger}" />
+                    </Grid>
+                </VerticalStackLayout>
+            </Border>
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>

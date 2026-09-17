@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="UniversalRemote.Maui.Media.TvGuidePage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    Title="Guide TV"
+    BackgroundColor="{StaticResource MediaHorizonBackground}">
+
+    <Grid RowDefinitions="Auto,Auto,*" Padding="18,16,18,24" RowSpacing="14" MaximumWidthRequest="1280" HorizontalOptions="Center">
+        <Grid ColumnDefinitions="*,Auto" ColumnSpacing="12">
+            <VerticalStackLayout Spacing="3">
+                <Label Text="GUIDE TV" Style="{StaticResource MediaHorizonEyebrow}" />
+                <Label Text="En ce moment" Style="{StaticResource MediaHorizonPageTitle}" />
+                <Label x:Name="windowLabel" Text="Programme actuel et à venir" Style="{StaticResource MediaHorizonMutedText}" />
+            </VerticalStackLayout>
+            <Button x:Name="refreshButton" Grid.Column="1" Text="↻" Style="{StaticResource MediaHorizonIconButton}" FontSize="20" VerticalOptions="Center" AutomationProperties.Name="Actualiser le guide TV" />
+        </Grid>
+
+        <Border Grid.Row="1" Style="{StaticResource MediaHorizonCard}" Padding="12">
+            <Grid ColumnDefinitions="Auto,*" ColumnSpacing="10">
+                <Border WidthRequest="32" HeightRequest="32" BackgroundColor="#16304A" StrokeThickness="0" StrokeShape="RoundRectangle 10">
+                    <Label Text="▦" TextColor="{StaticResource MediaHorizonAccent}" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" />
+                </Border>
+                <Label x:Name="statusLabel" Grid.Column="1" Text="Aucune source EPG sélectionnée." Style="{StaticResource MediaHorizonMutedText}" VerticalTextAlignment="Center" />
+            </Grid>
+        </Border>
+
+        <CollectionView x:Name="guideList" Grid.Row="2" SelectionMode="None">
+            <CollectionView.EmptyView>
+                <Border Style="{StaticResource MediaHorizonCard}" Margin="0,8,0,0" Padding="28">
+                    <VerticalStackLayout Spacing="8">
+                        <Label Text="▦" TextColor="{StaticResource MediaHorizonAccent}" FontSize="30" HorizontalTextAlignment="Center" />
+                        <Label Text="Le guide apparaîtra ici après configuration d’une source Media et d’une source XMLTV." Style="{StaticResource MediaHorizonMutedText}" HorizontalTextAlignment="Center" />
+                        <Label Text="Le Guide TV reste indépendant du fournisseur de playlist." Style="{StaticResource MediaHorizonSubtleText}" HorizontalTextAlignment="Center" />
+                    </VerticalStackLayout>
+                </Border>
+            </CollectionView.EmptyView>
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                    <Border Margin="0,0,0,11" Style="{StaticResource MediaHorizonCard}" Padding="12">
+                        <Grid ColumnDefinitions="124,*" ColumnSpacing="12">
+                            <Border BackgroundColor="#10233A" Stroke="#254967" StrokeShape="RoundRectangle 14" Padding="12" MinimumHeightRequest="100">
+                                <VerticalStackLayout VerticalOptions="Center" Spacing="5">
+                                    <Label Text="{Binding ChannelTitle}" TextColor="{StaticResource MediaHorizonText}" FontAttributes="Bold" LineBreakMode="TailTruncation" MaxLines="2" />
+                                    <Label Text="{Binding MatchText}" TextColor="{StaticResource MediaHorizonCyan}" FontSize="10" LineBreakMode="TailTruncation" />
+                                </VerticalStackLayout>
+                            </Border>
+
+                            <CollectionView Grid.Column="1" ItemsSource="{Binding Programs}" ItemsLayout="HorizontalList" SelectionMode="None">
+                                <CollectionView.ItemTemplate>
+                                    <DataTemplate>
+                                        <Border WidthRequest="228" Margin="0,0,8,0" Padding="12" BackgroundColor="#15263A" Stroke="#2B4A65" StrokeShape="RoundRectangle 14">
+                                            <VerticalStackLayout Spacing="5">
+                                                <Label Text="{Binding TimeRange}" TextColor="{StaticResource MediaHorizonAccent}" FontSize="11" FontAttributes="Bold" />
+                                                <Label Text="{Binding Title}" TextColor="{StaticResource MediaHorizonText}" FontAttributes="Bold" MaxLines="2" />
+                                                <Label Text="{Binding Category}" Style="{StaticResource MediaHorizonSubtleText}" MaxLines="1" />
+                                            </VerticalStackLayout>
+                                        </Border>
+                                    </DataTemplate>
+                                </CollectionView.ItemTemplate>
+                            </CollectionView>
+                        </Grid>
+                    </Border>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+    </Grid>
+</ContentPage>

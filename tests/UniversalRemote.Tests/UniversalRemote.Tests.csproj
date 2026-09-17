@@ -6,8 +6,8 @@
 	<ItemGroup>
         <Compile Include="../../src/UniversalRemote.Maui/Storage/CredentialJsonContext.cs" Link="CredentialJsonContext.cs" />
         <ProjectReference Include="../../src/UniversalRemote.Telemetry/UniversalRemote.Telemetry.csproj" />
-        <ProjectReference Include="../../src/UniversalRemote.Hub.Wifi/UniversalRemote.Hub.Wifi.csproj" />
-        <ProjectReference Include="../../src/UniversalRemote.Hub.Ble/UniversalRemote.Hub.Ble.csproj" />
+        <ProjectReference Include="../../src/Remote/UniversalRemote.Hub.Wifi/UniversalRemote.Hub.Wifi.csproj" />
+        <ProjectReference Include="../../src/Remote/UniversalRemote.Hub.Ble/UniversalRemote.Hub.Ble.csproj" />
 		<ProjectReference Include="../../src/UniversalRemote.Theming/UniversalRemote.Theming.csproj" />
 		<ProjectReference Include="../../src/UniversalRemote.Provider.LG/UniversalRemote.Provider.LG.csproj" />
 		<ProjectReference Include="../../src/UniversalRemote.Provider.Samsung/UniversalRemote.Provider.Samsung.csproj" />
@@ -17,17 +17,22 @@
 			<PrivateAssets>all</PrivateAssets>
 		</PackageReference>
 		<PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="10.0.0" />
-		<ProjectReference Include="../../src/UniversalRemote.Compatibility/UniversalRemote.Compatibility.csproj" />
-		<ProjectReference Include="../../src/UniversalRemote.Hub/UniversalRemote.Hub.csproj" />
+		<ProjectReference Include="../../src/Remote/UniversalRemote.Compatibility/UniversalRemote.Compatibility.csproj" />
+		<ProjectReference Include="../../src/Remote/UniversalRemote.Hub/UniversalRemote.Hub.csproj" />
 		<ProjectReference Include="../../src/UniversalRemote.Application/UniversalRemote.Application.csproj" />
 		<ProjectReference Include="../../src/UniversalRemote.Provider.Simulator/UniversalRemote.Provider.Simulator.csproj" />
-		<ProjectReference Include="../../src/UniversalRemote.Provider.AndroidTv/UniversalRemote.Provider.AndroidTv.csproj" />
+		<ProjectReference Include="../../src/Remote/UniversalRemote.Provider.AndroidTv/UniversalRemote.Provider.AndroidTv.csproj" />
 		<ProjectReference Include="../../src/UniversalRemote.Discovery/UniversalRemote.Discovery.csproj" />
-		<ProjectReference Include="../../src/UniversalRemote.Presentation/UniversalRemote.Presentation.csproj" />
-		<ProjectReference Include="../../src/UniversalRemote.Provider.Freebox/UniversalRemote.Provider.Freebox.csproj" />
+		<ProjectReference Include="../../src/Remote/UniversalRemote.Presentation/UniversalRemote.Presentation.csproj" />
+		<ProjectReference Include="../../src/Remote/UniversalRemote.Provider.Freebox/UniversalRemote.Provider.Freebox.csproj" />
 		<ProjectReference Include="../../src/UniversalRemote.Provider.GenericUpnp/UniversalRemote.Provider.GenericUpnp.csproj" />
 		<ProjectReference Include="../../src/UniversalRemote.Provider.OrangeTv/UniversalRemote.Provider.OrangeTv.csproj" />
-		<ProjectReference Include="../../src/UniversalRemote.Provider.GenericIr/UniversalRemote.Provider.GenericIr.csproj" />
-		<ProjectReference Include="../../src/UniversalRemote.Persistence.Sqlite/UniversalRemote.Persistence.Sqlite.csproj" />
+		<ProjectReference Include="../../src/Remote/UniversalRemote.Provider.GenericIr/UniversalRemote.Provider.GenericIr.csproj" />
+		<ProjectReference Include="../../src/Remote/UniversalRemote.Persistence.Sqlite/UniversalRemote.Persistence.Sqlite.csproj" />
+		<ProjectReference Include="..\..\src\Media\UniversalRemote.Media.Abstractions\UniversalRemote.Media.Abstractions.csproj" />
+		<ProjectReference Include="..\..\src\Media\UniversalRemote.Media.Core\UniversalRemote.Media.Core.csproj" />
+		<ProjectReference Include="..\..\src\Media\UniversalRemote.Media.Playback\UniversalRemote.Media.Playback.csproj" />
+		<ProjectReference Include="..\..\src\Media\UniversalRemote.Media.Provider.M3U\UniversalRemote.Media.Provider.M3U.csproj" />
+		<ProjectReference Include="..\..\src\Media\UniversalRemote.Media.Provider.Xtream\UniversalRemote.Media.Provider.Xtream.csproj" />
 	</ItemGroup>
 </Project>

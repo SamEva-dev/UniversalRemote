@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="UniversalRemote.Maui.Media.PlaybackPage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+    Title="Lecteur"
+    BackgroundColor="{StaticResource MediaHorizonBackground}">
+
+    <ScrollView>
+        <VerticalStackLayout
+            Spacing="0"
+            MaximumWidthRequest="1280"
+            HorizontalOptions="Center">
+
+            <Grid BackgroundColor="#03070C" MinimumHeightRequest="240" HeightRequest="360">
+                <toolkit:MediaElement
+                    x:Name="player"
+                    Aspect="AspectFit"
+                    ShouldAutoPlay="False"
+                    ShouldKeepScreenOn="True"
+                    ShouldShowPlaybackControls="False"
+                    BackgroundColor="Black" />
+
+                <Border
+                    x:Name="emptyState"
+                    Margin="24"
+                    Padding="24"
+                    BackgroundColor="#E8111C2B"
+                    Stroke="#29445F"
+                    StrokeThickness="1"
+                    StrokeShape="RoundRectangle 22"
+                    HorizontalOptions="Center"
+                    VerticalOptions="Center"
+                    MaximumWidthRequest="520">
+                    <VerticalStackLayout Spacing="10">
+                        <Border WidthRequest="58" HeightRequest="58" BackgroundColor="#18314B" Stroke="#2F5D83" StrokeShape="RoundRectangle 18" HorizontalOptions="Center">
+                            <Label Text="▶" TextColor="{StaticResource MediaHorizonAccent}" FontSize="23" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" />
+                        </Border>
+                        <Label Text="Lecteur Media" Style="{StaticResource MediaHorizonSectionTitle}" HorizontalTextAlignment="Center" />
+                        <Label
+                            Text="Sélectionnez un contenu depuis le catalogue Media pour lancer ou reprendre la lecture sur cet appareil."
+                            Style="{StaticResource MediaHorizonMutedText}"
+                            HorizontalTextAlignment="Center" />
+                    </VerticalStackLayout>
+                </Border>
+
+                <Border
+                    Margin="14"
+                    HorizontalOptions="End"
+                    VerticalOptions="Start"
+                    Style="{StaticResource MediaHorizonChip}"
+                    BackgroundColor="#B5142638">
+                    <Label x:Name="targetLabel" Text="Ce téléphone" TextColor="#C8DAED" FontSize="10" FontAttributes="Bold" />
+                </Border>
+            </Grid>
+
+            <VerticalStackLayout Padding="18,16,18,6" Spacing="5">
+                <Label Text="EN LECTURE" Style="{StaticResource MediaHorizonEyebrow}" />
+                <Label x:Name="titleLabel" Text="Aucune lecture" Style="{StaticResource MediaHorizonPageTitle}" FontSize="24" />
+                <Label x:Name="stateLabel" Text="Prêt" Style="{StaticResource MediaHorizonMutedText}" />
+            </VerticalStackLayout>
+
+            <Grid Padding="18,8,18,0" ColumnDefinitions="Auto,*,Auto" ColumnSpacing="10">
+                <Label x:Name="positionLabel" Text="00:00" Style="{StaticResource MediaHorizonSubtleText}" VerticalTextAlignment="Center" />
+                <Slider x:Name="timeline" Grid.Column="1" Minimum="0" Maximum="1" Value="0" Style="{StaticResource MediaHorizonSlider}" />
+                <Label x:Name="durationLabel" Grid.Column="2" Text="--:--" Style="{StaticResource MediaHorizonSubtleText}" VerticalTextAlignment="Center" />
+            </Grid>
+
+            <Grid Padding="18,10,18,18" ColumnDefinitions="*,*,*,*,*" ColumnSpacing="8">
+                <Button x:Name="backButton" Grid.Column="0" Text="↶ 10" Style="{StaticResource MediaHorizonGhostButton}" AutomationProperties.Name="Reculer de 10 secondes" />
+                <Button x:Name="playButton" Grid.Column="1" Text="▶" Style="{StaticResource MediaHorizonIconButton}" FontSize="19" AutomationProperties.Name="Lire" />
+                <Button x:Name="pauseButton" Grid.Column="2" Text="Ⅱ" Style="{StaticResource MediaHorizonIconButton}" FontSize="18" AutomationProperties.Name="Pause" />
+                <Button x:Name="forwardButton" Grid.Column="3" Text="30 ↷" Style="{StaticResource MediaHorizonGhostButton}" AutomationProperties.Name="Avancer de 30 secondes" />
+                <Button x:Name="stopButton" Grid.Column="4" Text="■" Style="{StaticResource MediaHorizonGhostButton}" AutomationProperties.Name="Arrêter" />
+            </Grid>
+
+            <Border
+                x:Name="remotePanel"
+                Margin="18,4,18,28"
+                Style="{StaticResource MediaHorizonRaisedCard}"
+                IsVisible="False">
+                <VerticalStackLayout Spacing="14">
+                    <Grid ColumnDefinitions="*,Auto" ColumnSpacing="12">
+                        <VerticalStackLayout Spacing="3">
+                            <Label Text="TÉLÉCOMMANDE RAPIDE" Style="{StaticResource MediaHorizonEyebrow}" />
+                            <Label x:Name="remoteTargetLabel" Text="Appareil" Style="{StaticResource MediaHorizonSectionTitle}" FontSize="18" />
+                        </VerticalStackLayout>
+                        <Button x:Name="fullRemoteButton" Grid.Column="1" Text="Télécommande" Style="{StaticResource MediaHorizonSecondaryButton}" />
+                    </Grid>
+
+                    <Label
+                        x:Name="remoteStatusLabel"
+                        Text="Commandes disponibles selon les capacités de l’appareil."
+                        Style="{StaticResource MediaHorizonSubtleText}" />
+
+                    <Grid ColumnDefinitions="*,*,*" ColumnSpacing="8">
+                        <Button x:Name="volumeDownButton" Grid.Column="0" Text="−  Volume" Style="{StaticResource MediaHorizonSecondaryButton}" />
+                        <Button x:Name="muteButton" Grid.Column="1" Text="Muet" Style="{StaticResource MediaHorizonSecondaryButton}" />
+                        <Button x:Name="volumeUpButton" Grid.Column="2" Text="Volume  +" Style="{StaticResource MediaHorizonSecondaryButton}" />
+                    </Grid>
+
+                    <Grid RowDefinitions="Auto,Auto,Auto" ColumnDefinitions="*,*,*" RowSpacing="8" ColumnSpacing="8" MaximumWidthRequest="520" HorizontalOptions="Center">
+                        <Button x:Name="upButton" Grid.Row="0" Grid.Column="1" Text="▲" Style="{StaticResource MediaHorizonIconButton}" />
+                        <Button x:Name="leftButton" Grid.Row="1" Grid.Column="0" Text="◀" Style="{StaticResource MediaHorizonIconButton}" />
+                        <Button x:Name="okButton" Grid.Row="1" Grid.Column="1" Text="OK" Style="{StaticResource MediaHorizonPrimaryButton}" />
+                        <Button x:Name="rightButton" Grid.Row="1" Grid.Column="2" Text="▶" Style="{StaticResource MediaHorizonIconButton}" />
+                        <Button x:Name="backRemoteButton" Grid.Row="2" Grid.Column="0" Text="Retour" Style="{StaticResource MediaHorizonGhostButton}" />
+                        <Button x:Name="downButton" Grid.Row="2" Grid.Column="1" Text="▼" Style="{StaticResource MediaHorizonIconButton}" />
+                        <Button x:Name="homeButton" Grid.Row="2" Grid.Column="2" Text="Accueil" Style="{StaticResource MediaHorizonGhostButton}" />
+                    </Grid>
+
+                    <Grid ColumnDefinitions="*,*" ColumnSpacing="8">
+                        <Button x:Name="playPauseRemoteButton" Grid.Column="0" Text="Lecture / Pause" Style="{StaticResource MediaHorizonSecondaryButton}" />
+                        <Button x:Name="guideButton" Grid.Column="1" Text="Guide TV" Style="{StaticResource MediaHorizonSecondaryButton}" />
+                    </Grid>
+                </VerticalStackLayout>
+            </Border>
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>

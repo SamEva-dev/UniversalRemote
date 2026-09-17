@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<ResourceDictionary
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
+
+    <!-- MEDIA 10 / Horizon Media: visual tokens scoped through keyed resources so the
+         remote-control layouts keep their own theming and do not inherit Media styling. -->
+    <Color x:Key="MediaHorizonBackground">#07111E</Color>
+    <Color x:Key="MediaHorizonBackgroundAlt">#0A1625</Color>
+    <Color x:Key="MediaHorizonSurface">#0F1C2D</Color>
+    <Color x:Key="MediaHorizonSurfaceRaised">#14263A</Color>
+    <Color x:Key="MediaHorizonSurfaceSoft">#102033</Color>
+    <Color x:Key="MediaHorizonBorder">#29445F</Color>
+    <Color x:Key="MediaHorizonBorderSoft">#20364D</Color>
+    <Color x:Key="MediaHorizonAccent">#45A8FF</Color>
+    <Color x:Key="MediaHorizonAccentStrong">#1678E8</Color>
+    <Color x:Key="MediaHorizonCyan">#67E8F9</Color>
+    <Color x:Key="MediaHorizonText">#F5F9FF</Color>
+    <Color x:Key="MediaHorizonTextMuted">#9AB0C9</Color>
+    <Color x:Key="MediaHorizonTextSubtle">#6F87A6</Color>
+    <Color x:Key="MediaHorizonSuccess">#4FE3A4</Color>
+    <Color x:Key="MediaHorizonWarning">#F8C76A</Color>
+    <Color x:Key="MediaHorizonDanger">#FF7A90</Color>
+
+    <LinearGradientBrush x:Key="MediaHorizonHeroBrush" StartPoint="0,0" EndPoint="1,1">
+        <GradientStop Color="#173A62" Offset="0" />
+        <GradientStop Color="#102A49" Offset="0.52" />
+        <GradientStop Color="#0B1B30" Offset="1" />
+    </LinearGradientBrush>
+
+    <LinearGradientBrush x:Key="MediaHorizonAccentBrush" StartPoint="0,0" EndPoint="1,1">
+        <GradientStop Color="#1C8DFF" Offset="0" />
+        <GradientStop Color="#496BFF" Offset="1" />
+    </LinearGradientBrush>
+
+    <Style x:Key="MediaHorizonPageTitle" TargetType="Label">
+        <Setter Property="TextColor" Value="{StaticResource MediaHorizonText}" />
+        <Setter Property="FontSize" Value="30" />
+        <Setter Property="FontAttributes" Value="Bold" />
+        <Setter Property="LineBreakMode" Value="TailTruncation" />
+    </Style>
+
+    <Style x:Key="MediaHorizonSectionTitle" TargetType="Label">
+        <Setter Property="TextColor" Value="{StaticResource MediaHorizonText}" />
+        <Setter Property="FontSize" Value="20" />
+        <Setter Property="FontAttributes" Value="Bold" />
+    </Style>
+
+    <Style x:Key="MediaHorizonEyebrow" TargetType="Label">
+        <Setter Property="TextColor" Value="{StaticResource MediaHorizonCyan}" />
+        <Setter Property="FontSize" Value="11" />
+        <Setter Property="FontAttributes" Value="Bold" />
+        <Setter Property="CharacterSpacing" Value="1.4" />
+    </Style>
+
+    <Style x:Key="MediaHorizonMutedText" TargetType="Label">
+        <Setter Property="TextColor" Value="{StaticResource MediaHorizonTextMuted}" />
+        <Setter Property="FontSize" Value="13" />
+    </Style>
+
+    <Style x:Key="MediaHorizonSubtleText" TargetType="Label">
+        <Setter Property="TextColor" Value="{StaticResource MediaHorizonTextSubtle}" />
+        <Setter Property="FontSize" Value="11" />
+    </Style>
+
+    <Style x:Key="MediaHorizonCard" TargetType="Border">
+        <Setter Property="BackgroundColor" Value="{StaticResource MediaHorizonSurface}" />
+        <Setter Property="Stroke" Value="{StaticResource MediaHorizonBorderSoft}" />
+        <Setter Property="StrokeThickness" Value="1" />
+        <Setter Property="StrokeShape" Value="RoundRectangle 20" />
+        <Setter Property="Padding" Value="16" />
+    </Style>
+
+    <Style x:Key="MediaHorizonRaisedCard" TargetType="Border" BasedOn="{StaticResource MediaHorizonCard}">
+        <Setter Property="BackgroundColor" Value="{StaticResource MediaHorizonSurfaceRaised}" />
+        <Setter Property="Stroke" Value="{StaticResource MediaHorizonBorder}" />
+    </Style>
+
+    <Style x:Key="MediaHorizonChip" TargetType="Border">
+        <Setter Property="BackgroundColor" Value="#192D45" />
+        <Setter Property="Stroke" Value="#315678" />
+        <Setter Property="StrokeThickness" Value="1" />
+        <Setter Property="StrokeShape" Value="RoundRectangle 999" />
+        <Setter Property="Padding" Value="10,5" />
+    </Style>
+
+    <Style x:Key="MediaHorizonPrimaryButton" TargetType="Button">
+        <Setter Property="TextColor" Value="White" />
+        <Setter Property="BackgroundColor" Value="{StaticResource MediaHorizonAccentStrong}" />
+        <Setter Property="CornerRadius" Value="16" />
+        <Setter Property="FontAttributes" Value="Bold" />
+        <Setter Property="MinimumHeightRequest" Value="50" />
+        <Setter Property="Padding" Value="16,12" />
+    </Style>
+
+    <Style x:Key="MediaHorizonSecondaryButton" TargetType="Button">
+        <Setter Property="TextColor" Value="{StaticResource MediaHorizonText}" />
+        <Setter Property="BackgroundColor" Value="{StaticResource MediaHorizonSurfaceRaised}" />
+        <Setter Property="BorderColor" Value="{StaticResource MediaHorizonBorder}" />
+        <Setter Property="BorderWidth" Value="1" />
+        <Setter Property="CornerRadius" Value="16" />
+        <Setter Property="FontAttributes" Value="Bold" />
+        <Setter Property="MinimumHeightRequest" Value="48" />
+        <Setter Property="Padding" Value="14,11" />
+    </Style>
+
+    <Style x:Key="MediaHorizonGhostButton" TargetType="Button">
+        <Setter Property="TextColor" Value="{StaticResource MediaHorizonTextMuted}" />
+        <Setter Property="BackgroundColor" Value="Transparent" />
+        <Setter Property="BorderColor" Value="{StaticResource MediaHorizonBorderSoft}" />
+        <Setter Property="BorderWidth" Value="1" />
+        <Setter Property="CornerRadius" Value="14" />
+        <Setter Property="MinimumHeightRequest" Value="44" />
+        <Setter Property="Padding" Value="12,9" />
+    </Style>
+
+    <Style x:Key="MediaHorizonIconButton" TargetType="Button">
+        <Setter Property="TextColor" Value="{StaticResource MediaHorizonText}" />
+        <Setter Property="BackgroundColor" Value="#16283D" />
+        <Setter Property="BorderColor" Value="{StaticResource MediaHorizonBorder}" />
+        <Setter Property="BorderWidth" Value="1" />
+        <Setter Property="CornerRadius" Value="22" />
+        <Setter Property="MinimumHeightRequest" Value="46" />
+        <Setter Property="MinimumWidthRequest" Value="46" />
+        <Setter Property="Padding" Value="8" />
+    </Style>
+
+    <Style x:Key="MediaHorizonEntry" TargetType="Entry">
+        <Setter Property="TextColor" Value="{StaticResource MediaHorizonText}" />
+        <Setter Property="PlaceholderColor" Value="{StaticResource MediaHorizonTextSubtle}" />
+        <Setter Property="BackgroundColor" Value="#0D1A2A" />
+        <Setter Property="MinimumHeightRequest" Value="48" />
+    </Style>
+
+    <Style x:Key="MediaHorizonSearch" TargetType="SearchBar">
+        <Setter Property="TextColor" Value="{StaticResource MediaHorizonText}" />
+        <Setter Property="PlaceholderColor" Value="{StaticResource MediaHorizonTextSubtle}" />
+        <Setter Property="BackgroundColor" Value="{StaticResource MediaHorizonSurface}" />
+        <Setter Property="MinimumHeightRequest" Value="50" />
+    </Style>
+
+
+    <Style x:Key="MediaHorizonPicker" TargetType="Picker">
+        <Setter Property="TextColor" Value="{StaticResource MediaHorizonText}" />
+        <Setter Property="TitleColor" Value="{StaticResource MediaHorizonTextSubtle}" />
+        <Setter Property="BackgroundColor" Value="#0D1A2A" />
+        <Setter Property="MinimumHeightRequest" Value="48" />
+    </Style>
+
+    <Style x:Key="MediaHorizonEditor" TargetType="Editor">
+        <Setter Property="TextColor" Value="{StaticResource MediaHorizonText}" />
+        <Setter Property="PlaceholderColor" Value="{StaticResource MediaHorizonTextSubtle}" />
+        <Setter Property="BackgroundColor" Value="#0D1A2A" />
+        <Setter Property="MinimumHeightRequest" Value="72" />
+    </Style>
+
+    <Style x:Key="MediaHorizonSwitch" TargetType="Switch">
+        <Setter Property="OnColor" Value="{StaticResource MediaHorizonAccent}" />
+        <Setter Property="ThumbColor" Value="{StaticResource MediaHorizonText}" />
+    </Style>
+
+    <Style x:Key="MediaHorizonProgress" TargetType="ProgressBar">
+        <Setter Property="ProgressColor" Value="{StaticResource MediaHorizonAccent}" />
+    </Style>
+
+    <Style x:Key="MediaHorizonSlider" TargetType="Slider">
+        <Setter Property="MinimumTrackColor" Value="{StaticResource MediaHorizonAccent}" />
+        <Setter Property="MaximumTrackColor" Value="#27415C" />
+        <Setter Property="ThumbColor" Value="{StaticResource MediaHorizonText}" />
+    </Style>
+</ResourceDictionary>

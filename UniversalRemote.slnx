@@ -17,6 +17,14 @@
       <Deploy Solution="Debug|*" />
     </Project>
   </Folder>
+  <Folder Name="/src/Media/">
+    <Project Path="src/Media/UniversalRemote.Media.Abstractions/UniversalRemote.Media.Abstractions.csproj" Id="31aad82c-2f47-4eaa-aba6-817e14a8f3ca" />
+    <Project Path="src/Media/UniversalRemote.Media.Core/UniversalRemote.Media.Core.csproj" Id="66527091-41fd-41a9-909e-1352b278e2a2" />
+    <Project Path="src/Media/UniversalRemote.Media.Epg/UniversalRemote.Media.Epg.csproj" Id="e51cc727-f3d5-4303-b8d7-510e103c9fe9" />
+    <Project Path="src/Media/UniversalRemote.Media.Playback/UniversalRemote.Media.Playback.csproj" Id="3a34698b-6375-484d-8159-df32d6262bcd" />
+    <Project Path="src/Media/UniversalRemote.Media.Provider.M3U/UniversalRemote.Media.Provider.M3U.csproj" Id="33e87399-8f0d-479b-b1f0-abc6681cdef2" />
+    <Project Path="src/Media/UniversalRemote.Media.Provider.Xtream/UniversalRemote.Media.Provider.Xtream.csproj" Id="5bdf09df-eb46-451f-a867-de0fa03d1d83" />
+  </Folder>
   <Folder Name="/src/remote/">
     <Project Path="src/UniversalRemote.Abstractions/UniversalRemote.Abstractions.csproj" Id="07df9502-3b1f-48c0-b6af-c8f25701a0ac" />
     <Project Path="src/UniversalRemote.Application/UniversalRemote.Application.csproj" Id="ca9f23b0-b617-44e4-8aa2-63c4238bc46a" />

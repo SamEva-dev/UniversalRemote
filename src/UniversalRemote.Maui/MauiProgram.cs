@@ -1,11 +1,12 @@
+using CommunityToolkit.Maui;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.Maui.Hosting;
 using Microsoft.Maui.Storage;
-using UniversalRemote.Remote.Abstractions;
-using UniversalRemote.Remote.Application;
-using UniversalRemote.Remote.Compatibility;
-using UniversalRemote.Remote.Discovery;
+using UniversalRemote.Abstractions;
+using UniversalRemote.Application;
+using UniversalRemote.Compatibility;
+using UniversalRemote.Discovery;
 using UniversalRemote.Maui.Activities;
 using UniversalRemote.Maui.AndroidTv;
 using UniversalRemote.Maui.Compatibility;
@@ -18,26 +19,33 @@ using UniversalRemote.Maui.Favorites;
 using UniversalRemote.Maui.Samsung;
 using UniversalRemote.Maui.LG;
 using UniversalRemote.Maui.Hub;
-using UniversalRemote.Remote.Persistence.Sqlite;
-using UniversalRemote.Remote.Provider.AndroidTv;
-using UniversalRemote.Remote.Provider.Freebox;
-using UniversalRemote.Remote.Provider.GenericUpnp;
-using UniversalRemote.Remote.Provider.OrangeTv;
-using UniversalRemote.Remote.Provider.Samsung;
-using UniversalRemote.Remote.Provider.LG;
-using UniversalRemote.Remote.Provider.Simulator;
-using Device = UniversalRemote.Remote.Abstractions.Device;
-using UniversalRemote.Remote.Provider.GenericIr;
-using UniversalRemote.Remote.Hub;
-using UniversalRemote.Remote.Hub.Wifi;
-using UniversalRemote.Remote.Hub.Ble;
-using UniversalRemote.Remote.Telemetry;
-using UniversalRemote.Remote.Theming;
-using UniversalRemote.Remote.Presentation;
-
-
+using UniversalRemote.Persistence.Sqlite;
+using UniversalRemote.Provider.AndroidTv;
+using UniversalRemote.Provider.Freebox;
+using UniversalRemote.Provider.GenericUpnp;
+using UniversalRemote.Provider.OrangeTv;
+using UniversalRemote.Provider.Samsung;
+using UniversalRemote.Provider.LG;
+using UniversalRemote.Provider.Simulator;
+using Device = UniversalRemote.Abstractions.Device;
+using UniversalRemote.Provider.GenericIr;
+using UniversalRemote.Hub;
+using UniversalRemote.Hub.Wifi;
+using UniversalRemote.Hub.Ble;
+using UniversalRemote.Telemetry;
+using UniversalRemote.Media.Abstractions;
+using UniversalRemote.Media.Activities;
+using UniversalRemote.Media.Core;
+using UniversalRemote.Media.Control;
+using UniversalRemote.Media.Epg;
+using UniversalRemote.Media.Playback;
+using UniversalRemote.Media.Profiles;
+using UniversalRemote.Media.Provider.M3U;
+using UniversalRemote.Media.Provider.Xtream;
+using UniversalRemote.Media.Targets;
+using UniversalRemote.Maui.Media;
 #if ANDROID
-using UniversalRemote.Remote.Platform.Android;
+using UniversalRemote.Platform.Android;
 #endif
 
 namespace UniversalRemote.Maui;
@@ -49,12 +57,33 @@ public static class MauiProgram
     public static MauiApp CreateMauiApp()
     {
         var builder = MauiApp.CreateBuilder();
-        builder.UseMauiApp<App>();
+        builder
+            .UseMauiApp<App>()
+            .UseMauiCommunityToolkitMediaElement();
         builder.Services.AddSingleton<ITelemetryConsentStore, PreferencesTelemetryConsentStore>();
         var telemetryPath = Path.Combine(FileSystem.AppDataDirectory, "telemetry-v1.jsonl");
         builder.Services.AddUniversalRemoteTelemetry(telemetryPath);
         builder.Services.AddUniversalRemoteApplication();
         builder.Services.AddUniversalRemoteDiscovery();
+        builder.Services.AddSingleton<IMediaCredentialStore, SecureMediaCredentialStore>();
+        builder.Services.AddUniversalRemoteMediaCore();
+        builder.Services.AddSingleton<IMediaProfilePinStore, SecureMediaProfilePinStore>();
+        builder.Services.AddUniversalRemoteMediaProfiles(Path.Combine(FileSystem.AppDataDirectory, "media-profiles-v1.json"));
+        builder.Services.RemoveAll<IMediaFavoriteRepository>();
+        builder.Services.RemoveAll<IMediaHistoryRepository>();
+        builder.Services.AddSingleton(new FileMediaLibraryStore(Path.Combine(FileSystem.AppDataDirectory, "media-library-v1.json")));
+        builder.Services.AddSingleton<IMediaFavoriteRepository>(sp => sp.GetRequiredService<FileMediaLibraryStore>());
+        builder.Services.AddSingleton<IMediaHistoryRepository>(sp => sp.GetRequiredService<FileMediaLibraryStore>());
+        builder.Services.AddUniversalRemoteMediaEpg(Path.Combine(FileSystem.CacheDirectory, "epg-v1"));
+        builder.Services.AddUniversalRemoteM3uProvider();
+        builder.Services.AddUniversalRemoteXtreamProvider();
+        builder.Services.AddSingleton<MauiMediaElementPlaybackEngine>();
+        builder.Services.AddSingleton<ILocalPlaybackEngine>(sp => sp.GetRequiredService<MauiMediaElementPlaybackEngine>());
+        builder.Services.AddSingleton<IPlaybackCheckpointStore, PreferencesPlaybackCheckpointStore>();
+        builder.Services.AddUniversalRemoteMediaPlayback();
+        builder.Services.AddUniversalRemoteMediaTargets();
+        builder.Services.AddUniversalRemoteMediaControl();
+        builder.Services.AddUniversalRemoteMediaActivities(Path.Combine(FileSystem.AppDataDirectory, "media-activities-v1.json"));
         builder.Services.AddSingleton<IWifiInfraredHubConnectionStore, SecureWifiInfraredHubConnectionStore>();
         builder.Services.AddUniversalRemoteInfraredHubWifi();
         builder.Services.AddSingleton<IBleInfraredHubConnectionStore, SecureBleInfraredHubConnectionStore>();
@@ -105,7 +134,7 @@ public static class MauiProgram
         builder.Services.AddSingleton(minimalFallback);
         builder.Services.AddSingleton<IRemoteLayoutRenderer>(new XamlRemoteRenderer("minimal", minimalFallback));
 
-        foreach (var layout in BuiltInRemoteStyles.Layouts.Where(x => x.Id != "minimal"))
+        foreach (var layout in UniversalRemote.Theming.BuiltInRemoteStyles.Layouts.Where(x => x.Id != "minimal"))
         {
             var referenceFallback = new ReferenceRemoteRenderer(layout.Id);
             builder.Services.AddSingleton(referenceFallback);
@@ -124,6 +153,19 @@ public static class MauiProgram
         builder.Services.AddSingleton<HubPage>();
         builder.Services.AddSingleton<PrivacyViewModel>();
         builder.Services.AddSingleton<PrivacyPage>();
+        builder.Services.AddSingleton<MediaNavigationState>();
+        builder.Services.AddSingleton<MediaHubPage>();
+        builder.Services.AddSingleton<LiveTvPage>();
+        builder.Services.AddSingleton<MoviesPage>();
+        builder.Services.AddSingleton<SeriesPage>();
+        builder.Services.AddSingleton<MediaSearchPage>();
+        builder.Services.AddSingleton<MediaLibraryPage>();
+        builder.Services.AddSingleton<MediaDetailsPage>();
+        builder.Services.AddSingleton<PlaybackTargetPage>();
+        builder.Services.AddSingleton<PlaybackPage>();
+        builder.Services.AddSingleton<TvGuidePage>();
+        builder.Services.AddSingleton<MediaActivitiesPage>();
+        builder.Services.AddSingleton<MediaProfilesPage>();
         builder.Services.AddSingleton<AppShell>();
 
         var app = builder.Build();
@@ -135,7 +177,7 @@ public static class MauiProgram
     {
         var demo = new Device(DemoDeviceId, "TV de démonstration — simulation",
             [new DeviceRoute(SimulatorProvider.ProviderId, "demo-tv",
-                RemoteConceptCatalog.DemoActions)]);
+                UniversalRemote.Presentation.RemoteConceptCatalog.DemoActions)]);
         services.GetRequiredService<IDeviceRegistrar>().UpsertAsync(demo).GetAwaiter().GetResult();
     }
 }

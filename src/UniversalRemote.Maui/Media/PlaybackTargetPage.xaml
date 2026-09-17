@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="UniversalRemote.Maui.Media.PlaybackTargetPage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    Title="Où regarder ?"
+    BackgroundColor="{StaticResource MediaHorizonBackground}">
+
+    <Grid Padding="18,16,18,24" RowDefinitions="Auto,Auto,*,Auto" RowSpacing="16" MaximumWidthRequest="920" HorizontalOptions="Center">
+        <VerticalStackLayout Spacing="5">
+            <Label Text="DESTINATION" Style="{StaticResource MediaHorizonEyebrow}" />
+            <Label Text="Où regarder ?" Style="{StaticResource MediaHorizonPageTitle}" />
+            <Label x:Name="mediaLabel" Text="Choisissez une destination de lecture." Style="{StaticResource MediaHorizonMutedText}" />
+        </VerticalStackLayout>
+
+        <Border Grid.Row="1" Style="{StaticResource MediaHorizonCard}" Padding="12">
+            <Grid ColumnDefinitions="Auto,*,Auto" ColumnSpacing="10">
+                <Border WidthRequest="34" HeightRequest="34" BackgroundColor="#16304A" StrokeThickness="0" StrokeShape="RoundRectangle 11">
+                    <Label Text="⌁" TextColor="{StaticResource MediaHorizonAccent}" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" />
+                </Border>
+                <Label x:Name="statusLabel" Grid.Column="1" Text="Recherche des appareils…" Style="{StaticResource MediaHorizonMutedText}" VerticalTextAlignment="Center" />
+                <Button x:Name="refreshButton" Grid.Column="2" Text="↻" Style="{StaticResource MediaHorizonIconButton}" FontSize="18" AutomationProperties.Name="Rechercher les destinations" />
+            </Grid>
+        </Border>
+
+        <CollectionView x:Name="targetList" Grid.Row="2" SelectionMode="Single">
+            <CollectionView.EmptyView>
+                <Border Style="{StaticResource MediaHorizonCard}" Padding="22">
+                    <VerticalStackLayout Spacing="7">
+                        <Label Text="Aucune destination trouvée" Style="{StaticResource MediaHorizonSectionTitle}" HorizontalTextAlignment="Center" />
+                        <Label Text="Cet appareil devrait toujours être disponible. Réessayez l’actualisation." Style="{StaticResource MediaHorizonMutedText}" HorizontalTextAlignment="Center" />
+                    </VerticalStackLayout>
+                </Border>
+            </CollectionView.EmptyView>
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                    <Border Margin="0,0,0,11" Style="{StaticResource MediaHorizonCard}" Padding="15">
+                        <VisualStateManager.VisualStateGroups>
+                            <VisualStateGroup x:Name="CommonStates">
+                                <VisualState x:Name="Normal" />
+                                <VisualState x:Name="Selected">
+                                    <VisualState.Setters>
+                                        <Setter Property="Stroke" Value="{StaticResource MediaHorizonAccent}" />
+                                        <Setter Property="BackgroundColor" Value="#132B43" />
+                                    </VisualState.Setters>
+                                </VisualState>
+                            </VisualStateGroup>
+                        </VisualStateManager.VisualStateGroups>
+                        <Grid ColumnDefinitions="Auto,*,Auto" ColumnSpacing="13">
+                            <Border WidthRequest="52" HeightRequest="52" BackgroundColor="#19324C" Stroke="#355F83" StrokeShape="RoundRectangle 16" VerticalOptions="Center">
+                                <Label Text="{Binding Icon}" FontSize="24" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" />
+                            </Border>
+                            <VerticalStackLayout Grid.Column="1" Spacing="4" VerticalOptions="Center">
+                                <Label Text="{Binding Name}" TextColor="{StaticResource MediaHorizonText}" FontAttributes="Bold" FontSize="16" />
+                                <Label Text="{Binding Status}" Style="{StaticResource MediaHorizonMutedText}" FontSize="12" LineBreakMode="TailTruncation" />
+                                <Label Text="{Binding Capabilities}" Style="{StaticResource MediaHorizonSubtleText}" MaxLines="2" />
+                            </VerticalStackLayout>
+                            <Border Grid.Column="2" Style="{StaticResource MediaHorizonChip}" VerticalOptions="Center">
+                                <Label Text="{Binding Availability}" TextColor="{StaticResource MediaHorizonAccent}" FontSize="10" FontAttributes="Bold" />
+                            </Border>
+                        </Grid>
+                    </Border>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+
+        <Button
+            x:Name="playButton"
+            Grid.Row="3"
+            Text="Regarder ici"
+            Style="{StaticResource MediaHorizonPrimaryButton}"
+            MinimumHeightRequest="56"
+            IsEnabled="False"
+            AutomationId="playback-target-start" />
+    </Grid>
+</ContentPage>

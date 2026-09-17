@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="UniversalRemote.Maui.Media.MediaActivitiesPage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    Title="Scénarios Media"
+    BackgroundColor="{StaticResource MediaHorizonBackground}">
+
+    <ScrollView>
+        <VerticalStackLayout Padding="18,16,18,30" Spacing="18" MaximumWidthRequest="980" HorizontalOptions="Center">
+            <VerticalStackLayout Spacing="4">
+                <Label Text="AUTOMATISATION" Style="{StaticResource MediaHorizonEyebrow}" />
+                <Label Text="Scénarios Media" Style="{StaticResource MediaHorizonPageTitle}" />
+                <Label Text="Préparez les appareils, puis lancez le contenu sans dupliquer le moteur d’activités." Style="{StaticResource MediaHorizonMutedText}" />
+            </VerticalStackLayout>
+
+            <Border Style="{StaticResource MediaHorizonRaisedCard}">
+                <VerticalStackLayout Spacing="13">
+                    <Grid ColumnDefinitions="Auto,*" ColumnSpacing="12">
+                        <Border WidthRequest="48" HeightRequest="48" BackgroundColor="#18314B" Stroke="#2F5D83" StrokeShape="RoundRectangle 15">
+                            <Label Text="⚡" TextColor="{StaticResource MediaHorizonCyan}" FontSize="20" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" />
+                        </Border>
+                        <VerticalStackLayout Grid.Column="1" Spacing="3" VerticalOptions="Center">
+                            <Label Text="Nouveau scénario" Style="{StaticResource MediaHorizonSectionTitle}" />
+                            <Label x:Name="mediaLabel" Text="Aucun média sélectionné" TextColor="{StaticResource MediaHorizonAccent}" FontAttributes="Bold" FontSize="12" />
+                        </VerticalStackLayout>
+                    </Grid>
+
+                    <Entry x:Name="nameEntry" Placeholder="Ex. Soirée cinéma" Style="{StaticResource MediaHorizonEntry}" />
+
+                    <Label Text="CIBLE DE LECTURE" Style="{StaticResource MediaHorizonEyebrow}" FontSize="9" />
+                    <Picker x:Name="targetPicker" Title="Choisir une cible" ItemDisplayBinding="{Binding Label}" Style="{StaticResource MediaHorizonPicker}" />
+
+                    <Label Text="SÉQUENCE DE PRÉPARATION" Style="{StaticResource MediaHorizonEyebrow}" FontSize="9" />
+                    <Picker x:Name="preparationPicker" Title="Aucune préparation" ItemDisplayBinding="{Binding Label}" Style="{StaticResource MediaHorizonPicker}" />
+                    <Label Text="La préparation peut contenir Marche/Arrêt, HDMI, navigation et délais depuis l’écran Activités." Style="{StaticResource MediaHorizonSubtleText}" />
+
+                    <Border Style="{StaticResource MediaHorizonCard}" Padding="12">
+                        <Grid ColumnDefinitions="*,Auto" ColumnSpacing="12">
+                            <VerticalStackLayout Spacing="2">
+                                <Label Text="Continuer après une commande non confirmée" TextColor="{StaticResource MediaHorizonText}" />
+                                <Label Text="Sinon, le scénario s’arrête avant la lecture." Style="{StaticResource MediaHorizonSubtleText}" />
+                            </VerticalStackLayout>
+                            <Switch x:Name="continueSwitch" Grid.Column="1" VerticalOptions="Center" Style="{StaticResource MediaHorizonSwitch}" />
+                        </Grid>
+                    </Border>
+
+                    <Button x:Name="saveButton" Text="Enregistrer le scénario" Style="{StaticResource MediaHorizonPrimaryButton}" />
+                    <Label x:Name="editorStatusLabel" Text="" Style="{StaticResource MediaHorizonSubtleText}" />
+                </VerticalStackLayout>
+            </Border>
+
+            <VerticalStackLayout Spacing="11">
+                <Label Text="Mes scénarios" Style="{StaticResource MediaHorizonSectionTitle}" />
+                <CollectionView x:Name="scenarioList" SelectionMode="Single" HeightRequest="350">
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate>
+                            <Border Margin="0,0,0,9" Style="{StaticResource MediaHorizonCard}" Padding="13">
+                                <VisualStateManager.VisualStateGroups>
+                                    <VisualStateGroup x:Name="CommonStates">
+                                        <VisualState x:Name="Normal" />
+                                        <VisualState x:Name="Selected">
+                                            <VisualState.Setters>
+                                                <Setter Property="Stroke" Value="{StaticResource MediaHorizonAccent}" />
+                                                <Setter Property="BackgroundColor" Value="#132B43" />
+                                            </VisualState.Setters>
+                                        </VisualState>
+                                    </VisualStateGroup>
+                                </VisualStateManager.VisualStateGroups>
+                                <Grid ColumnDefinitions="Auto,*,Auto" ColumnSpacing="12">
+                                    <Border WidthRequest="42" HeightRequest="42" BackgroundColor="#16304A" Stroke="#2F5D83" StrokeShape="RoundRectangle 13">
+                                        <Label Text="⚡" TextColor="{StaticResource MediaHorizonCyan}" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" />
+                                    </Border>
+                                    <VerticalStackLayout Grid.Column="1" Spacing="3" VerticalOptions="Center">
+                                        <Label Text="{Binding Name}" TextColor="{StaticResource MediaHorizonText}" FontAttributes="Bold" />
+                                        <Label Text="{Binding Subtitle}" Style="{StaticResource MediaHorizonSubtleText}" MaxLines="2" />
+                                    </VerticalStackLayout>
+                                    <Label Grid.Column="2" Text="›" TextColor="{StaticResource MediaHorizonAccent}" FontSize="24" VerticalTextAlignment="Center" />
+                                </Grid>
+                            </Border>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+
+                <Grid ColumnDefinitions="2*,*" ColumnSpacing="10">
+                    <Button x:Name="runButton" Text="▶  Exécuter" Style="{StaticResource MediaHorizonPrimaryButton}" IsEnabled="False" />
+                    <Button x:Name="deleteButton" Grid.Column="1" Text="Supprimer" Style="{StaticResource MediaHorizonGhostButton}" TextColor="{StaticResource MediaHorizonDanger}" IsEnabled="False" />
+                </Grid>
+                <ActivityIndicator x:Name="busyIndicator" IsVisible="False" IsRunning="False" Color="{StaticResource MediaHorizonAccent}" />
+                <Label x:Name="runStatusLabel" Text="" Style="{StaticResource MediaHorizonMutedText}" />
+            </VerticalStackLayout>
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>

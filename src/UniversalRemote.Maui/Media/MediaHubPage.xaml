@@ -1,0 +1,215 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="UniversalRemote.Maui.Media.MediaHubPage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    Title="Média"
+    BackgroundColor="{StaticResource MediaHorizonBackground}">
+
+    <ScrollView>
+        <VerticalStackLayout
+            Padding="18,16,18,28"
+            Spacing="22"
+            MaximumWidthRequest="1180"
+            HorizontalOptions="Center">
+
+            <!-- One-gesture Control / Media switch from the product trame. -->
+            <Grid ColumnDefinitions="Auto,*,Auto,Auto,Auto" ColumnSpacing="8">
+                <Border
+                    WidthRequest="46"
+                    HeightRequest="46"
+                    BackgroundColor="{StaticResource MediaHorizonAccentStrong}"
+                    StrokeThickness="0"
+                    StrokeShape="RoundRectangle 14">
+                    <Label
+                        Text="UR"
+                        TextColor="White"
+                        FontAttributes="Bold"
+                        FontSize="14"
+                        HorizontalTextAlignment="Center"
+                        VerticalTextAlignment="Center" />
+                </Border>
+
+                <VerticalStackLayout Grid.Column="1" Spacing="0" VerticalOptions="Center">
+                    <Label Text="UNIVERSALREMOTE" Style="{StaticResource MediaHorizonEyebrow}" />
+                    <Label Text="Media Hub" Style="{StaticResource MediaHorizonPageTitle}" FontSize="24" />
+                </VerticalStackLayout>
+
+                <Button
+                    x:Name="controlButton"
+                    Grid.Column="2"
+                    Text="Contrôle"
+                    Style="{StaticResource MediaHorizonGhostButton}"
+                    AutomationId="media-switch-control" />
+                <Button
+                    Grid.Column="3"
+                    Text="Médias"
+                    Style="{StaticResource MediaHorizonSecondaryButton}"
+                    TextColor="{StaticResource MediaHorizonAccent}"
+                    AutomationId="media-switch-media"
+                    IsEnabled="False" />
+                <Button
+                    x:Name="refreshButton"
+                    Grid.Column="4"
+                    Text="↻"
+                    Style="{StaticResource MediaHorizonIconButton}"
+                    FontSize="20"
+                    AutomationProperties.Name="Actualiser l’accueil Media" />
+            </Grid>
+
+            <Border
+                Style="{StaticResource MediaHorizonRaisedCard}"
+                Padding="0"
+                Background="{StaticResource MediaHorizonHeroBrush}"
+                Stroke="#315A82">
+                <Grid MinimumHeightRequest="154" Padding="20" RowDefinitions="Auto,*,Auto" ColumnDefinitions="*,Auto">
+                    <VerticalStackLayout Spacing="5">
+                        <Label Text="VOTRE UNIVERS MEDIA" Style="{StaticResource MediaHorizonEyebrow}" />
+                        <Label
+                            Text="Regardez. Pilotez. Continuez."
+                            TextColor="White"
+                            FontSize="27"
+                            FontAttributes="Bold"
+                            MaxLines="2" />
+                        <Label
+                            Text="TV en direct, films, séries et appareils du salon dans une seule expérience."
+                            TextColor="#C3D7EB"
+                            FontSize="13"
+                            MaxLines="2" />
+                    </VerticalStackLayout>
+
+                    <Border
+                        Grid.Column="1"
+                        WidthRequest="62"
+                        HeightRequest="62"
+                        BackgroundColor="#253B5B"
+                        Stroke="#4779A9"
+                        StrokeShape="RoundRectangle 20"
+                        VerticalOptions="Start">
+                        <Label Text="▶" TextColor="#8EDBFF" FontSize="25" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" />
+                    </Border>
+
+                    <Grid Grid.Row="2" Grid.ColumnSpan="2" ColumnDefinitions="*,Auto" ColumnSpacing="12" Margin="0,14,0,0">
+                        <VerticalStackLayout Spacing="2">
+                            <Label x:Name="activeProfileLabel" Text="Profil : …" TextColor="#91D8FF" FontAttributes="Bold" FontSize="12" />
+                            <Label x:Name="statusLabel" Text="Chargement…" TextColor="#B8CAE0" FontSize="12" MaxLines="2" />
+                        </VerticalStackLayout>
+                        <Button x:Name="profilesButton" Grid.Column="1" Text="Profil" Style="{StaticResource MediaHorizonGhostButton}" />
+                    </Grid>
+                </Grid>
+            </Border>
+
+            <VerticalStackLayout Spacing="12">
+                <Grid ColumnDefinitions="*,Auto">
+                    <Label Text="Explorer" Style="{StaticResource MediaHorizonSectionTitle}" />
+                    <Label Grid.Column="1" Text="HORIZON" Style="{StaticResource MediaHorizonEyebrow}" VerticalTextAlignment="Center" />
+                </Grid>
+
+                <FlexLayout Direction="Row" Wrap="Wrap" JustifyContent="SpaceBetween" AlignItems="Stretch">
+                    <Button x:Name="liveButton" Text="●  TV en direct" Style="{StaticResource MediaHorizonPrimaryButton}" FlexLayout.Basis="48%" Margin="0,0,0,10" MinimumHeightRequest="62" />
+                    <Button x:Name="moviesButton" Text="▣  Films" Style="{StaticResource MediaHorizonSecondaryButton}" FlexLayout.Basis="48%" Margin="0,0,0,10" MinimumHeightRequest="62" />
+                    <Button x:Name="seriesButton" Text="▤  Séries" Style="{StaticResource MediaHorizonSecondaryButton}" FlexLayout.Basis="48%" Margin="0,0,0,10" MinimumHeightRequest="62" />
+                    <Button x:Name="guideButton" Text="▦  Guide TV" Style="{StaticResource MediaHorizonSecondaryButton}" FlexLayout.Basis="48%" Margin="0,0,0,10" MinimumHeightRequest="62" />
+                    <Button x:Name="searchButton" Text="⌕  Recherche" Style="{StaticResource MediaHorizonSecondaryButton}" FlexLayout.Basis="48%" Margin="0,0,0,10" MinimumHeightRequest="62" />
+                    <Button x:Name="libraryButton" Text="★  Bibliothèque" Style="{StaticResource MediaHorizonSecondaryButton}" FlexLayout.Basis="48%" Margin="0,0,0,10" MinimumHeightRequest="62" />
+                </FlexLayout>
+            </VerticalStackLayout>
+
+            <VerticalStackLayout Spacing="10">
+                <Grid ColumnDefinitions="*,Auto">
+                    <VerticalStackLayout Spacing="1">
+                        <Label Text="Appareils" Style="{StaticResource MediaHorizonSectionTitle}" />
+                        <Label Text="Touchez un appareil pour ouvrir sa télécommande." Style="{StaticResource MediaHorizonSubtleText}" />
+                    </VerticalStackLayout>
+                    <Border Grid.Column="1" Style="{StaticResource MediaHorizonChip}" VerticalOptions="Center">
+                        <Label x:Name="deviceCountLabel" Text="0" TextColor="{StaticResource MediaHorizonAccent}" FontAttributes="Bold" FontSize="11" />
+                    </Border>
+                </Grid>
+
+                <CollectionView x:Name="deviceList" ItemsLayout="HorizontalList" SelectionMode="Single" HeightRequest="118">
+                    <CollectionView.EmptyView>
+                        <Border Style="{StaticResource MediaHorizonCard}" Padding="16">
+                            <Label Text="Ajoutez une TV, une box ou un hub pour les retrouver ici." Style="{StaticResource MediaHorizonMutedText}" />
+                        </Border>
+                    </CollectionView.EmptyView>
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate>
+                            <Border
+                                WidthRequest="238"
+                                HeightRequest="106"
+                                Margin="0,0,10,0"
+                                Style="{StaticResource MediaHorizonCard}">
+                                <Grid ColumnDefinitions="Auto,*" ColumnSpacing="12">
+                                    <Border WidthRequest="48" HeightRequest="48" BackgroundColor="#18314B" Stroke="#2F5D83" StrokeShape="RoundRectangle 15" VerticalOptions="Center">
+                                        <Label Text="{Binding Icon}" FontSize="23" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" />
+                                    </Border>
+                                    <VerticalStackLayout Grid.Column="1" Spacing="4" VerticalOptions="Center">
+                                        <Label Text="{Binding Name}" TextColor="{StaticResource MediaHorizonText}" FontAttributes="Bold" MaxLines="1" />
+                                        <Label Text="{Binding ProviderText}" Style="{StaticResource MediaHorizonSubtleText}" MaxLines="1" />
+                                        <Label Text="{Binding CapabilityText}" TextColor="{StaticResource MediaHorizonAccent}" FontSize="10" MaxLines="1" />
+                                    </VerticalStackLayout>
+                                </Grid>
+                            </Border>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+            </VerticalStackLayout>
+
+            <VerticalStackLayout Spacing="10">
+                <Grid ColumnDefinitions="*,Auto">
+                    <Label Text="Continuer à regarder" Style="{StaticResource MediaHorizonSectionTitle}" />
+                    <Border Grid.Column="1" Style="{StaticResource MediaHorizonChip}" VerticalOptions="Center">
+                        <Label x:Name="continueCountLabel" Text="0" TextColor="{StaticResource MediaHorizonAccent}" FontAttributes="Bold" FontSize="11" />
+                    </Border>
+                </Grid>
+                <CollectionView x:Name="continueList" ItemsLayout="HorizontalList" SelectionMode="Single" HeightRequest="164">
+                    <CollectionView.EmptyView>
+                        <Border Style="{StaticResource MediaHorizonCard}" Padding="16">
+                            <Label Text="Vos films et épisodes commencés apparaîtront ici." Style="{StaticResource MediaHorizonMutedText}" />
+                        </Border>
+                    </CollectionView.EmptyView>
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate>
+                            <Border WidthRequest="236" Margin="0,0,10,0" Style="{StaticResource MediaHorizonCard}">
+                                <VerticalStackLayout Spacing="7">
+                                    <Grid ColumnDefinitions="*,Auto">
+                                        <Label Text="{Binding KindText}" Style="{StaticResource MediaHorizonEyebrow}" />
+                                        <Label Grid.Column="1" Text="▶" TextColor="{StaticResource MediaHorizonAccent}" FontSize="12" />
+                                    </Grid>
+                                    <Label Text="{Binding Title}" TextColor="{StaticResource MediaHorizonText}" FontAttributes="Bold" MaxLines="2" />
+                                    <ProgressBar Progress="{Binding Progress}" HeightRequest="4" Style="{StaticResource MediaHorizonProgress}" />
+                                    <Label Text="{Binding ProgressText}" Style="{StaticResource MediaHorizonSubtleText}" />
+                                </VerticalStackLayout>
+                            </Border>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+            </VerticalStackLayout>
+
+            <VerticalStackLayout Spacing="10">
+                <Grid ColumnDefinitions="*,Auto">
+                    <Label Text="Favoris" Style="{StaticResource MediaHorizonSectionTitle}" />
+                    <Border Grid.Column="1" Style="{StaticResource MediaHorizonChip}" VerticalOptions="Center">
+                        <Label x:Name="favoriteCountLabel" Text="0" TextColor="{StaticResource MediaHorizonAccent}" FontAttributes="Bold" FontSize="11" />
+                    </Border>
+                </Grid>
+                <CollectionView x:Name="favoriteList" ItemsLayout="HorizontalList" SelectionMode="Single" HeightRequest="128">
+                    <CollectionView.EmptyView>
+                        <Label Text="Ajoutez vos chaînes, films ou séries favoris depuis leur fiche." Style="{StaticResource MediaHorizonMutedText}" />
+                    </CollectionView.EmptyView>
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate>
+                            <Border WidthRequest="210" Margin="0,0,10,0" Style="{StaticResource MediaHorizonCard}">
+                                <VerticalStackLayout Spacing="6" VerticalOptions="Center">
+                                    <Label Text="★" TextColor="{StaticResource MediaHorizonWarning}" FontSize="14" />
+                                    <Label Text="{Binding Title}" TextColor="{StaticResource MediaHorizonText}" FontAttributes="Bold" MaxLines="2" />
+                                    <Label Text="{Binding Subtitle}" Style="{StaticResource MediaHorizonSubtleText}" MaxLines="1" />
+                                </VerticalStackLayout>
+                            </Border>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+            </VerticalStackLayout>
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>

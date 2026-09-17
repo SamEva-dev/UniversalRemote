@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="UniversalRemote.Maui.Media.MediaLibraryPage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    Title="Bibliothèque Media"
+    BackgroundColor="{StaticResource MediaHorizonBackground}">
+
+    <Grid RowDefinitions="Auto,Auto,*,Auto,*" Padding="18,16,18,24" RowSpacing="13" MaximumWidthRequest="1040" HorizontalOptions="Center">
+        <Grid ColumnDefinitions="*,Auto" ColumnSpacing="12">
+            <VerticalStackLayout Spacing="3">
+                <Label Text="MA BIBLIOTHÈQUE" Style="{StaticResource MediaHorizonEyebrow}" />
+                <Label Text="Favoris &amp; historique" Style="{StaticResource MediaHorizonPageTitle}" />
+                <Label Text="Retrouvez vos contenus et reprenez là où vous vous êtes arrêté." Style="{StaticResource MediaHorizonMutedText}" />
+            </VerticalStackLayout>
+            <Button x:Name="refreshButton" Grid.Column="1" Text="↻" Style="{StaticResource MediaHorizonIconButton}" FontSize="20" VerticalOptions="Center" AutomationProperties.Name="Actualiser la bibliothèque" />
+        </Grid>
+
+        <Grid Grid.Row="1" ColumnDefinitions="*,Auto" Margin="0,8,0,0">
+            <Label Text="Favoris" Style="{StaticResource MediaHorizonSectionTitle}" />
+            <Label Grid.Column="1" Text="★" TextColor="{StaticResource MediaHorizonWarning}" FontSize="18" />
+        </Grid>
+
+        <CollectionView x:Name="favoritesList" Grid.Row="2" SelectionMode="Single">
+            <CollectionView.EmptyView>
+                <Border Style="{StaticResource MediaHorizonCard}" Padding="22">
+                    <Label Text="Aucun favori Media." Style="{StaticResource MediaHorizonMutedText}" HorizontalTextAlignment="Center" />
+                </Border>
+            </CollectionView.EmptyView>
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                    <Border Margin="0,0,0,9" Style="{StaticResource MediaHorizonCard}" Padding="13">
+                        <Grid ColumnDefinitions="Auto,*,Auto" ColumnSpacing="12">
+                            <Border WidthRequest="42" HeightRequest="42" BackgroundColor="#2E2818" Stroke="#66572A" StrokeShape="RoundRectangle 13">
+                                <Label Text="★" TextColor="{StaticResource MediaHorizonWarning}" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" />
+                            </Border>
+                            <VerticalStackLayout Grid.Column="1" Spacing="3" VerticalOptions="Center">
+                                <Label Text="{Binding Title}" TextColor="{StaticResource MediaHorizonText}" FontAttributes="Bold" />
+                                <Label Text="{Binding Subtitle}" Style="{StaticResource MediaHorizonSubtleText}" />
+                            </VerticalStackLayout>
+                            <Label Grid.Column="2" Text="›" TextColor="{StaticResource MediaHorizonAccent}" FontSize="24" VerticalTextAlignment="Center" />
+                        </Grid>
+                    </Border>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+
+        <Label Grid.Row="3" Text="Historique récent" Style="{StaticResource MediaHorizonSectionTitle}" Margin="0,8,0,0" />
+
+        <CollectionView x:Name="historyList" Grid.Row="4" SelectionMode="Single">
+            <CollectionView.EmptyView>
+                <Border Style="{StaticResource MediaHorizonCard}" Padding="22">
+                    <Label Text="Aucune lecture récente." Style="{StaticResource MediaHorizonMutedText}" HorizontalTextAlignment="Center" />
+                </Border>
+            </CollectionView.EmptyView>
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                    <Border Margin="0,0,0,9" Style="{StaticResource MediaHorizonCard}" Padding="13">
+                        <Grid ColumnDefinitions="Auto,*,Auto" ColumnSpacing="12">
+                            <Border WidthRequest="42" HeightRequest="42" BackgroundColor="#16304A" Stroke="#2F5D83" StrokeShape="RoundRectangle 13">
+                                <Label Text="↻" TextColor="{StaticResource MediaHorizonAccent}" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" />
+                            </Border>
+                            <VerticalStackLayout Grid.Column="1" Spacing="3" VerticalOptions="Center">
+                                <Label Text="{Binding Title}" TextColor="{StaticResource MediaHorizonText}" FontAttributes="Bold" />
+                                <Label Text="{Binding Subtitle}" Style="{StaticResource MediaHorizonSubtleText}" />
+                            </VerticalStackLayout>
+                            <Label Grid.Column="2" Text="{Binding When}" Style="{StaticResource MediaHorizonSubtleText}" VerticalTextAlignment="Center" />
+                        </Grid>
+                    </Border>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+    </Grid>
+</ContentPage>

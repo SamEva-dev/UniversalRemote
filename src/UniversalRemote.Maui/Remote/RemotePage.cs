@@ -1,5 +1,5 @@
-using UniversalRemote.Remote.Presentation;
-using UniversalRemote.Remote.Theming;
+using UniversalRemote.Presentation;
+using UniversalRemote.Theming;
 namespace UniversalRemote.Maui.Remote;
 
 public sealed partial class RemotePage : ContentPage
@@ -111,7 +111,7 @@ public sealed partial class RemotePage : ContentPage
         if (viewModel.IsBusy) return;
         if (route == "styles") { selector.Focus(); return; }
         if (route == "remote") return;
-        if (route is not ("devices" or "activities" or "favorites")) return;
+        if (route is not ("devices" or "activities" or "favorites" or "media")) return;
         try { await Shell.Current.GoToAsync("//" + route); }
         catch (Exception) { await DisplayAlertAsync(RemoteLabels.Text("Navigation", "Navigation"), RemoteLabels.Text("Impossible d’ouvrir cette page. Réessayez.", "Unable to open this page. Please try again."), "OK"); }
     }
@@ -125,6 +125,7 @@ public sealed partial class RemotePage : ContentPage
         var entries = new[]
         {
             ("remote", RemoteLabels.Text("Télécommande", "Remote"), "home"),
+            ("media", RemoteLabels.Text("Médias", "Media"), "play"),
             ("devices", RemoteLabels.Text("Appareils", "Devices"), "tv"),
             (viewModel.LayoutId == "elite" ? "favorites" : "activities", viewModel.LayoutId == "elite" ? RemoteLabels.Text("Favoris", "Favorites") : RemoteLabels.Text("Activités", "Activities"), "star"),
             ("styles", "Styles", "gear")
