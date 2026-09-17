@@ -1,4 +1,4 @@
-namespace UniversalRemote.Abstractions;
+namespace UniversalRemote.Remote.Abstractions;
 
 /// <summary>Coarse outcome used by privacy-preserving product diagnostics.</summary>
 public enum TelemetryOutcome

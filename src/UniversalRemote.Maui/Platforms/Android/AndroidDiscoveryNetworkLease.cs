@@ -1,6 +1,6 @@
 using Android.Content;
 using Android.Net.Wifi;
-using UniversalRemote.Discovery;
+using UniversalRemote.Remote.Discovery;
 
 namespace UniversalRemote.Maui;
 

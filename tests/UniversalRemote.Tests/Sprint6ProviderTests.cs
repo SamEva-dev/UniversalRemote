@@ -1,7 +1,8 @@
-﻿using UniversalRemote.Provider.Freebox;
-using UniversalRemote.Provider.GenericUpnp;
+﻿using UniversalRemote.Remote.Abstractions;
+using UniversalRemote.Remote.Provider.Freebox;
+using UniversalRemote.Remote.Provider.GenericUpnp;
 using Xunit;
-namespace UniversalRemote.Tests;
+namespace UniversalRemote.Remote.Tests;
 
 public sealed class Sprint6ProviderTests
 {
@@ -10,7 +11,7 @@ public sealed class Sprint6ProviderTests
     {
         var store = new MemoryFreeboxStore();
         var provider = new FreeboxPairingProvider(store);
-        var match = provider.Match(new UniversalRemote.Abstractions.PairingProbe("Freebox Server", ["192.168.1.254"], ["_fbx-api._tcp.local"]));
+        var match = provider.Match(new PairingProbe("Freebox Server", ["192.168.1.254"], ["_fbx-api._tcp.local"]));
         Assert.NotNull(match);
         Assert.Equal(FreeboxRemoteProvider.ProviderId, match!.ProviderId);
     }

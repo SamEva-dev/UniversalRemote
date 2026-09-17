@@ -1,8 +1,8 @@
 using System.Net;
 using System.Text.Json;
-using UniversalRemote.Abstractions;
+using UniversalRemote.Remote.Abstractions;
 
-namespace UniversalRemote.Hub.Wifi;
+namespace UniversalRemote.Remote.Hub.Wifi;
 
 internal enum WifiInfraredHubProbeOutcome
 {

@@ -1,4 +1,4 @@
-﻿namespace UniversalRemote.Hub
+﻿namespace UniversalRemote.Remote.Hub
 {
     public class Class1
     {

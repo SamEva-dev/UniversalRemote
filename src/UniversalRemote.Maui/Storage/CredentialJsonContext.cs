@@ -1,7 +1,7 @@
 using System.Text.Json.Serialization;
-using UniversalRemote.Provider.AndroidTv;
-using UniversalRemote.Provider.LG;
-using UniversalRemote.Provider.Samsung;
+using UniversalRemote.Remote.Provider.AndroidTv;
+using UniversalRemote.Remote.Provider.LG;
+using UniversalRemote.Remote.Provider.Samsung;
 
 namespace UniversalRemote.Maui.Storage;
 

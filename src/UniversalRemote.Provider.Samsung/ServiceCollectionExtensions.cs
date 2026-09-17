@@ -1,6 +1,6 @@
 using Microsoft.Extensions.DependencyInjection;
-using UniversalRemote.Abstractions;
-namespace UniversalRemote.Provider.Samsung;
+using UniversalRemote.Remote.Abstractions;
+namespace UniversalRemote.Remote.Provider.Samsung;
 public static class ServiceCollectionExtensions
 {
     public static IServiceCollection AddUniversalRemoteSamsung(this IServiceCollection services)

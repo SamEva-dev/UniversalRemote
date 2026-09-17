@@ -1,8 +1,8 @@
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
-using UniversalRemote.Abstractions;
-using UniversalRemote.Presentation;
-using UniversalRemote.Provider.GenericIr;
+using UniversalRemote.Remote.Abstractions;
+using UniversalRemote.Remote.Presentation;
+using UniversalRemote.Remote.Provider.GenericIr;
 
 namespace UniversalRemote.Maui.Hub;
 

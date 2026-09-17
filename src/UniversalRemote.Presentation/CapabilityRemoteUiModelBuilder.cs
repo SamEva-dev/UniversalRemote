@@ -1,6 +1,6 @@
-using UniversalRemote.Abstractions;
+using UniversalRemote.Remote.Abstractions;
 
-namespace UniversalRemote.Presentation;
+namespace UniversalRemote.Remote.Presentation;
 
 /// <summary>
 /// Builds a semantic remote from capabilities only. Provider and manufacturer names are deliberately ignored.

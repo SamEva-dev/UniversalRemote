@@ -1,4 +1,4 @@
-namespace UniversalRemote.Abstractions;
+namespace UniversalRemote.Remote.Abstractions;
 
 /// <summary>Controls whether a macro stops or continues after a command is not positively accepted.</summary>
 public enum ActivityFailurePolicy

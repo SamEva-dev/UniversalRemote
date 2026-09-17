@@ -1,6 +1,6 @@
 using Microsoft.Data.Sqlite;
 
-namespace UniversalRemote.Persistence.Sqlite;
+namespace UniversalRemote.Remote.Persistence.Sqlite;
 
 internal static class SqliteSchema
 {

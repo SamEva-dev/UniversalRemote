@@ -1,6 +1,6 @@
-using UniversalRemote.Abstractions;
+using UniversalRemote.Remote.Abstractions;
 
-namespace UniversalRemote.Hub;
+namespace UniversalRemote.Remote.Hub;
 
 /// <summary>Transport-independent facade over one external infrared hub.</summary>
 public sealed class InfraredHubClient : IInfraredHub

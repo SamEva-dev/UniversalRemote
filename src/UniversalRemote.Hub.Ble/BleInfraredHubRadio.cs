@@ -1,6 +1,6 @@
-using UniversalRemote.Abstractions;
+using UniversalRemote.Remote.Abstractions;
 
-namespace UniversalRemote.Hub.Ble;
+namespace UniversalRemote.Remote.Hub.Ble;
 
 public enum BleInfraredHubRadioScanOutcome
 {

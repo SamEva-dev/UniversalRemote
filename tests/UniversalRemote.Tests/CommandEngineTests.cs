@@ -1,8 +1,8 @@
-﻿using UniversalRemote.Abstractions;
-using UniversalRemote.Core;
+﻿using UniversalRemote.Remote.Abstractions;
+using UniversalRemote.Remote.Core;
 using Xunit;
 
-namespace UniversalRemote.Tests;
+namespace UniversalRemote.Remote.Tests;
 
 public sealed class CommandEngineTests
 {

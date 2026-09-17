@@ -1,11 +1,11 @@
 using System.Text.Json;
 using UniversalRemote.Maui.Storage;
-using UniversalRemote.Provider.AndroidTv;
-using UniversalRemote.Provider.LG;
-using UniversalRemote.Provider.Samsung;
+using UniversalRemote.Remote.Provider.AndroidTv;
+using UniversalRemote.Remote.Provider.LG;
+using UniversalRemote.Remote.Provider.Samsung;
 using Xunit;
 
-namespace UniversalRemote.Tests;
+namespace UniversalRemote.Remote.Tests;
 
 public sealed class CredentialSerializationTests
 {

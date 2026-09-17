@@ -1,6 +1,6 @@
-using UniversalRemote.Abstractions;
+using UniversalRemote.Remote.Abstractions;
 
-namespace UniversalRemote.Hub.Wifi;
+namespace UniversalRemote.Remote.Hub.Wifi;
 
 internal sealed class WifiInfraredHubTransport : IInfraredHubTransport
 {

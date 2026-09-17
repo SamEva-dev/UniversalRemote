@@ -2,10 +2,10 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.Maui.Hosting;
 using Microsoft.Maui.Storage;
-using UniversalRemote.Abstractions;
-using UniversalRemote.Application;
-using UniversalRemote.Compatibility;
-using UniversalRemote.Discovery;
+using UniversalRemote.Remote.Abstractions;
+using UniversalRemote.Remote.Application;
+using UniversalRemote.Remote.Compatibility;
+using UniversalRemote.Remote.Discovery;
 using UniversalRemote.Maui.Activities;
 using UniversalRemote.Maui.AndroidTv;
 using UniversalRemote.Maui.Compatibility;
@@ -18,22 +18,26 @@ using UniversalRemote.Maui.Favorites;
 using UniversalRemote.Maui.Samsung;
 using UniversalRemote.Maui.LG;
 using UniversalRemote.Maui.Hub;
-using UniversalRemote.Persistence.Sqlite;
-using UniversalRemote.Provider.AndroidTv;
-using UniversalRemote.Provider.Freebox;
-using UniversalRemote.Provider.GenericUpnp;
-using UniversalRemote.Provider.OrangeTv;
-using UniversalRemote.Provider.Samsung;
-using UniversalRemote.Provider.LG;
-using UniversalRemote.Provider.Simulator;
-using Device = UniversalRemote.Abstractions.Device;
-using UniversalRemote.Provider.GenericIr;
-using UniversalRemote.Hub;
-using UniversalRemote.Hub.Wifi;
-using UniversalRemote.Hub.Ble;
-using UniversalRemote.Telemetry;
+using UniversalRemote.Remote.Persistence.Sqlite;
+using UniversalRemote.Remote.Provider.AndroidTv;
+using UniversalRemote.Remote.Provider.Freebox;
+using UniversalRemote.Remote.Provider.GenericUpnp;
+using UniversalRemote.Remote.Provider.OrangeTv;
+using UniversalRemote.Remote.Provider.Samsung;
+using UniversalRemote.Remote.Provider.LG;
+using UniversalRemote.Remote.Provider.Simulator;
+using Device = UniversalRemote.Remote.Abstractions.Device;
+using UniversalRemote.Remote.Provider.GenericIr;
+using UniversalRemote.Remote.Hub;
+using UniversalRemote.Remote.Hub.Wifi;
+using UniversalRemote.Remote.Hub.Ble;
+using UniversalRemote.Remote.Telemetry;
+using UniversalRemote.Remote.Theming;
+using UniversalRemote.Remote.Presentation;
+
+
 #if ANDROID
-using UniversalRemote.Platform.Android;
+using UniversalRemote.Remote.Platform.Android;
 #endif
 
 namespace UniversalRemote.Maui;
@@ -94,9 +98,19 @@ public static class MauiProgram
         builder.Services.AddSingleton<RemoteLayoutPreferenceStore>();
         builder.Services.AddSingleton<RemoteViewModel>();
 
-        builder.Services.AddSingleton<IRemoteLayoutRenderer, MinimalRemoteRenderer>();
-        foreach (var layout in UniversalRemote.Theming.BuiltInRemoteStyles.Layouts.Where(x => x.Id != "minimal"))
-            builder.Services.AddSingleton<IRemoteLayoutRenderer>(new ReferenceRemoteRenderer(layout.Id));
+        // Hybrid XAML migration: XAML owns the visual composition, while the existing C# renderers
+        // remain registered as explicit fallbacks. ReferenceRemoteRenderer is intentionally kept in DI
+        // for Classic/Nova/Elite/Horizon/Fusion/Neo during the migration.
+        var minimalFallback = new MinimalRemoteRenderer();
+        builder.Services.AddSingleton(minimalFallback);
+        builder.Services.AddSingleton<IRemoteLayoutRenderer>(new XamlRemoteRenderer("minimal", minimalFallback));
+
+        foreach (var layout in BuiltInRemoteStyles.Layouts.Where(x => x.Id != "minimal"))
+        {
+            var referenceFallback = new ReferenceRemoteRenderer(layout.Id);
+            builder.Services.AddSingleton(referenceFallback);
+            builder.Services.AddSingleton<IRemoteLayoutRenderer>(new XamlRemoteRenderer(layout.Id, referenceFallback));
+        }
         builder.Services.AddSingleton<RemotePage>();
         builder.Services.AddSingleton<RoomsViewModel>();
         builder.Services.AddSingleton<RoomsPage>();
@@ -121,7 +135,7 @@ public static class MauiProgram
     {
         var demo = new Device(DemoDeviceId, "TV de démonstration — simulation",
             [new DeviceRoute(SimulatorProvider.ProviderId, "demo-tv",
-                UniversalRemote.Presentation.RemoteConceptCatalog.DemoActions)]);
+                RemoteConceptCatalog.DemoActions)]);
         services.GetRequiredService<IDeviceRegistrar>().UpsertAsync(demo).GetAwaiter().GetResult();
     }
 }

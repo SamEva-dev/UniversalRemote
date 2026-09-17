@@ -1,8 +1,8 @@
 ﻿using DomainRelay.Abstractions;
 using FluentValidation;
-using UniversalRemote.Abstractions;
+using UniversalRemote.Remote.Abstractions;
 
-namespace UniversalRemote.Application;
+namespace UniversalRemote.Remote.Application;
 
 public sealed record ExecuteRemoteAction(Guid DeviceId, RemoteAction Action) : IRequest<RemoteResult>;
 

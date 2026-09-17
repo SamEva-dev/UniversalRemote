@@ -4,9 +4,9 @@ using System.Net.Sockets;
 using System.Security.Authentication;
 using System.Security.Cryptography;
 using System.Security.Cryptography.X509Certificates;
-using UniversalRemote.Abstractions;
+using UniversalRemote.Remote.Abstractions;
 
-namespace UniversalRemote.Provider.AndroidTv;
+namespace UniversalRemote.Remote.Provider.AndroidTv;
 
 public sealed class AndroidTvRemoteProvider(IAndroidTvCredentialStore credentialStore) : IRemoteProvider, IAsyncDisposable
 {

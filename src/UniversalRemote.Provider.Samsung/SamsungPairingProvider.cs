@@ -2,9 +2,9 @@ using System.Collections.Concurrent;
 using System.Net.WebSockets;
 using System.Security.Cryptography;
 using System.Security.Cryptography.X509Certificates;
-using UniversalRemote.Abstractions;
+using UniversalRemote.Remote.Abstractions;
 
-namespace UniversalRemote.Provider.Samsung;
+namespace UniversalRemote.Remote.Provider.Samsung;
 
 public sealed class SamsungPairingProvider(ISamsungCredentialStore store) : IDevicePairingProvider
 {

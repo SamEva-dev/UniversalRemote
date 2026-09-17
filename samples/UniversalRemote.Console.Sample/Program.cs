@@ -1,9 +1,9 @@
 ﻿using DomainRelay.Abstractions;
 using Microsoft.Extensions.DependencyInjection;
-using UniversalRemote.Abstractions;
-using UniversalRemote.Application;
-using UniversalRemote.Core;
-using UniversalRemote.Provider.Simulator;
+using UniversalRemote.Remote.Abstractions;
+using UniversalRemote.Remote.Application;
+using UniversalRemote.Remote.Core;
+using UniversalRemote.Remote.Provider.Simulator;
 
 var services = new ServiceCollection();
 services.AddUniversalRemoteApplication();

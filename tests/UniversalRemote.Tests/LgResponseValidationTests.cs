@@ -1,6 +1,6 @@
-using UniversalRemote.Provider.LG;
+using UniversalRemote.Remote.Provider.LG;
 using Xunit;
-namespace UniversalRemote.Tests;
+namespace UniversalRemote.Remote.Tests;
 public sealed class LgResponseValidationTests
 {
     [Theory]

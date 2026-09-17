@@ -1,6 +1,6 @@
-using UniversalRemote.Abstractions;
+using UniversalRemote.Remote.Abstractions;
 
-namespace UniversalRemote.Hub;
+namespace UniversalRemote.Remote.Hub;
 
 /// <summary>Resolves a persisted hub choice without exposing Wi-Fi/BLE endpoint details.</summary>
 public sealed class InfraredHubSelectionAccessor(

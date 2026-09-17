@@ -2,9 +2,9 @@ using System.Buffers;
 using System.Buffers.Binary;
 using System.Text;
 using System.Text.Json;
-using UniversalRemote.Abstractions;
+using UniversalRemote.Remote.Abstractions;
 
-namespace UniversalRemote.Hub.Ble;
+namespace UniversalRemote.Remote.Hub.Ble;
 
 /// <summary>Versioned UniversalRemote BLE GATT profile for external IR hubs.</summary>
 public static class BleInfraredHubProtocol

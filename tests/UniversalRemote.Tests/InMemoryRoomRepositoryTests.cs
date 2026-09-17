@@ -1,7 +1,7 @@
-using UniversalRemote.Core;
+using UniversalRemote.Remote.Core;
 using Xunit;
 
-namespace UniversalRemote.Tests;
+namespace UniversalRemote.Remote.Tests;
 
 public sealed class InMemoryRoomRepositoryTests
 {

@@ -1,4 +1,4 @@
-﻿namespace UniversalRemote.Provider.AndroidTv;
+﻿namespace UniversalRemote.Remote.Provider.AndroidTv;
 
 public sealed record AndroidTvCredentials(
     string Host,

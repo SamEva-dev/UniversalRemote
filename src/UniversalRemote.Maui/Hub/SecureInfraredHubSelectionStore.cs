@@ -1,5 +1,5 @@
 using Microsoft.Maui.Storage;
-using UniversalRemote.Abstractions;
+using UniversalRemote.Remote.Abstractions;
 
 namespace UniversalRemote.Maui.Hub;
 

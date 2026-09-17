@@ -1,6 +1,6 @@
 ﻿using System.Collections.Frozen;
 
-namespace UniversalRemote.Discovery;
+namespace UniversalRemote.Remote.Discovery;
 
 public sealed record DiscoveryScanOptions
 {

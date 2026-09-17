@@ -2,9 +2,9 @@ using System.Buffers;
 using System.Net;
 using System.Net.Http.Headers;
 using System.Text.Json;
-using UniversalRemote.Abstractions;
+using UniversalRemote.Remote.Abstractions;
 
-namespace UniversalRemote.Hub.Wifi;
+namespace UniversalRemote.Remote.Hub.Wifi;
 
 /// <summary>
 /// Reflection-free client for the versioned Wi-Fi transmit endpoint.

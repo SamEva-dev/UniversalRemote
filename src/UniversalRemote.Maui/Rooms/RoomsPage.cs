@@ -1,4 +1,4 @@
-using UniversalRemote.Application;
+using UniversalRemote.Remote.Application;
 
 namespace UniversalRemote.Maui.Rooms;
 

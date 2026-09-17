@@ -1,6 +1,6 @@
-using UniversalRemote.Abstractions;
+using UniversalRemote.Remote.Abstractions;
 
-namespace UniversalRemote.Hub;
+namespace UniversalRemote.Remote.Hub;
 
 /// <summary>
 /// Adapts an external hub to the existing emitter contract, allowing Generic IR profiles to be reused unchanged.

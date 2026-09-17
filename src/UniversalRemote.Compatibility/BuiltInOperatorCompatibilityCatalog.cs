@@ -1,6 +1,6 @@
-using UniversalRemote.Abstractions;
+using UniversalRemote.Remote.Abstractions;
 
-namespace UniversalRemote.Compatibility;
+namespace UniversalRemote.Remote.Compatibility;
 
 public sealed class BuiltInOperatorCompatibilityCatalog : IOperatorCompatibilityCatalog
 {

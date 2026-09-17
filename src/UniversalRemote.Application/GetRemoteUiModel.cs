@@ -1,9 +1,9 @@
 using DomainRelay.Abstractions;
 using FluentValidation;
-using UniversalRemote.Abstractions;
-using UniversalRemote.Presentation;
+using UniversalRemote.Remote.Abstractions;
+using UniversalRemote.Remote.Presentation;
 
-namespace UniversalRemote.Application;
+namespace UniversalRemote.Remote.Application;
 
 public sealed record GetRemoteUiModel(Guid DeviceId) : IRequest<RemoteUiModel?>;
 

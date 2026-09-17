@@ -2,9 +2,9 @@
 using DomainRelay.Mapping.Abstractions.Configuration;
 using DomainRelay.Mapping.Abstractions.Profiles;
 using DomainRelay.Mapping.Abstractions.Services;
-using UniversalRemote.Abstractions;
+using UniversalRemote.Remote.Abstractions;
 
-namespace UniversalRemote.Application;
+namespace UniversalRemote.Remote.Application;
 
 public sealed record ListDevices : IRequest<IReadOnlyList<DeviceSummary>>;
 

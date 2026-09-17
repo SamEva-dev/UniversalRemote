@@ -1,10 +1,10 @@
 using FluentValidation;
-using UniversalRemote.Abstractions;
-using UniversalRemote.Application;
-using UniversalRemote.Core;
+using UniversalRemote.Remote.Abstractions;
+using UniversalRemote.Remote.Application;
+using UniversalRemote.Remote.Core;
 using Xunit;
 
-namespace UniversalRemote.Tests;
+namespace UniversalRemote.Remote.Tests;
 
 public sealed class ActivityRunnerTests
 {

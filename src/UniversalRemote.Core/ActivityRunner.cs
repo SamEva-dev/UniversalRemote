@@ -1,6 +1,6 @@
-using UniversalRemote.Abstractions;
+using UniversalRemote.Remote.Abstractions;
 
-namespace UniversalRemote.Core;
+namespace UniversalRemote.Remote.Core;
 
 /// <summary>Delay seam used by the Activity runner and deterministic tests.</summary>
 public interface IActivityDelayScheduler

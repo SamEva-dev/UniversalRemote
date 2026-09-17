@@ -6,9 +6,9 @@ using Android.Content;
 using Android.Content.PM;
 using Android.OS;
 using Java.Util;
-using UniversalRemote.Hub.Ble;
+using UniversalRemote.Remote.Hub.Ble;
 
-namespace UniversalRemote.Platform.Android;
+namespace UniversalRemote.Remote.Platform.Android;
 
 /// <summary>Android BLE scanner/GATT adapter. Raw device addresses never cross the IBleInfraredHubRadio boundary.</summary>
 public sealed class AndroidBleInfraredHubRadio : IBleInfraredHubRadio

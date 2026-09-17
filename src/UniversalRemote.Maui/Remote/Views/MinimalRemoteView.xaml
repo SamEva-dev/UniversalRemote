@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentView
+    x:Class="UniversalRemote.Maui.Remote.Views.MinimalRemoteView"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
+
+    <ContentView.Resources>
+        <Style x:Key="MinimalKey" TargetType="Button">
+            <Setter Property="MinimumHeightRequest" Value="64" />
+            <Setter Property="CornerRadius" Value="14" />
+            <Setter Property="FontSize" Value="18" />
+            <Setter Property="Padding" Value="16,14" />
+            <Setter Property="HorizontalOptions" Value="Fill" />
+        </Style>
+    </ContentView.Resources>
+
+    <VerticalStackLayout Padding="16,18,16,26" Spacing="12" BackgroundColor="{Binding BackgroundColor}">
+        <Label Text="{Binding DisplayName}" FontSize="24" FontAttributes="Bold" TextColor="{Binding TextColor}" />
+        <Label Text="{Binding MinimalSubtitle}" FontSize="12" Opacity="0.65" TextColor="{Binding TextColor}" />
+
+        <VerticalStackLayout IsVisible="{Binding HasFavorites}" Spacing="8" Margin="0,6,0,8">
+            <Label Text="{Binding FavoritesTitle}" FontAttributes="Bold" TextColor="{Binding TextColor}" />
+            <VerticalStackLayout BindableLayout.ItemsSource="{Binding Favorites}">
+                <BindableLayout.ItemTemplate>
+                    <DataTemplate>
+                        <Button Style="{StaticResource MinimalKey}"
+                                Margin="0,4"
+                                Text="{Binding Label}"
+                                ImageSource="{Binding Icon}"
+                                Command="{Binding ExecuteCommand}"
+                                AutomationId="{Binding AutomationId}"
+                                BackgroundColor="{Binding BackgroundColor}"
+                                TextColor="{Binding TextColor}" />
+                    </DataTemplate>
+                </BindableLayout.ItemTemplate>
+            </VerticalStackLayout>
+        </VerticalStackLayout>
+
+        <VerticalStackLayout BindableLayout.ItemsSource="{Binding AllControls}">
+            <BindableLayout.ItemTemplate>
+                <DataTemplate>
+                    <Button Style="{StaticResource MinimalKey}"
+                            Margin="0,4"
+                            Text="{Binding Label}"
+                            ImageSource="{Binding Icon}"
+                            Command="{Binding ExecuteCommand}"
+                            AutomationId="{Binding AutomationId}"
+                            BackgroundColor="{Binding BackgroundColor}"
+                            TextColor="{Binding TextColor}" />
+                </DataTemplate>
+            </BindableLayout.ItemTemplate>
+        </VerticalStackLayout>
+    </VerticalStackLayout>
+</ContentView>

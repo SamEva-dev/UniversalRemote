@@ -1,5 +1,5 @@
 using System.Globalization;
-namespace UniversalRemote.Presentation;
+namespace UniversalRemote.Remote.Presentation;
 
 public static class RemoteLabels
 {

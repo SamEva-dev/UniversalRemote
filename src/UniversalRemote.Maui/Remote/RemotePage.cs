@@ -1,34 +1,29 @@
-using UniversalRemote.Presentation;
-using UniversalRemote.Theming;
+using UniversalRemote.Remote.Presentation;
+using UniversalRemote.Remote.Theming;
 namespace UniversalRemote.Maui.Remote;
 
-public sealed class RemotePage : ContentPage
+public sealed partial class RemotePage : ContentPage
 {
     private readonly RemoteViewModel viewModel;
     private readonly RemoteLayoutPreferenceStore preferences;
     private readonly IReadOnlyDictionary<string, IRemoteLayoutRenderer> renderers;
-    private readonly VerticalStackLayout host = new() { MaximumWidthRequest = 900, HorizontalOptions = LayoutOptions.Fill };
-    private readonly Label status = new() { HorizontalTextAlignment = TextAlignment.Center, FontSize = 14 };
-    private readonly Label badge = new() { FontAttributes = FontAttributes.Bold, HorizontalTextAlignment = TextAlignment.Center };
-    private readonly Picker selector;
-    private readonly Grid footer = new() { ColumnSpacing = 4, Padding = new Thickness(8, 5) };
-    private readonly Button stopActivity = new() { Text = RemoteLabels.Text("Arrêter l’activité", "Stop activity"), IsVisible = false, MinimumHeightRequest = 48 };
     private CancellationTokenSource? lifetime;
     private bool restoring;
     private Task work = Task.CompletedTask;
 
     public RemotePage(RemoteViewModel viewModel, IEnumerable<IRemoteLayoutRenderer> renderers, RemoteLayoutPreferenceStore preferences)
     {
+        InitializeComponent();
         this.viewModel = viewModel;
         this.preferences = preferences;
-        this.renderers = renderers.ToDictionary(x => x.LayoutId, StringComparer.Ordinal);
+        this.renderers = renderers
+            .GroupBy(x => x.LayoutId, StringComparer.Ordinal)
+            .ToDictionary(group => group.Key, group => group.First(), StringComparer.Ordinal);
         Title = RemoteLabels.Text("Télécommande", "Remote");
-        selector = new Picker
-        {
-            Title = RemoteLabels.Text("Interface", "Style"),
-            ItemsSource = BuiltInRemoteStyles.Layouts.Select(x => x.DisplayName).ToArray(), SelectedIndex = 0,
-            HorizontalOptions = LayoutOptions.Fill, MinimumHeightRequest = 48, AutomationId = "remote-style-selector"
-        };
+        selector.Title = RemoteLabels.Text("Interface", "Style");
+        selector.ItemsSource = BuiltInRemoteStyles.Layouts.Select(x => x.DisplayName).ToArray();
+        selector.SelectedIndex = 0;
+        stopActivity.Text = RemoteLabels.Text("Arrêter l’activité", "Stop activity");
         selector.SelectedIndexChanged += (_, _) =>
         {
             if (restoring || selector.SelectedIndex < 0 || viewModel.IsBusy) return;
@@ -53,12 +48,6 @@ public sealed class RemotePage : ContentPage
         stopActivity.SetBinding(IsVisibleProperty, nameof(RemoteViewModel.IsActivityRunning));
         BindingContext = viewModel;
         status.SetBinding(Label.TextProperty, nameof(RemoteViewModel.Status));
-        var page = new Grid { RowDefinitions = { new(GridLength.Auto), new(GridLength.Star), new(GridLength.Auto), new(GridLength.Auto) } };
-        page.Add(new VerticalStackLayout { Padding = new Thickness(16, 4), Spacing = 2, Children = { badge, selector } });
-        page.Add(new ScrollView { Content = host, Padding = new Thickness(8, 0) }, 0, 1);
-        page.Add(new VerticalStackLayout { Padding = new Thickness(14, 5), Spacing = 4, Children = { stopActivity, status } }, 0, 2);
-        page.Add(footer, 0, 3);
-        Content = page;
     }
     protected override async void OnAppearing()
     {

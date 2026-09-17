@@ -1,8 +1,8 @@
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
-using UniversalRemote.Abstractions;
+using UniversalRemote.Remote.Abstractions;
 
-namespace UniversalRemote.Telemetry;
+namespace UniversalRemote.Remote.Telemetry;
 
 public static class ServiceCollectionExtensions
 {

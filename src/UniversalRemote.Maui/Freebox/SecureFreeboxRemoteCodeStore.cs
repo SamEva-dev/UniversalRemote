@@ -1,5 +1,5 @@
 ﻿using Microsoft.Maui.Storage;
-using UniversalRemote.Provider.Freebox;
+using UniversalRemote.Remote.Provider.Freebox;
 namespace UniversalRemote.Maui.Freebox;
 
 public sealed class SecureFreeboxRemoteCodeStore : IFreeboxRemoteCodeStore

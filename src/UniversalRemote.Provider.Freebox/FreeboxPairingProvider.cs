@@ -1,6 +1,6 @@
 ﻿using System.Collections.Concurrent;
-using UniversalRemote.Abstractions;
-namespace UniversalRemote.Provider.Freebox;
+using UniversalRemote.Remote.Abstractions;
+namespace UniversalRemote.Remote.Provider.Freebox;
 
 public sealed class FreeboxPairingProvider(IFreeboxRemoteCodeStore codeStore) : IDevicePairingProvider
 {

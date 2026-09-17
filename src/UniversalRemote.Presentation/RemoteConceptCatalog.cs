@@ -1,6 +1,6 @@
-using UniversalRemote.Abstractions;
+using UniversalRemote.Remote.Abstractions;
 
-namespace UniversalRemote.Presentation;
+namespace UniversalRemote.Remote.Presentation;
 
 /// <summary>Sample capabilities only. Never merge these into a physical device's routes.</summary>
 public static class RemoteConceptCatalog

@@ -1,4 +1,4 @@
-namespace UniversalRemote.Theming;
+namespace UniversalRemote.Remote.Theming;
 
 public enum RemoteVisualDensity
 {

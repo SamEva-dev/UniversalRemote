@@ -1,7 +1,7 @@
 using Microsoft.Extensions.DependencyInjection;
-using UniversalRemote.Abstractions;
+using UniversalRemote.Remote.Abstractions;
 
-namespace UniversalRemote.Provider.OrangeTv;
+namespace UniversalRemote.Remote.Provider.OrangeTv;
 
 public static class ServiceCollectionExtensions
 {

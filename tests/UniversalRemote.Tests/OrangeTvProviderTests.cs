@@ -1,11 +1,11 @@
 using System.Net;
 using System.Text;
-using UniversalRemote.Abstractions;
-using UniversalRemote.Application;
-using UniversalRemote.Provider.OrangeTv;
+using UniversalRemote.Remote.Abstractions;
+using UniversalRemote.Remote.Application;
+using UniversalRemote.Remote.Provider.OrangeTv;
 using Xunit;
 
-namespace UniversalRemote.Tests;
+namespace UniversalRemote.Remote.Tests;
 
 public sealed class OrangeTvProviderTests
 {

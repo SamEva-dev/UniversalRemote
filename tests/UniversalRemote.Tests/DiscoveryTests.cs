@@ -1,9 +1,9 @@
-﻿using System.Collections.Frozen;
+using System.Collections.Frozen;
 using Microsoft.Extensions.DependencyInjection;
-using UniversalRemote.Discovery;
+using UniversalRemote.Remote.Discovery;
 using Xunit;
 
-namespace UniversalRemote.Tests;
+namespace UniversalRemote.Remote.Tests;
 
 public sealed class DiscoveryTests
 {
@@ -58,6 +58,25 @@ public sealed class DiscoveryTests
         Assert.Equal(1, packet[5]); // QDCOUNT = 1
         Assert.Equal(12, packet[^3]); // QTYPE PTR low byte
         Assert.Equal(1, packet[^1]); // QCLASS IN low byte
+    }
+
+    [Fact]
+    public void Mdns_candidates_ignore_unsolicited_ptr_records_outside_requested_services()
+    {
+        var records = new[]
+        {
+            new MdnsDiscoverySource.DnsRecord("_androidtvremote2._tcp.local.", 12, "TCL._androidtvremote2._tcp.local.", null, null, null),
+            new MdnsDiscoverySource.DnsRecord("TCL._androidtvremote2._tcp.local.", 33, "tcl.local.", null, 6467, null),
+            new MdnsDiscoverySource.DnsRecord("tcl.local.", 1, null, "192.168.1.86", null, null),
+            new MdnsDiscoverySource.DnsRecord("_services._dns-sd._udp.local.", 12, "_nearby-presence._tcp.local.", null, null, null)
+        };
+
+        var result = MdnsDiscoverySource.BuildCandidates(records, ["_androidtvremote2._tcp.local"]);
+
+        var device = Assert.Single(result);
+        Assert.Equal("TCL", device.DisplayName);
+        Assert.Contains("192.168.1.86", device.Addresses);
+        Assert.Contains("_androidtvremote2._tcp.local", device.Services);
     }
 
     [Fact]

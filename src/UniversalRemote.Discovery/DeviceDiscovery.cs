@@ -1,6 +1,6 @@
 ﻿using System.Net.Sockets;
 
-namespace UniversalRemote.Discovery;
+namespace UniversalRemote.Remote.Discovery;
 
 public sealed class DeviceDiscovery(
     IEnumerable<IDiscoverySource> sources,

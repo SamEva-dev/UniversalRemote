@@ -1,4 +1,4 @@
-namespace UniversalRemote.Theming;
+namespace UniversalRemote.Remote.Theming;
 
 /// <summary>All built-in styles are data, independent of MAUI and device providers.</summary>
 public static class BuiltInRemoteStyles

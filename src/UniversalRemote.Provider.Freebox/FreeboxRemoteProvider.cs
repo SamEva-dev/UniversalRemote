@@ -1,5 +1,5 @@
-﻿using UniversalRemote.Abstractions;
-namespace UniversalRemote.Provider.Freebox;
+﻿using UniversalRemote.Remote.Abstractions;
+namespace UniversalRemote.Remote.Provider.Freebox;
 
 public sealed class FreeboxRemoteProvider(HttpClient httpClient, IFreeboxRemoteCodeStore codeStore) : IRemoteProvider
 {

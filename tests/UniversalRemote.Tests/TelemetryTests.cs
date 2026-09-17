@@ -1,10 +1,10 @@
 using System.Text.Json;
-using UniversalRemote.Abstractions;
-using UniversalRemote.Application;
-using UniversalRemote.Telemetry;
+using UniversalRemote.Remote.Abstractions;
+using UniversalRemote.Remote.Application;
+using UniversalRemote.Remote.Telemetry;
 using Xunit;
 
-namespace UniversalRemote.Tests;
+namespace UniversalRemote.Remote.Tests;
 
 public sealed class TelemetryTests : IDisposable
 {

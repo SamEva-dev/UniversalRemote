@@ -1,12 +1,12 @@
 using System.Net;
 using System.Text;
 using Microsoft.Extensions.DependencyInjection;
-using UniversalRemote.Abstractions;
-using UniversalRemote.Discovery;
-using UniversalRemote.Hub.Wifi;
+using UniversalRemote.Remote.Abstractions;
+using UniversalRemote.Remote.Discovery;
+using UniversalRemote.Remote.Hub.Wifi;
 using Xunit;
 
-namespace UniversalRemote.Tests;
+namespace UniversalRemote.Remote.Tests;
 
 public sealed class InfraredHubWifiTests
 {

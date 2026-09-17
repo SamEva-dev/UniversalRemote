@@ -1,6 +1,6 @@
 ﻿using System.Collections.Frozen;
 
-namespace UniversalRemote.Abstractions;
+namespace UniversalRemote.Remote.Abstractions;
 
 public enum SupportLevel { Experimental, Preview, Stable, Community }
 

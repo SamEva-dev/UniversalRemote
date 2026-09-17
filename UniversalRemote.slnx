@@ -13,6 +13,11 @@
     <Project Path="samples/UniversalRemote.SdkQuickstart/UniversalRemote.SdkQuickstart.csproj" Id="f8db99f8-0788-4fe7-8feb-e20a6caf14cd" />
   </Folder>
   <Folder Name="/src/">
+    <Project Path="src/UniversalRemote.Maui/UniversalRemote.Maui.csproj">
+      <Deploy Solution="Debug|*" />
+    </Project>
+  </Folder>
+  <Folder Name="/src/remote/">
     <Project Path="src/UniversalRemote.Abstractions/UniversalRemote.Abstractions.csproj" Id="07df9502-3b1f-48c0-b6af-c8f25701a0ac" />
     <Project Path="src/UniversalRemote.Application/UniversalRemote.Application.csproj" Id="ca9f23b0-b617-44e4-8aa2-63c4238bc46a" />
     <Project Path="src/UniversalRemote.Compatibility/UniversalRemote.Compatibility.csproj" Id="59b47ab7-324e-4323-b28a-c8fc06a78e47" />
@@ -21,9 +26,6 @@
     <Project Path="src/UniversalRemote.Hub.Ble/UniversalRemote.Hub.Ble.csproj" Id="50c60ddd-01d8-43c7-866b-a2b857d4b03b" />
     <Project Path="src/UniversalRemote.Hub.Wifi/UniversalRemote.Hub.Wifi.csproj" Id="b80d038f-9327-4bd7-a66c-3e2e5344fda2" />
     <Project Path="src/UniversalRemote.Hub/UniversalRemote.Hub.csproj" Id="4b190e7a-87f3-41ae-bdfc-f4f6dc90ad13" />
-    <Project Path="src/UniversalRemote.Maui/UniversalRemote.Maui.csproj">
-      <Deploy Solution="Debug|*" />
-    </Project>
     <Project Path="src/UniversalRemote.Persistence.Sqlite/UniversalRemote.Persistence.Sqlite.csproj" Id="5f1acc94-c33b-4cd4-8726-ebd4b57ae974" />
     <Project Path="src/UniversalRemote.Platform.Android/UniversalRemote.Platform.Android.csproj" Id="e415d5e2-e859-4823-8b33-a630c68da70e" />
     <Project Path="src/UniversalRemote.Presentation/UniversalRemote.Presentation.csproj" Id="a264b314-855c-427d-9759-aa2543973cfe" />

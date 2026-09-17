@@ -1,6 +1,6 @@
-using UniversalRemote.Abstractions;
+using UniversalRemote.Remote.Abstractions;
 
-namespace UniversalRemote.Hub;
+namespace UniversalRemote.Remote.Hub;
 
 /// <summary>
 /// Chooses the emitter before sending. Native IR is preferred when it supports the requested frequency; otherwise

@@ -1,7 +1,7 @@
 using Microsoft.Data.Sqlite;
-using UniversalRemote.Abstractions;
+using UniversalRemote.Remote.Abstractions;
 
-namespace UniversalRemote.Persistence.Sqlite;
+namespace UniversalRemote.Remote.Persistence.Sqlite;
 
 /// <summary>
 /// Local device catalogue. Pairing identity is the exact provider-id/device-key pair; secrets remain in provider secure storage.

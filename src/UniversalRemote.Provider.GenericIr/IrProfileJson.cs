@@ -2,7 +2,7 @@ using System.Buffers;
 using System.Text;
 using System.Text.Json;
 
-namespace UniversalRemote.Provider.GenericIr;
+namespace UniversalRemote.Remote.Provider.GenericIr;
 
 /// <summary>Canonical reflection-free serializer used for local import persistence.</summary>
 public static class IrProfileJson

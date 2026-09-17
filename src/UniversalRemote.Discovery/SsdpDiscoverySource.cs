@@ -3,7 +3,7 @@ using System.Net;
 using System.Net.Sockets;
 using System.Text;
 
-namespace UniversalRemote.Discovery;
+namespace UniversalRemote.Remote.Discovery;
 
 public sealed class SsdpDiscoverySource : IDiscoverySource
 {

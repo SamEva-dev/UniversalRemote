@@ -1,6 +1,6 @@
-using UniversalRemote.Abstractions;
+using UniversalRemote.Remote.Abstractions;
 
-namespace UniversalRemote.Presentation;
+namespace UniversalRemote.Remote.Presentation;
 
 public enum RemoteControlRole
 {

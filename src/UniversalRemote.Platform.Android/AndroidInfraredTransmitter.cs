@@ -1,9 +1,9 @@
 using Android.App;
 using Android.Content;
 using Android.Hardware;
-using UniversalRemote.Abstractions;
+using UniversalRemote.Remote.Abstractions;
 
-namespace UniversalRemote.Platform.Android;
+namespace UniversalRemote.Remote.Platform.Android;
 
 /// <summary>ConsumerIrManager adapter. Emission is serialized process-wide and never retried.</summary>
 public sealed class AndroidInfraredTransmitter : IOnDeviceInfraredTransmitter

@@ -1,8 +1,8 @@
 using DomainRelay.Abstractions;
 using FluentValidation;
-using UniversalRemote.Abstractions;
+using UniversalRemote.Remote.Abstractions;
 
-namespace UniversalRemote.Application;
+namespace UniversalRemote.Remote.Application;
 
 public sealed record FavoriteSummary(Guid DeviceId, string ActionId, int Position);
 public sealed record ListDeviceFavorites(Guid DeviceId) : IRequest<IReadOnlyList<FavoriteSummary>>;

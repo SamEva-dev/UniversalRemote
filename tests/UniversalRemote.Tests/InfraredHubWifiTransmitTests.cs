@@ -1,11 +1,11 @@
 using System.Net;
 using System.Text;
 using System.Text.Json;
-using UniversalRemote.Abstractions;
-using UniversalRemote.Hub.Wifi;
+using UniversalRemote.Remote.Abstractions;
+using UniversalRemote.Remote.Hub.Wifi;
 using Xunit;
 
-namespace UniversalRemote.Tests;
+namespace UniversalRemote.Remote.Tests;
 
 public sealed class InfraredHubWifiTransmitTests
 {

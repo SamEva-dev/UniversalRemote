@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="UniversalRemote.Maui.Remote.RemotePage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
+
+    <Grid RowDefinitions="Auto,*,Auto,Auto">
+        <VerticalStackLayout Padding="16,4" Spacing="2">
+            <Label x:Name="badge"
+                   FontAttributes="Bold"
+                   HorizontalTextAlignment="Center" />
+            <Picker x:Name="selector"
+                    Title="Interface"
+                    HorizontalOptions="Fill"
+                    MinimumHeightRequest="48"
+                    AutomationId="remote-style-selector" />
+        </VerticalStackLayout>
+
+        <ScrollView Grid.Row="1" Padding="8,0">
+            <VerticalStackLayout x:Name="host"
+                                 MaximumWidthRequest="900"
+                                 HorizontalOptions="Fill" />
+        </ScrollView>
+
+        <VerticalStackLayout Grid.Row="2" Padding="14,5" Spacing="4">
+            <Button x:Name="stopActivity"
+                    Text="Arrêter l’activité"
+                    IsVisible="False"
+                    MinimumHeightRequest="48" />
+            <Label x:Name="status"
+                   HorizontalTextAlignment="Center"
+                   FontSize="14" />
+        </VerticalStackLayout>
+
+        <Grid x:Name="footer"
+              Grid.Row="3"
+              ColumnSpacing="4"
+              Padding="8,5" />
+    </Grid>
+</ContentPage>

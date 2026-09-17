@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentView
+    x:Class="UniversalRemote.Maui.Remote.Views.ClassicRemoteView"
+    x:Name="Root"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
+
+    <ContentView.Resources>
+        <Style x:Key="ClassicKey" TargetType="Button">
+            <Setter Property="MinimumHeightRequest" Value="54" />
+            <Setter Property="MinimumWidthRequest" Value="54" />
+            <Setter Property="CornerRadius" Value="18" />
+            <Setter Property="FontSize" Value="15" />
+            <Setter Property="Padding" Value="12,10" />
+            <Setter Property="Margin" Value="4" />
+        </Style>
+        <Style x:Key="ClassicSectionTitle" TargetType="Label">
+            <Setter Property="FontSize" Value="13" />
+            <Setter Property="FontAttributes" Value="Bold" />
+            <Setter Property="Opacity" Value="0.72" />
+        </Style>
+    </ContentView.Resources>
+
+    <VerticalStackLayout
+        Padding="18,16,18,24"
+        Spacing="18"
+        BackgroundColor="{Binding BackgroundColor}">
+
+        <Grid ColumnDefinitions="*,Auto" ColumnSpacing="12">
+            <VerticalStackLayout Spacing="2" VerticalOptions="Center">
+                <Label Text="CLASSIC" FontSize="11" FontAttributes="Bold" Opacity="0.55" TextColor="{Binding TextColor}" />
+                <Label Text="{Binding DisplayName}" FontSize="22" FontAttributes="Bold" TextColor="{Binding TextColor}" />
+            </VerticalStackLayout>
+            <Button Grid.Column="1"
+                    Style="{StaticResource ClassicKey}"
+                    IsVisible="{Binding HasPower}"
+                    Text="{Binding Power.Label}"
+                    ImageSource="{Binding Power.Icon}"
+                    Command="{Binding Power.ExecuteCommand}"
+                    AutomationId="remote-classic-power"
+                    BackgroundColor="#D42E29"
+                    TextColor="White"
+                    CornerRadius="28" />
+        </Grid>
+
+        <Border IsVisible="{Binding HasFavorites}"
+                Padding="12"
+                BackgroundColor="{Binding SurfaceColor}"
+                Stroke="#D5D8DB"
+                StrokeThickness="1">
+            <Border.StrokeShape><RoundRectangle CornerRadius="18" /></Border.StrokeShape>
+            <VerticalStackLayout Spacing="8">
+                <Label Text="{Binding FavoritesTitle}" Style="{StaticResource ClassicSectionTitle}" TextColor="{Binding TextColor}" />
+                <FlexLayout Wrap="Wrap" Direction="Row" JustifyContent="Center" BindableLayout.ItemsSource="{Binding Favorites}">
+                    <BindableLayout.ItemTemplate>
+                        <DataTemplate>
+                            <Button Style="{StaticResource ClassicKey}"
+                                    Text="{Binding Label}"
+                                    ImageSource="{Binding Icon}"
+                                    Command="{Binding ExecuteCommand}"
+                                    AutomationId="{Binding AutomationId}"
+                                    BackgroundColor="{Binding BackgroundColor}"
+                                    TextColor="{Binding TextColor}" />
+                        </DataTemplate>
+                    </BindableLayout.ItemTemplate>
+                </FlexLayout>
+            </VerticalStackLayout>
+        </Border>
+
+        <VerticalStackLayout IsVisible="{Binding HasNavigation}" Spacing="10">
+            <Label Text="{Binding NavigationTitle}" Style="{StaticResource ClassicSectionTitle}" TextColor="{Binding TextColor}" HorizontalTextAlignment="Center" />
+            <Grid RowDefinitions="Auto,Auto,Auto,Auto" ColumnDefinitions="*,*,*" RowSpacing="8" ColumnSpacing="8" MaximumWidthRequest="330" HorizontalOptions="Center">
+                <Button Grid.Row="0" Grid.Column="1" Style="{StaticResource ClassicKey}" IsVisible="{Binding HasUp}" Text="▲" Command="{Binding Up.ExecuteCommand}" BackgroundColor="{Binding Up.BackgroundColor}" TextColor="{Binding Up.TextColor}" />
+                <Button Grid.Row="1" Grid.Column="0" Style="{StaticResource ClassicKey}" IsVisible="{Binding HasLeft}" Text="◀" Command="{Binding Left.ExecuteCommand}" BackgroundColor="{Binding Left.BackgroundColor}" TextColor="{Binding Left.TextColor}" />
+                <Button Grid.Row="1" Grid.Column="1" Style="{StaticResource ClassicKey}" IsVisible="{Binding HasOk}" Text="OK" Command="{Binding Ok.ExecuteCommand}" BackgroundColor="{Binding AccentColor}" TextColor="{Binding OnAccentColor}" CornerRadius="28" />
+                <Button Grid.Row="1" Grid.Column="2" Style="{StaticResource ClassicKey}" IsVisible="{Binding HasRight}" Text="▶" Command="{Binding Right.ExecuteCommand}" BackgroundColor="{Binding Right.BackgroundColor}" TextColor="{Binding Right.TextColor}" />
+                <Button Grid.Row="2" Grid.Column="1" Style="{StaticResource ClassicKey}" IsVisible="{Binding HasDown}" Text="▼" Command="{Binding Down.ExecuteCommand}" BackgroundColor="{Binding Down.BackgroundColor}" TextColor="{Binding Down.TextColor}" />
+                <Button Grid.Row="3" Grid.Column="0" Style="{StaticResource ClassicKey}" IsVisible="{Binding HasBack}" Text="{Binding Back.Label}" ImageSource="{Binding Back.Icon}" Command="{Binding Back.ExecuteCommand}" BackgroundColor="{Binding Back.BackgroundColor}" TextColor="{Binding Back.TextColor}" />
+                <Button Grid.Row="3" Grid.Column="2" Style="{StaticResource ClassicKey}" IsVisible="{Binding HasHome}" Text="{Binding Home.Label}" ImageSource="{Binding Home.Icon}" Command="{Binding Home.ExecuteCommand}" BackgroundColor="{Binding Home.BackgroundColor}" TextColor="{Binding Home.TextColor}" />
+            </Grid>
+        </VerticalStackLayout>
+
+        <Grid ColumnDefinitions="*,*" ColumnSpacing="12">
+            <Border IsVisible="{Binding HasAudio}" Padding="10" BackgroundColor="{Binding SurfaceColor}" StrokeThickness="0">
+                <Border.StrokeShape><RoundRectangle CornerRadius="18" /></Border.StrokeShape>
+                <VerticalStackLayout Spacing="8">
+                    <Label Text="{Binding VolumeTitle}" Style="{StaticResource ClassicSectionTitle}" TextColor="{Binding TextColor}" HorizontalTextAlignment="Center" />
+                    <Button Style="{StaticResource ClassicKey}" IsVisible="{Binding HasVolumeUp}" Text="VOL +" Command="{Binding VolumeUp.ExecuteCommand}" BackgroundColor="{Binding VolumeUp.BackgroundColor}" TextColor="{Binding VolumeUp.TextColor}" />
+                    <Button Style="{StaticResource ClassicKey}" IsVisible="{Binding HasMute}" Text="{Binding Mute.Label}" ImageSource="{Binding Mute.Icon}" Command="{Binding Mute.ExecuteCommand}" BackgroundColor="{Binding Mute.BackgroundColor}" TextColor="{Binding Mute.TextColor}" />
+                    <Button Style="{StaticResource ClassicKey}" IsVisible="{Binding HasVolumeDown}" Text="VOL −" Command="{Binding VolumeDown.ExecuteCommand}" BackgroundColor="{Binding VolumeDown.BackgroundColor}" TextColor="{Binding VolumeDown.TextColor}" />
+                </VerticalStackLayout>
+            </Border>
+            <Border Grid.Column="1" IsVisible="{Binding HasChannel}" Padding="10" BackgroundColor="{Binding SurfaceColor}" StrokeThickness="0">
+                <Border.StrokeShape><RoundRectangle CornerRadius="18" /></Border.StrokeShape>
+                <VerticalStackLayout Spacing="8">
+                    <Label Text="{Binding ChannelsTitle}" Style="{StaticResource ClassicSectionTitle}" TextColor="{Binding TextColor}" HorizontalTextAlignment="Center" />
+                    <Button Style="{StaticResource ClassicKey}" IsVisible="{Binding HasChannelUp}" Text="CH +" Command="{Binding ChannelUp.ExecuteCommand}" BackgroundColor="{Binding ChannelUp.BackgroundColor}" TextColor="{Binding ChannelUp.TextColor}" />
+                    <BoxView HeightRequest="10" Opacity="0" />
+                    <Button Style="{StaticResource ClassicKey}" IsVisible="{Binding HasChannelDown}" Text="CH −" Command="{Binding ChannelDown.ExecuteCommand}" BackgroundColor="{Binding ChannelDown.BackgroundColor}" TextColor="{Binding ChannelDown.TextColor}" />
+                </VerticalStackLayout>
+            </Border>
+        </Grid>
+
+        <VerticalStackLayout IsVisible="{Binding HasQuickActions}" Spacing="8">
+            <Label Text="{Binding ShortcutsTitle}" Style="{StaticResource ClassicSectionTitle}" TextColor="{Binding TextColor}" />
+            <FlexLayout Wrap="Wrap" Direction="Row" JustifyContent="Center" BindableLayout.ItemsSource="{Binding QuickActions}">
+                <BindableLayout.ItemTemplate>
+                    <DataTemplate>
+                        <Button Style="{StaticResource ClassicKey}" Text="{Binding Label}" ImageSource="{Binding Icon}" Command="{Binding ExecuteCommand}" BackgroundColor="{Binding BackgroundColor}" TextColor="{Binding TextColor}" />
+                    </DataTemplate>
+                </BindableLayout.ItemTemplate>
+            </FlexLayout>
+        </VerticalStackLayout>
+
+        <VerticalStackLayout IsVisible="{Binding HasMedia}" Spacing="8">
+            <Label Text="{Binding MediaTitle}" Style="{StaticResource ClassicSectionTitle}" TextColor="{Binding TextColor}" />
+            <FlexLayout Wrap="Wrap" Direction="Row" JustifyContent="Center" BindableLayout.ItemsSource="{Binding Media}">
+                <BindableLayout.ItemTemplate>
+                    <DataTemplate>
+                        <Button Style="{StaticResource ClassicKey}" Text="{Binding Label}" ImageSource="{Binding Icon}" Command="{Binding ExecuteCommand}" BackgroundColor="{Binding BackgroundColor}" TextColor="{Binding TextColor}" />
+                    </DataTemplate>
+                </BindableLayout.ItemTemplate>
+            </FlexLayout>
+        </VerticalStackLayout>
+
+        <VerticalStackLayout IsVisible="{Binding HasExtras}" Spacing="8">
+            <Label Text="{Binding MoreControlsTitle}" Style="{StaticResource ClassicSectionTitle}" TextColor="{Binding TextColor}" />
+            <FlexLayout Wrap="Wrap" Direction="Row" JustifyContent="Center" BindableLayout.ItemsSource="{Binding Extras}">
+                <BindableLayout.ItemTemplate>
+                    <DataTemplate>
+                        <Button Style="{StaticResource ClassicKey}" Text="{Binding Label}" Command="{Binding ExecuteCommand}" BackgroundColor="{Binding BackgroundColor}" TextColor="{Binding TextColor}" />
+                    </DataTemplate>
+                </BindableLayout.ItemTemplate>
+            </FlexLayout>
+        </VerticalStackLayout>
+    </VerticalStackLayout>
+</ContentView>

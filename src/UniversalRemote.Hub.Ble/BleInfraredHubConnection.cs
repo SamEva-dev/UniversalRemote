@@ -1,7 +1,7 @@
 using System.Collections.Concurrent;
-using UniversalRemote.Abstractions;
+using UniversalRemote.Remote.Abstractions;
 
-namespace UniversalRemote.Hub.Ble;
+namespace UniversalRemote.Remote.Hub.Ble;
 
 /// <summary>Transport-private BLE connection identity. DeviceKey may be a platform address/handle and is never product-facing.</summary>
 public sealed class BleInfraredHubConnection

@@ -1,6 +1,6 @@
 using Microsoft.Extensions.DependencyInjection;
-using UniversalRemote.Abstractions;
-namespace UniversalRemote.Provider.LG;
+using UniversalRemote.Remote.Abstractions;
+namespace UniversalRemote.Remote.Provider.LG;
 public static class ServiceCollectionExtensions
 {
     public static IServiceCollection AddUniversalRemoteLg(this IServiceCollection services)

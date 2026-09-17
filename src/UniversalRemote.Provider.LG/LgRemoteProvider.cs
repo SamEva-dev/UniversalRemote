@@ -2,9 +2,9 @@ using System.Net.WebSockets;
 using System.Security.Cryptography;
 using System.Text;
 using System.Text.Json;
-using UniversalRemote.Abstractions;
+using UniversalRemote.Remote.Abstractions;
 
-namespace UniversalRemote.Provider.LG;
+namespace UniversalRemote.Remote.Provider.LG;
 
 public sealed class LgRemoteProvider(ILgCredentialStore store) : IRemoteProvider
 {

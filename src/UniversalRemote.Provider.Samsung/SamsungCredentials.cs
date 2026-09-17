@@ -1,4 +1,4 @@
-namespace UniversalRemote.Provider.Samsung;
+namespace UniversalRemote.Remote.Provider.Samsung;
 
 public sealed record SamsungCredentials(string Host, string Token, string? ServerCertificateSha256);
 

@@ -1,11 +1,11 @@
-using UniversalRemote.Abstractions;
-using UniversalRemote.Core;
-using UniversalRemote.Presentation;
-using UniversalRemote.Provider.AndroidTv;
-using UniversalRemote.Theming;
+using UniversalRemote.Remote.Abstractions;
+using UniversalRemote.Remote.Core;
+using UniversalRemote.Remote.Presentation;
+using UniversalRemote.Remote.Provider.AndroidTv;
+using UniversalRemote.Remote.Theming;
 using Xunit;
 
-namespace UniversalRemote.Tests;
+namespace UniversalRemote.Remote.Tests;
 
 public sealed class ReferenceInterfacesTests
 {

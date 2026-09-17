@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentView
+    x:Class="UniversalRemote.Maui.Remote.Views.NeoRemoteView"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
+
+    <ContentView.Resources>
+        <Style x:Key="NeoKey" TargetType="Button">
+            <Setter Property="MinimumHeightRequest" Value="56" />
+            <Setter Property="MinimumWidthRequest" Value="56" />
+            <Setter Property="CornerRadius" Value="28" />
+            <Setter Property="FontSize" Value="13" />
+            <Setter Property="Padding" Value="12,10" />
+            <Setter Property="Margin" Value="4" />
+        </Style>
+        <Style x:Key="NeoSection" TargetType="Label">
+            <Setter Property="FontSize" Value="12" />
+            <Setter Property="FontAttributes" Value="Bold" />
+            <Setter Property="TextColor" Value="#B9C6FF" />
+        </Style>
+    </ContentView.Resources>
+
+    <Border Padding="0" StrokeThickness="0">
+        <Border.Background>
+            <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                <GradientStop Color="#09283C" Offset="0" />
+                <GradientStop Color="#130D2B" Offset="1" />
+            </LinearGradientBrush>
+        </Border.Background>
+        <VerticalStackLayout Padding="18,20,18,30" Spacing="18">
+            <VerticalStackLayout Spacing="2">
+                <Label Text="NEO" FontAttributes="Bold" FontSize="11" TextColor="#7FD9FF" />
+                <Label Text="{Binding DisplayName}" FontAttributes="Bold" FontSize="24" TextColor="{Binding TextColor}" />
+            </VerticalStackLayout>
+
+            <Border IsVisible="{Binding HasPower}" WidthRequest="174" HeightRequest="174" Padding="8" StrokeThickness="0" HorizontalOptions="Center">
+                <Border.Background>
+                    <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                        <GradientStop Color="#07C1FF" Offset="0" />
+                        <GradientStop Color="#8A31F4" Offset="1" />
+                    </LinearGradientBrush>
+                </Border.Background>
+                <Border.StrokeShape><RoundRectangle CornerRadius="87" /></Border.StrokeShape>
+                <Button WidthRequest="156" HeightRequest="156" CornerRadius="78" Text="" ImageSource="ur_power_large_light.png" Command="{Binding Power.ExecuteCommand}" BackgroundColor="#11152F" TextColor="White" />
+            </Border>
+
+            <Border IsVisible="{Binding HasFavorites}" Padding="12" Stroke="#354D71" StrokeThickness="1" BackgroundColor="#141D35">
+                <Border.StrokeShape><RoundRectangle CornerRadius="24" /></Border.StrokeShape>
+                <VerticalStackLayout Spacing="8">
+                    <Label Text="{Binding FavoritesTitle}" Style="{StaticResource NeoSection}" />
+                    <FlexLayout Wrap="Wrap" Direction="Row" JustifyContent="Center" BindableLayout.ItemsSource="{Binding Favorites}">
+                        <BindableLayout.ItemTemplate>
+                            <DataTemplate>
+                                <Button Style="{StaticResource NeoKey}" Text="{Binding Label}" ImageSource="{Binding Icon}" Command="{Binding ExecuteCommand}" BackgroundColor="#202C49" TextColor="White" />
+                            </DataTemplate>
+                        </BindableLayout.ItemTemplate>
+                    </FlexLayout>
+                </VerticalStackLayout>
+            </Border>
+
+            <VerticalStackLayout IsVisible="{Binding HasActivities}" Spacing="8">
+                <Label Text="{Binding ScenesTitle}" Style="{StaticResource NeoSection}" />
+                <ScrollView Orientation="Horizontal" HorizontalScrollBarVisibility="Never">
+                    <HorizontalStackLayout Spacing="10" BindableLayout.ItemsSource="{Binding Activities}">
+                        <BindableLayout.ItemTemplate>
+                            <DataTemplate>
+                                <Border WidthRequest="180" Padding="12" Stroke="#354D71" StrokeThickness="1" BackgroundColor="#17223D">
+                                    <Border.StrokeShape><RoundRectangle CornerRadius="22" /></Border.StrokeShape>
+                                    <Grid ColumnDefinitions="*,Auto" ColumnSpacing="8">
+                                        <VerticalStackLayout Spacing="2">
+                                            <Label Text="{Binding Name}" TextColor="White" FontAttributes="Bold" FontSize="14" />
+                                            <Label Text="{Binding Subtitle}" TextColor="#B9C6FF" FontSize="10" />
+                                        </VerticalStackLayout>
+                                        <Button Grid.Column="1" Text="▶" WidthRequest="42" HeightRequest="42" CornerRadius="21" Command="{Binding RunCommand}" BackgroundColor="#47A7FF" TextColor="White" />
+                                    </Grid>
+                                </Border>
+                            </DataTemplate>
+                        </BindableLayout.ItemTemplate>
+                    </HorizontalStackLayout>
+                </ScrollView>
+            </VerticalStackLayout>
+
+            <Border IsVisible="{Binding HasNavigation}" Padding="16" Stroke="#354D71" StrokeThickness="1" BackgroundColor="#141D35">
+                <Border.StrokeShape><RoundRectangle CornerRadius="32" /></Border.StrokeShape>
+                <VerticalStackLayout Spacing="11">
+                    <Label Text="{Binding NavigationTitle}" Style="{StaticResource NeoSection}" HorizontalTextAlignment="Center" />
+                    <Grid RowDefinitions="Auto,Auto,Auto" ColumnDefinitions="*,*,*" RowSpacing="10" ColumnSpacing="10" MaximumWidthRequest="340" HorizontalOptions="Center">
+                        <Button Grid.Row="0" Grid.Column="1" Style="{StaticResource NeoKey}" IsVisible="{Binding HasUp}" Text="▲" Command="{Binding Up.ExecuteCommand}" BackgroundColor="#202C49" TextColor="White" />
+                        <Button Grid.Row="1" Grid.Column="0" Style="{StaticResource NeoKey}" IsVisible="{Binding HasLeft}" Text="◀" Command="{Binding Left.ExecuteCommand}" BackgroundColor="#202C49" TextColor="White" />
+                        <Button Grid.Row="1" Grid.Column="1" Style="{StaticResource NeoKey}" IsVisible="{Binding HasOk}" Text="OK" Command="{Binding Ok.ExecuteCommand}" BackgroundColor="#47A7FF" TextColor="White" />
+                        <Button Grid.Row="1" Grid.Column="2" Style="{StaticResource NeoKey}" IsVisible="{Binding HasRight}" Text="▶" Command="{Binding Right.ExecuteCommand}" BackgroundColor="#202C49" TextColor="White" />
+                        <Button Grid.Row="2" Grid.Column="1" Style="{StaticResource NeoKey}" IsVisible="{Binding HasDown}" Text="▼" Command="{Binding Down.ExecuteCommand}" BackgroundColor="#202C49" TextColor="White" />
+                    </Grid>
+                    <FlexLayout IsVisible="{Binding HasNavigationExtras}" Wrap="Wrap" Direction="Row" JustifyContent="Center" BindableLayout.ItemsSource="{Binding NavigationExtras}">
+                        <BindableLayout.ItemTemplate>
+                            <DataTemplate>
+                                <Button Style="{StaticResource NeoKey}" Text="{Binding Label}" ImageSource="{Binding Icon}" Command="{Binding ExecuteCommand}" BackgroundColor="#202C49" TextColor="White" />
+                            </DataTemplate>
+                        </BindableLayout.ItemTemplate>
+                    </FlexLayout>
+                </VerticalStackLayout>
+            </Border>
+
+            <Grid ColumnDefinitions="*,*" ColumnSpacing="12">
+                <Border IsVisible="{Binding HasAudio}" Padding="12" Stroke="#354D71" StrokeThickness="1" BackgroundColor="#141D35">
+                    <Border.StrokeShape><RoundRectangle CornerRadius="28" /></Border.StrokeShape>
+                    <VerticalStackLayout Spacing="8">
+                        <Label Text="{Binding VolumeTitle}" Style="{StaticResource NeoSection}" HorizontalTextAlignment="Center" />
+                        <Button Style="{StaticResource NeoKey}" IsVisible="{Binding HasVolumeUp}" Text="+" FontSize="22" Command="{Binding VolumeUp.ExecuteCommand}" BackgroundColor="#202C49" TextColor="White" />
+                        <Button Style="{StaticResource NeoKey}" IsVisible="{Binding HasMute}" Text="{Binding Mute.Label}" ImageSource="{Binding Mute.Icon}" Command="{Binding Mute.ExecuteCommand}" BackgroundColor="#202C49" TextColor="White" />
+                        <Button Style="{StaticResource NeoKey}" IsVisible="{Binding HasVolumeDown}" Text="−" FontSize="22" Command="{Binding VolumeDown.ExecuteCommand}" BackgroundColor="#202C49" TextColor="White" />
+                    </VerticalStackLayout>
+                </Border>
+                <Border Grid.Column="1" IsVisible="{Binding HasChannel}" Padding="12" Stroke="#354D71" StrokeThickness="1" BackgroundColor="#141D35">
+                    <Border.StrokeShape><RoundRectangle CornerRadius="28" /></Border.StrokeShape>
+                    <VerticalStackLayout Spacing="8">
+                        <Label Text="{Binding ChannelsTitle}" Style="{StaticResource NeoSection}" HorizontalTextAlignment="Center" />
+                        <Button Style="{StaticResource NeoKey}" IsVisible="{Binding HasChannelUp}" Text="+" FontSize="22" Command="{Binding ChannelUp.ExecuteCommand}" BackgroundColor="#202C49" TextColor="White" />
+                        <BoxView HeightRequest="56" Opacity="0" />
+                        <Button Style="{StaticResource NeoKey}" IsVisible="{Binding HasChannelDown}" Text="−" FontSize="22" Command="{Binding ChannelDown.ExecuteCommand}" BackgroundColor="#202C49" TextColor="White" />
+                    </VerticalStackLayout>
+                </Border>
+            </Grid>
+
+            <FlexLayout IsVisible="{Binding HasQuickActions}" Wrap="Wrap" Direction="Row" JustifyContent="Center" BindableLayout.ItemsSource="{Binding QuickActions}">
+                <BindableLayout.ItemTemplate>
+                    <DataTemplate>
+                        <Button Style="{StaticResource NeoKey}" Text="{Binding Label}" ImageSource="{Binding Icon}" Command="{Binding ExecuteCommand}" BackgroundColor="#202C49" TextColor="White" />
+                    </DataTemplate>
+                </BindableLayout.ItemTemplate>
+            </FlexLayout>
+
+            <FlexLayout IsVisible="{Binding HasMedia}" Wrap="Wrap" Direction="Row" JustifyContent="Center" BindableLayout.ItemsSource="{Binding Media}">
+                <BindableLayout.ItemTemplate>
+                    <DataTemplate>
+                        <Button Style="{StaticResource NeoKey}" Text="{Binding Label}" ImageSource="{Binding Icon}" Command="{Binding ExecuteCommand}" BackgroundColor="#202C49" TextColor="White" />
+                    </DataTemplate>
+                </BindableLayout.ItemTemplate>
+            </FlexLayout>
+
+            <VerticalStackLayout IsVisible="{Binding HasExtras}" Spacing="8">
+                <Label Text="{Binding MoreControlsTitle}" Style="{StaticResource NeoSection}" />
+                <FlexLayout Wrap="Wrap" Direction="Row" JustifyContent="Center" BindableLayout.ItemsSource="{Binding Extras}">
+                    <BindableLayout.ItemTemplate>
+                        <DataTemplate>
+                            <Button Style="{StaticResource NeoKey}" Text="{Binding Label}" ImageSource="{Binding Icon}" Command="{Binding ExecuteCommand}" BackgroundColor="#202C49" TextColor="White" />
+                        </DataTemplate>
+                    </BindableLayout.ItemTemplate>
+                </FlexLayout>
+            </VerticalStackLayout>
+        </VerticalStackLayout>
+    </Border>
+</ContentView>

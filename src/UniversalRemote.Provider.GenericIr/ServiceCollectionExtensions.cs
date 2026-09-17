@@ -1,8 +1,8 @@
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
-using UniversalRemote.Abstractions;
+using UniversalRemote.Remote.Abstractions;
 
-namespace UniversalRemote.Provider.GenericIr;
+namespace UniversalRemote.Remote.Provider.GenericIr;
 
 public static class ServiceCollectionExtensions
 {

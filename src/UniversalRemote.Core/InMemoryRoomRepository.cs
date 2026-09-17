@@ -1,6 +1,6 @@
-using UniversalRemote.Abstractions;
+using UniversalRemote.Remote.Abstractions;
 
-namespace UniversalRemote.Core;
+namespace UniversalRemote.Remote.Core;
 
 /// <summary>Process-local room store for applications that do not opt into SQLite.</summary>
 public sealed class InMemoryRoomRepository : IRoomRepository

@@ -1,8 +1,8 @@
 using DomainRelay.Abstractions;
 using FluentValidation;
-using UniversalRemote.Abstractions;
+using UniversalRemote.Remote.Abstractions;
 
-namespace UniversalRemote.Application;
+namespace UniversalRemote.Remote.Application;
 
 public sealed record RoomSummary(Guid Id, string Name, IReadOnlyList<DeviceSummary> Devices);
 

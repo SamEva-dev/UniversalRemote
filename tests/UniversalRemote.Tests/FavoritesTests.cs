@@ -1,10 +1,10 @@
-using UniversalRemote.Abstractions;
-using UniversalRemote.Application;
-using UniversalRemote.Persistence.Sqlite;
-using UniversalRemote.Presentation;
+using UniversalRemote.Remote.Abstractions;
+using UniversalRemote.Remote.Application;
+using UniversalRemote.Remote.Persistence.Sqlite;
+using UniversalRemote.Remote.Presentation;
 using Xunit;
 
-namespace UniversalRemote.Tests;
+namespace UniversalRemote.Remote.Tests;
 
 public sealed class FavoritesTests
 {

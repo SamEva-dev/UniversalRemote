@@ -1,4 +1,4 @@
-namespace UniversalRemote.Abstractions;
+namespace UniversalRemote.Remote.Abstractions;
 
 /// <summary>Stable, non-secret identifier assigned to an external infrared hub.</summary>
 public readonly record struct InfraredHubId

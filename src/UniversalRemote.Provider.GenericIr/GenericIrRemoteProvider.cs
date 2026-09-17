@@ -1,6 +1,6 @@
-using UniversalRemote.Abstractions;
+using UniversalRemote.Remote.Abstractions;
 
-namespace UniversalRemote.Provider.GenericIr;
+namespace UniversalRemote.Remote.Provider.GenericIr;
 
 /// <summary>Routes normalized actions to an IR profile and a platform transmitter.</summary>
 public sealed class GenericIrRemoteProvider(IInfraredTransmitter transmitter, IIrProfileCatalog catalog) : IRemoteProvider

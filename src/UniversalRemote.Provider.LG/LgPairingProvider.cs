@@ -1,8 +1,8 @@
 using System.Collections.Concurrent;
 using System.Net.WebSockets;
-using UniversalRemote.Abstractions;
+using UniversalRemote.Remote.Abstractions;
 
-namespace UniversalRemote.Provider.LG;
+namespace UniversalRemote.Remote.Provider.LG;
 
 public sealed class LgPairingProvider(ILgCredentialStore store) : IDevicePairingProvider
 {

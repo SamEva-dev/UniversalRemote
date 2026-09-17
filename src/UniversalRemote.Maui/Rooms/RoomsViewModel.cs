@@ -1,7 +1,7 @@
 using DomainRelay.Abstractions;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
-using UniversalRemote.Application;
+using UniversalRemote.Remote.Application;
 
 namespace UniversalRemote.Maui.Rooms;
 

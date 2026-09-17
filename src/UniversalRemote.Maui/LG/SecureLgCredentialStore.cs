@@ -1,7 +1,7 @@
 using Microsoft.Maui.Storage;
 using System.Text.Json;
 using UniversalRemote.Maui.Storage;
-using UniversalRemote.Provider.LG;
+using UniversalRemote.Remote.Provider.LG;
 namespace UniversalRemote.Maui.LG;
 public sealed class SecureLgCredentialStore : ILgCredentialStore
 {

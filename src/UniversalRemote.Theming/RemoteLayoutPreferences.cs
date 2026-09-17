@@ -1,7 +1,7 @@
 using System.Text.Json;
 using System.Text.Json.Serialization;
 
-namespace UniversalRemote.Theming;
+namespace UniversalRemote.Remote.Theming;
 
 /// <summary>Versioned appearance only. Never stores commands, endpoints, credentials or device state.</summary>
 public sealed record RemoteLayoutPreferences(int SchemaVersion, string LayoutId)

@@ -1,6 +1,6 @@
-using UniversalRemote.Abstractions;
+using UniversalRemote.Remote.Abstractions;
 
-namespace UniversalRemote.Core;
+namespace UniversalRemote.Remote.Core;
 
 /// <summary>Process-local fallback used by tests and lightweight samples.</summary>
 public sealed class InMemoryFavoriteRepository : IFavoriteRepository

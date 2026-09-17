@@ -1,4 +1,4 @@
-namespace UniversalRemote.Abstractions;
+namespace UniversalRemote.Remote.Abstractions;
 
 /// <summary>One ordered step of a multi-device activity.</summary>
 public abstract record ActivityStep

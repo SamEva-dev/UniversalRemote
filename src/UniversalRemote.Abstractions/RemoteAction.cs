@@ -1,4 +1,4 @@
-namespace UniversalRemote.Abstractions;
+namespace UniversalRemote.Remote.Abstractions;
 
 /// <summary>Stable, extensible wire identifier; never serialize enum ordinals as action IDs.</summary>
 public sealed record RemoteAction

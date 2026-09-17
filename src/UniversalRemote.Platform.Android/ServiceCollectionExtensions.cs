@@ -1,8 +1,8 @@
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
-using UniversalRemote.Abstractions;
+using UniversalRemote.Remote.Abstractions;
 
-namespace UniversalRemote.Platform.Android;
+namespace UniversalRemote.Remote.Platform.Android;
 
 public static class ServiceCollectionExtensions
 {
@@ -19,8 +19,8 @@ public static class ServiceCollectionExtensions
     public static IServiceCollection AddUniversalRemoteAndroidBleHub(this IServiceCollection services)
     {
         ArgumentNullException.ThrowIfNull(services);
-        services.RemoveAll<UniversalRemote.Hub.Ble.IBleInfraredHubRadio>();
-        services.AddSingleton<UniversalRemote.Hub.Ble.IBleInfraredHubRadio, AndroidBleInfraredHubRadio>();
+        services.RemoveAll<Hub.Ble.IBleInfraredHubRadio>();
+        services.AddSingleton<Hub.Ble.IBleInfraredHubRadio, AndroidBleInfraredHubRadio>();
         return services;
     }
 }

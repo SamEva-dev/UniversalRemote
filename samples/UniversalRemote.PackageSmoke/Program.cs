@@ -1,13 +1,13 @@
 using Microsoft.Extensions.DependencyInjection;
-using UniversalRemote.Abstractions;
-using UniversalRemote.Core;
-using UniversalRemote.Compatibility;
-using UniversalRemote.Persistence.Sqlite;
-using UniversalRemote.Provider.GenericIr;
-using UniversalRemote.Hub;
-using UniversalRemote.Hub.Wifi;
-using UniversalRemote.Hub.Ble;
-using UniversalRemote.Theming;
+using UniversalRemote.Remote.Abstractions;
+using UniversalRemote.Remote.Core;
+using UniversalRemote.Remote.Compatibility;
+using UniversalRemote.Remote.Persistence.Sqlite;
+using UniversalRemote.Remote.Provider.GenericIr;
+using UniversalRemote.Remote.Hub;
+using UniversalRemote.Remote.Hub.Wifi;
+using UniversalRemote.Remote.Hub.Ble;
+using UniversalRemote.Remote.Theming;
 
 var databasePath = Path.Combine(Path.GetTempPath(), $"universalremote-smoke-{Guid.NewGuid():N}.db");
 try

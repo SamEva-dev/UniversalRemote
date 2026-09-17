@@ -3,12 +3,13 @@ using FluentValidation;
 using Microsoft.Extensions.DependencyInjection;
 using System.Collections.Concurrent;
 using System.Diagnostics;
-using UniversalRemote.Abstractions;
-using UniversalRemote.Application;
-using UniversalRemote.Provider.Simulator;
+using UniversalRemote.Remote.Abstractions;
+using UniversalRemote.Remote.Application;
+using UniversalRemote.Remote.Core;
+using UniversalRemote.Remote.Provider.Simulator;
 using Xunit;
 
-namespace UniversalRemote.Tests;
+namespace UniversalRemote.Remote.Tests;
 
 public sealed class ApplicationTests
 {
@@ -18,7 +19,7 @@ public sealed class ApplicationTests
         services.AddUniversalRemoteApplication();
         services.AddUniversalRemoteApplication();
         services.AddSingleton<IDeviceRepository, DemoDeviceRepository>();
-        services.AddSingleton<IDeviceRegistrar, UniversalRemote.Core.InMemoryDeviceRepository>();
+        services.AddSingleton<IDeviceRegistrar, InMemoryDeviceRepository>();
         services.AddSingleton<IRemoteProvider, SimulatorProvider>();
         return services.BuildServiceProvider(new ServiceProviderOptions { ValidateScopes = true, ValidateOnBuild = true });
     }

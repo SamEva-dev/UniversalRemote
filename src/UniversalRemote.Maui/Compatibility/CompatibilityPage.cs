@@ -1,6 +1,6 @@
 using Microsoft.Maui.ApplicationModel.DataTransfer;
-using UniversalRemote.Compatibility;
-using UniversalRemote.Presentation;
+using UniversalRemote.Remote.Compatibility;
+using UniversalRemote.Remote.Presentation;
 
 namespace UniversalRemote.Maui.Compatibility;
 

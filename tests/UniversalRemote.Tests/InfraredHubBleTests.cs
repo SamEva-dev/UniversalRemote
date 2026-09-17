@@ -1,10 +1,10 @@
 using Microsoft.Extensions.DependencyInjection;
 using System.Text;
-using UniversalRemote.Abstractions;
-using UniversalRemote.Hub.Ble;
+using UniversalRemote.Remote.Abstractions;
+using UniversalRemote.Remote.Hub.Ble;
 using Xunit;
 
-namespace UniversalRemote.Tests;
+namespace UniversalRemote.Remote.Tests;
 
 public sealed class InfraredHubBleTests
 {

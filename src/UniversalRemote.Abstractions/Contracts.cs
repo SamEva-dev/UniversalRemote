@@ -1,4 +1,4 @@
-﻿namespace UniversalRemote.Abstractions;
+﻿namespace UniversalRemote.Remote.Abstractions;
 
 public enum RemoteErrorCode
 {

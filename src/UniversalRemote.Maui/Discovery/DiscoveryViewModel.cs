@@ -1,8 +1,8 @@
 using DomainRelay.Abstractions;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
-using UniversalRemote.Application;
-using UniversalRemote.Abstractions;
+using UniversalRemote.Remote.Application;
+using UniversalRemote.Remote.Abstractions;
 
 namespace UniversalRemote.Maui.Discovery;
 

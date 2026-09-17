@@ -1,6 +1,6 @@
-using UniversalRemote.Abstractions;
+using UniversalRemote.Remote.Abstractions;
 
-namespace UniversalRemote.Telemetry;
+namespace UniversalRemote.Remote.Telemetry;
 
 public sealed record TelemetryOptions(int MaxEvents = 250, TimeSpan? MaxAge = null)
 {

@@ -1,6 +1,6 @@
-using UniversalRemote.Abstractions;
+using UniversalRemote.Remote.Abstractions;
 
-namespace UniversalRemote.Provider.OrangeTv;
+namespace UniversalRemote.Remote.Provider.OrangeTv;
 
 public sealed class OrangeTvRemoteProvider(HttpClient httpClient) : IRemoteProvider
 {

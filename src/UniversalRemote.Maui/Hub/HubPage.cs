@@ -1,4 +1,4 @@
-using UniversalRemote.Presentation;
+using UniversalRemote.Remote.Presentation;
 
 namespace UniversalRemote.Maui.Hub;
 

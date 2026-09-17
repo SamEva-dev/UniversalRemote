@@ -1,6 +1,6 @@
 using System.Net;
 
-namespace UniversalRemote.Provider.OrangeTv;
+namespace UniversalRemote.Remote.Provider.OrangeTv;
 
 internal static class OrangeTvEndpoint
 {

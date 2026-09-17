@@ -1,7 +1,7 @@
-using UniversalRemote.Abstractions;
-using UniversalRemote.Discovery;
+using UniversalRemote.Remote.Abstractions;
+using UniversalRemote.Remote.Discovery;
 
-namespace UniversalRemote.Hub.Wifi;
+namespace UniversalRemote.Remote.Hub.Wifi;
 
 /// <summary>Discovers only UniversalRemote IR hubs advertised through the dedicated mDNS service.</summary>
 internal sealed class WifiInfraredHubDiscovery(

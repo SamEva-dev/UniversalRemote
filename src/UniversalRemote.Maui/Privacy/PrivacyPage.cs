@@ -1,5 +1,5 @@
 using Microsoft.Maui.ApplicationModel.DataTransfer;
-using UniversalRemote.Presentation;
+using UniversalRemote.Remote.Presentation;
 
 namespace UniversalRemote.Maui.Privacy;
 

@@ -1,3 +1,6 @@
+using UniversalRemote.Remote.Presentation;
+using UniversalRemote.Remote.Theming;
+
 namespace UniversalRemote.Maui.Remote;
 
 public sealed record RemoteDeviceTile(Guid Id, string Name, string Room, string Kind);
@@ -12,8 +15,8 @@ public sealed record RemoteSurfaceContext(
 
 public interface IContextualRemoteLayoutRenderer : IRemoteLayoutRenderer
 {
-    View Render(UniversalRemote.Presentation.RemoteUiModel model,
-        UniversalRemote.Theming.RemoteThemeDefinition theme,
-        Func<UniversalRemote.Presentation.RemoteUiControl, Task> executeAsync,
+    View Render(RemoteUiModel model,
+        RemoteThemeDefinition theme,
+        Func<RemoteUiControl, Task> executeAsync,
         RemoteSurfaceContext context);
 }

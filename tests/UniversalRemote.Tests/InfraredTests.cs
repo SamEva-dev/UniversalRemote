@@ -1,9 +1,9 @@
 using System.Text.Json;
-using UniversalRemote.Abstractions;
-using UniversalRemote.Provider.GenericIr;
+using UniversalRemote.Remote.Abstractions;
+using UniversalRemote.Remote.Provider.GenericIr;
 using Xunit;
 
-namespace UniversalRemote.Tests;
+namespace UniversalRemote.Remote.Tests;
 
 public sealed class InfraredTests
 {

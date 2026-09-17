@@ -1,6 +1,6 @@
-using UniversalRemote.Presentation;
+using UniversalRemote.Remote.Presentation;
 
-namespace UniversalRemote.Theming;
+namespace UniversalRemote.Remote.Theming;
 
 public static class RemoteLayoutProjection
 {

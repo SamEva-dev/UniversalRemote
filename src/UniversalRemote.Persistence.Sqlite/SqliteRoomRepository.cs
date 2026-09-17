@@ -1,7 +1,7 @@
 using Microsoft.Data.Sqlite;
-using UniversalRemote.Abstractions;
+using UniversalRemote.Remote.Abstractions;
 
-namespace UniversalRemote.Persistence.Sqlite;
+namespace UniversalRemote.Remote.Persistence.Sqlite;
 
 /// <summary>SQLite-backed room catalogue. Device assignment is exclusive and moving is atomic.</summary>
 public sealed class SqliteRoomRepository : IRoomRepository

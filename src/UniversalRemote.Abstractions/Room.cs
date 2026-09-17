@@ -1,4 +1,4 @@
-namespace UniversalRemote.Abstractions;
+namespace UniversalRemote.Remote.Abstractions;
 
 /// <summary>Logical grouping of devices. A device may belong to at most one Room at a time.</summary>
 public sealed class Room

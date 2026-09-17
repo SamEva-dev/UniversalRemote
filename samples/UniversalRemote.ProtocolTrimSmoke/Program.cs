@@ -1,6 +1,6 @@
 using System.Text.Json;
-using UniversalRemote.Provider.LG;
-using UniversalRemote.Provider.Samsung;
+using UniversalRemote.Remote.Provider.LG;
+using UniversalRemote.Remote.Provider.Samsung;
 
 if (JsonSerializer.IsReflectionEnabledByDefault) throw new InvalidOperationException("Reflection must remain disabled.");
 using var registration = JsonDocument.Parse(LgProtocol.Register("key\"\\\nété"));

@@ -1,6 +1,6 @@
-using UniversalRemote.Abstractions;
+using UniversalRemote.Remote.Abstractions;
 
-namespace UniversalRemote.Telemetry;
+namespace UniversalRemote.Remote.Telemetry;
 
 /// <summary>
 /// Opt-in local recorder. Diagnostics are never uploaded by this component and recorder failures are deliberately swallowed.

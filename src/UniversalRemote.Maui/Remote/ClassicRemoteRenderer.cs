@@ -1,6 +1,6 @@
 using Microsoft.Maui.Layouts;
-using UniversalRemote.Presentation;
-using UniversalRemote.Theming;
+using UniversalRemote.Remote.Presentation;
+using UniversalRemote.Remote.Theming;
 
 namespace UniversalRemote.Maui.Remote;
 

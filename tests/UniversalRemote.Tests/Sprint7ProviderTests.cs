@@ -1,9 +1,9 @@
-using UniversalRemote.Abstractions;
-using UniversalRemote.Provider.LG;
-using UniversalRemote.Provider.Samsung;
+using UniversalRemote.Remote.Abstractions;
+using UniversalRemote.Remote.Provider.LG;
+using UniversalRemote.Remote.Provider.Samsung;
 using Xunit;
 
-namespace UniversalRemote.Tests;
+namespace UniversalRemote.Remote.Tests;
 
 public sealed class Sprint7ProviderTests
 {

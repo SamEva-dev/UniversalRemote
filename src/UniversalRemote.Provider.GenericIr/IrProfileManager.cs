@@ -1,6 +1,6 @@
-using UniversalRemote.Abstractions;
+using UniversalRemote.Remote.Abstractions;
 
-namespace UniversalRemote.Provider.GenericIr;
+namespace UniversalRemote.Remote.Provider.GenericIr;
 
 public enum IrProfileLearnOutcome
 {

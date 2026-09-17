@@ -1,7 +1,7 @@
 using Microsoft.Data.Sqlite;
-using UniversalRemote.Abstractions;
+using UniversalRemote.Remote.Abstractions;
 
-namespace UniversalRemote.Persistence.Sqlite;
+namespace UniversalRemote.Remote.Persistence.Sqlite;
 
 /// <summary>SQLite-backed, device-scoped action favorites.</summary>
 public sealed class SqliteFavoriteRepository : IFavoriteRepository

@@ -1,8 +1,8 @@
-using UniversalRemote.Abstractions;
-using UniversalRemote.Hub;
+using UniversalRemote.Remote.Abstractions;
+using UniversalRemote.Remote.Hub;
 using Xunit;
 
-namespace UniversalRemote.Tests;
+namespace UniversalRemote.Remote.Tests;
 
 public sealed class InfraredHubTests
 {

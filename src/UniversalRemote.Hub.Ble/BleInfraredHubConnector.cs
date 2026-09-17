@@ -1,7 +1,7 @@
-using UniversalRemote.Abstractions;
-using UniversalRemote.Hub;
+using UniversalRemote.Remote.Abstractions;
+using UniversalRemote.Remote.Hub;
 
-namespace UniversalRemote.Hub.Ble;
+namespace UniversalRemote.Remote.Hub.Ble;
 
 internal sealed class BleInfraredHubConnector(
     IBleInfraredHubConnectionStore store,

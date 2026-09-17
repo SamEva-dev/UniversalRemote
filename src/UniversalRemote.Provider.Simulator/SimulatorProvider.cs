@@ -1,6 +1,6 @@
-﻿using UniversalRemote.Abstractions;
+﻿using UniversalRemote.Remote.Abstractions;
 
-namespace UniversalRemote.Provider.Simulator;
+namespace UniversalRemote.Remote.Provider.Simulator;
 
 /// <summary>Explicitly simulated transport. It never controls a real appliance.</summary>
 public sealed class SimulatorProvider : IRemoteProvider

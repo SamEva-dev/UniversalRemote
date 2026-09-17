@@ -5,12 +5,12 @@ using DomainRelay.Validation;
 using FluentValidation;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
-using UniversalRemote.Discovery;
-using UniversalRemote.Presentation;
-using UniversalRemote.Abstractions;
-using UniversalRemote.Core;
+using UniversalRemote.Remote.Discovery;
+using UniversalRemote.Remote.Presentation;
+using UniversalRemote.Remote.Abstractions;
+using UniversalRemote.Remote.Core;
 
-namespace UniversalRemote.Application;
+namespace UniversalRemote.Remote.Application;
 
 /// <summary>Call once per container. Explicit handler registration limits assembly scanning; AOT still requires a device test.</summary>
 public static class ServiceCollectionExtensions

@@ -1,11 +1,11 @@
 using Microsoft.Extensions.DependencyInjection;
-using UniversalRemote.Abstractions;
-using UniversalRemote.Application;
-using UniversalRemote.Core;
-using UniversalRemote.Provider.GenericIr;
+using UniversalRemote.Remote.Abstractions;
+using UniversalRemote.Remote.Application;
+using UniversalRemote.Remote.Core;
+using UniversalRemote.Remote.Provider.GenericIr;
 using Xunit;
 
-namespace UniversalRemote.Tests;
+namespace UniversalRemote.Remote.Tests;
 
 public sealed class FinalAuditRegressionTests
 {

@@ -1,7 +1,7 @@
-using UniversalRemote.Compatibility;
+using UniversalRemote.Remote.Compatibility;
 using Xunit;
 
-namespace UniversalRemote.Tests;
+namespace UniversalRemote.Remote.Tests;
 
 public sealed class OperatorDiagnosticsTests
 {

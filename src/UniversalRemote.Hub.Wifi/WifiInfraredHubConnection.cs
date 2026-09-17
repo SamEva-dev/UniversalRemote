@@ -1,9 +1,9 @@
 using System.Collections.Concurrent;
 using System.Net;
 using System.Net.Sockets;
-using UniversalRemote.Abstractions;
+using UniversalRemote.Remote.Abstractions;
 
-namespace UniversalRemote.Hub.Wifi;
+namespace UniversalRemote.Remote.Hub.Wifi;
 
 /// <summary>
 /// Transport-private Wi-Fi connection data. It intentionally lives outside UniversalRemote.Abstractions so endpoint

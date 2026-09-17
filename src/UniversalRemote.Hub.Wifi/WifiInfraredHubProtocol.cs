@@ -1,4 +1,4 @@
-namespace UniversalRemote.Hub.Wifi;
+namespace UniversalRemote.Remote.Hub.Wifi;
 
 /// <summary>Versioned discovery/API constants for the UniversalRemote IR hub firmware contract.</summary>
 public static class WifiInfraredHubProtocol

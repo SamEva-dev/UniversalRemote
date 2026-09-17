@@ -1,6 +1,6 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
-using UniversalRemote.Abstractions;
-namespace UniversalRemote.Provider.GenericUpnp;
+using UniversalRemote.Remote.Abstractions;
+namespace UniversalRemote.Remote.Provider.GenericUpnp;
 
 public static class ServiceCollectionExtensions
 {

@@ -1,6 +1,6 @@
 using Microsoft.Extensions.DependencyInjection;
-using UniversalRemote.Abstractions;
-using UniversalRemote.Core;
+using UniversalRemote.Remote.Abstractions;
+using UniversalRemote.Remote.Core;
 
 var deviceId = Guid.Parse("58475f2a-7cb9-4ed2-bcf7-a366356e8d51");
 var demoDevice = new Device(

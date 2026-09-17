@@ -1,4 +1,4 @@
-using UniversalRemote.Theming;
+using UniversalRemote.Remote.Theming;
 namespace UniversalRemote.Maui.Remote;
 
 public sealed class RemoteLayoutPreferenceStore

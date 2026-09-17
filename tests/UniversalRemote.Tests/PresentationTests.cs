@@ -1,13 +1,14 @@
 ﻿using DomainRelay.Abstractions;
 using FluentValidation;
 using Microsoft.Extensions.DependencyInjection;
-using UniversalRemote.Abstractions;
-using UniversalRemote.Application;
-using UniversalRemote.Presentation;
-using UniversalRemote.Theming;
+using UniversalRemote.Remote.Abstractions;
+using UniversalRemote.Remote.Application;
+using UniversalRemote.Remote.Core;
+using UniversalRemote.Remote.Presentation;
+using UniversalRemote.Remote.Theming;
 using Xunit;
 
-namespace UniversalRemote.Tests;
+namespace UniversalRemote.Remote.Tests;
 
 public sealed class PresentationTests
 {
@@ -76,7 +77,7 @@ public sealed class PresentationTests
         var id = Guid.NewGuid();
         var services = new ServiceCollection();
         services.AddUniversalRemoteApplication();
-        services.AddSingleton<IDeviceRegistrar, UniversalRemote.Core.InMemoryDeviceRepository>();
+        services.AddSingleton<IDeviceRegistrar, InMemoryDeviceRepository>();
         services.AddSingleton<IDeviceRepository>(new SingleDeviceRepository(
             new Device(id, "Demo", [new DeviceRoute("sim", "1", [RemoteActions.PowerToggle, RemoteActions.Ok])])));
         using var root = services.BuildServiceProvider(new ServiceProviderOptions { ValidateOnBuild = true, ValidateScopes = true });
@@ -94,7 +95,7 @@ public sealed class PresentationTests
     {
         var services = new ServiceCollection();
         services.AddUniversalRemoteApplication();
-        services.AddSingleton<IDeviceRegistrar, UniversalRemote.Core.InMemoryDeviceRepository>();
+        services.AddSingleton<IDeviceRegistrar, InMemoryDeviceRepository>();
         services.AddSingleton<IDeviceRepository>(new SingleDeviceRepository(null));
         using var root = services.BuildServiceProvider();
         using var scope = root.CreateScope();

@@ -1,8 +1,8 @@
 using System.Security.Cryptography;
 using System.Text;
 using Microsoft.Maui.Storage;
-using UniversalRemote.Abstractions;
-using UniversalRemote.Hub.Wifi;
+using UniversalRemote.Remote.Abstractions;
+using UniversalRemote.Remote.Hub.Wifi;
 
 namespace UniversalRemote.Maui.Hub;
 

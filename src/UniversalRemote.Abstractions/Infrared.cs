@@ -1,4 +1,4 @@
-namespace UniversalRemote.Abstractions;
+namespace UniversalRemote.Remote.Abstractions;
 
 /// <summary>A carrier-frequency range advertised by a physical infrared emitter.</summary>
 public readonly record struct InfraredFrequencyRange

@@ -1,9 +1,9 @@
 using System.Text;
 using System.Text.Json;
 using System.Text.Json.Serialization;
-using UniversalRemote.Abstractions;
+using UniversalRemote.Remote.Abstractions;
 
-namespace UniversalRemote.Provider.GenericIr;
+namespace UniversalRemote.Remote.Provider.GenericIr;
 
 public static class IrProfileParser
 {

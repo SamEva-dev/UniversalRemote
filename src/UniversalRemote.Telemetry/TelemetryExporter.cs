@@ -1,6 +1,6 @@
 using System.Text.Json;
 
-namespace UniversalRemote.Telemetry;
+namespace UniversalRemote.Remote.Telemetry;
 
 public sealed class TelemetryExporter(ITelemetryEventStore store, TimeProvider? timeProvider = null) : ITelemetryExporter
 {

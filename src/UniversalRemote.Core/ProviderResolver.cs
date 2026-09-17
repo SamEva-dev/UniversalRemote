@@ -1,6 +1,6 @@
-﻿using UniversalRemote.Abstractions;
+﻿using UniversalRemote.Remote.Abstractions;
 
-namespace UniversalRemote.Core;
+namespace UniversalRemote.Remote.Core;
 
 /// <summary>Matches supported routes in device preference order without depending on concrete providers.</summary>
 public sealed class ProviderResolver

@@ -1,6 +1,6 @@
 using System.Collections.Concurrent;
 
-namespace UniversalRemote.Provider.GenericIr;
+namespace UniversalRemote.Remote.Provider.GenericIr;
 
 public interface IIrProfileCatalog
 {

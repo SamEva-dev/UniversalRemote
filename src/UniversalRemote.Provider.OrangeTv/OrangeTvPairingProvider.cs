@@ -1,7 +1,7 @@
 using System.Collections.Concurrent;
-using UniversalRemote.Abstractions;
+using UniversalRemote.Remote.Abstractions;
 
-namespace UniversalRemote.Provider.OrangeTv;
+namespace UniversalRemote.Remote.Provider.OrangeTv;
 
 public sealed class OrangeTvPairingProvider(HttpClient httpClient) : IDevicePairingProvider, IManualPairingProvider
 {

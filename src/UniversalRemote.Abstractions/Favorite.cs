@@ -1,4 +1,4 @@
-namespace UniversalRemote.Abstractions;
+namespace UniversalRemote.Remote.Abstractions;
 
 /// <summary>A persisted shortcut to a supported action of one device.</summary>
 public sealed record Favorite

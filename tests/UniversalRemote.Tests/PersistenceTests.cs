@@ -1,10 +1,10 @@
 using Xunit;
-using UniversalRemote.Abstractions;
-using UniversalRemote.Core;
-using UniversalRemote.Application;
-using UniversalRemote.Persistence.Sqlite;
+using UniversalRemote.Remote.Abstractions;
+using UniversalRemote.Remote.Core;
+using UniversalRemote.Remote.Application;
+using UniversalRemote.Remote.Persistence.Sqlite;
 
-namespace UniversalRemote.Tests;
+namespace UniversalRemote.Remote.Tests;
 
 public sealed class PersistenceTests
 {

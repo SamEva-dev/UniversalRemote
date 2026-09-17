@@ -2,8 +2,8 @@ using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Reflection;
 using Microsoft.Maui.Storage;
-using UniversalRemote.Telemetry;
-using UniversalRemote.Abstractions;
+using UniversalRemote.Remote.Telemetry;
+using UniversalRemote.Remote.Abstractions;
 
 namespace UniversalRemote.Maui.Privacy;
 

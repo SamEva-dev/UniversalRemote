@@ -1,6 +1,6 @@
-using UniversalRemote.Abstractions;
+using UniversalRemote.Remote.Abstractions;
 
-namespace UniversalRemote.Hub.Ble;
+namespace UniversalRemote.Remote.Hub.Ble;
 
 /// <summary>BLE implementation of the platform-neutral hub transport. Learning is completed by REMOTE-050.</summary>
 internal sealed class BleInfraredHubTransport(

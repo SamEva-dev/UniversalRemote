@@ -1,10 +1,11 @@
-﻿using UniversalRemote.Abstractions;
-using UniversalRemote.Application;
-using UniversalRemote.Core;
-using UniversalRemote.Provider.AndroidTv;
+using UniversalRemote.Remote.Abstractions;
+using UniversalRemote.Remote.Application;
+using UniversalRemote.Remote.Core;
+using UniversalRemote.Remote.Provider.AndroidTv;
+using Microsoft.Extensions.DependencyInjection;
 using Xunit;
 
-namespace UniversalRemote.Tests;
+namespace UniversalRemote.Remote.Tests;
 
 public sealed class AndroidTvTests
 {
@@ -16,6 +17,35 @@ public sealed class AndroidTvTests
         Assert.NotNull(candidate);
         Assert.Equal(AndroidTvPairingProvider.ProviderId, candidate!.ProviderId);
         Assert.Equal("192.168.1.42", candidate.DeviceKey);
+    }
+
+    [Fact]
+    public void Manual_pairing_accepts_private_local_ip_and_rejects_public_or_hostname()
+    {
+        var provider = new AndroidTvPairingProvider(new InMemoryAndroidTvCredentialStore());
+
+        var local = provider.CreateManualCandidate("192.168.1.86", "TCL salon");
+        Assert.NotNull(local);
+        Assert.Equal("androidtv", local!.ProviderId);
+        Assert.Equal("192.168.1.86", local.DeviceKey);
+        Assert.Equal("TCL salon", local.DisplayName);
+
+        Assert.Null(provider.CreateManualCandidate("8.8.8.8"));
+        Assert.Null(provider.CreateManualCandidate("tv.example.com"));
+        Assert.Null(provider.CreateManualCandidate("127.0.0.1"));
+    }
+
+    [Fact]
+    public void Android_tv_registration_exposes_manual_pairing_provider()
+    {
+        var services = new Microsoft.Extensions.DependencyInjection.ServiceCollection();
+        services.AddSingleton<IAndroidTvCredentialStore, InMemoryAndroidTvCredentialStore>();
+        services.AddUniversalRemoteAndroidTv();
+        using var provider = services.BuildServiceProvider();
+
+        var manual = provider.GetServices<IManualPairingProvider>().Single(x => x.Id == AndroidTvPairingProvider.ProviderId);
+        var automatic = provider.GetServices<IDevicePairingProvider>().Single(x => x.Id == AndroidTvPairingProvider.ProviderId);
+        Assert.Same(automatic, manual);
     }
 
     [Fact]

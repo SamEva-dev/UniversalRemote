@@ -1,8 +1,8 @@
 using DomainRelay.Abstractions;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
-using UniversalRemote.Application;
-using UniversalRemote.Presentation;
+using UniversalRemote.Remote.Application;
+using UniversalRemote.Remote.Presentation;
 
 namespace UniversalRemote.Maui.Favorites;
 

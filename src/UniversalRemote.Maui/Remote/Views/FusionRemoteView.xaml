@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentView
+    x:Class="UniversalRemote.Maui.Remote.Views.FusionRemoteView"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
+
+    <ContentView.Resources>
+        <Style x:Key="FusionKey" TargetType="Button">
+            <Setter Property="MinimumHeightRequest" Value="52" />
+            <Setter Property="MinimumWidthRequest" Value="52" />
+            <Setter Property="CornerRadius" Value="16" />
+            <Setter Property="FontSize" Value="13" />
+            <Setter Property="Padding" Value="10,9" />
+            <Setter Property="Margin" Value="4" />
+        </Style>
+        <Style x:Key="FusionSection" TargetType="Label">
+            <Setter Property="FontSize" Value="12" />
+            <Setter Property="FontAttributes" Value="Bold" />
+            <Setter Property="TextColor" Value="#A9C4D5" />
+        </Style>
+    </ContentView.Resources>
+
+    <VerticalStackLayout Padding="16,16,16,28" Spacing="16" BackgroundColor="{Binding BackgroundColor}">
+        <Grid ColumnDefinitions="*,Auto" ColumnSpacing="12">
+            <VerticalStackLayout Spacing="2">
+                <Label Text="FUSION" FontAttributes="Bold" FontSize="11" TextColor="{Binding AccentColor}" />
+                <Label Text="{Binding DisplayName}" FontAttributes="Bold" FontSize="23" TextColor="{Binding TextColor}" />
+            </VerticalStackLayout>
+            <Button Grid.Column="1" Style="{StaticResource FusionKey}" IsVisible="{Binding HasPower}" WidthRequest="60" HeightRequest="60" CornerRadius="30" ImageSource="ur_power_light.png" Text="" Command="{Binding Power.ExecuteCommand}" BackgroundColor="{Binding AccentColor}" TextColor="{Binding OnAccentColor}" />
+        </Grid>
+
+        <Border IsVisible="{Binding HasFavorites}" Padding="12" Stroke="#2A3A48" StrokeThickness="1" BackgroundColor="{Binding SurfaceColor}">
+            <Border.StrokeShape><RoundRectangle CornerRadius="20" /></Border.StrokeShape>
+            <VerticalStackLayout Spacing="8">
+                <Label Text="{Binding FavoritesTitle}" Style="{StaticResource FusionSection}" />
+                <FlexLayout Wrap="Wrap" Direction="Row" JustifyContent="Center" BindableLayout.ItemsSource="{Binding Favorites}">
+                    <BindableLayout.ItemTemplate>
+                        <DataTemplate>
+                            <Button Style="{StaticResource FusionKey}" Text="{Binding Label}" ImageSource="{Binding Icon}" Command="{Binding ExecuteCommand}" BackgroundColor="#21303C" TextColor="White" />
+                        </DataTemplate>
+                    </BindableLayout.ItemTemplate>
+                </FlexLayout>
+            </VerticalStackLayout>
+        </Border>
+
+        <VerticalStackLayout IsVisible="{Binding HasDevices}" Spacing="8">
+            <Label Text="{Binding DevicesTitle}" Style="{StaticResource FusionSection}" />
+            <ScrollView Orientation="Horizontal" HorizontalScrollBarVisibility="Never">
+                <HorizontalStackLayout Spacing="10" BindableLayout.ItemsSource="{Binding Devices}">
+                    <BindableLayout.ItemTemplate>
+                        <DataTemplate>
+                            <Border WidthRequest="180" Padding="12" Stroke="#2A3A48" StrokeThickness="1" BackgroundColor="#19232F">
+                                <Border.StrokeShape><RoundRectangle CornerRadius="20" /></Border.StrokeShape>
+                                <VerticalStackLayout Spacing="5">
+                                    <Label Text="{Binding Name}" FontSize="15" FontAttributes="Bold" TextColor="#F4F7FC" LineBreakMode="TailTruncation" />
+                                    <Label Text="{Binding Room}" FontSize="11" TextColor="#A9C4D5" />
+                                    <Button Text="TV" FontSize="11" HeightRequest="38" CornerRadius="12" Command="{Binding SelectCommand}" BackgroundColor="#213443" TextColor="#F4F7FC" />
+                                </VerticalStackLayout>
+                            </Border>
+                        </DataTemplate>
+                    </BindableLayout.ItemTemplate>
+                </HorizontalStackLayout>
+            </ScrollView>
+        </VerticalStackLayout>
+
+        <VerticalStackLayout IsVisible="{Binding HasActivities}" Spacing="8">
+            <Label Text="{Binding ActivitiesTitle}" Style="{StaticResource FusionSection}" />
+            <ScrollView Orientation="Horizontal" HorizontalScrollBarVisibility="Never">
+                <HorizontalStackLayout Spacing="10" BindableLayout.ItemsSource="{Binding Activities}">
+                    <BindableLayout.ItemTemplate>
+                        <DataTemplate>
+                            <Border WidthRequest="190" Padding="12" Stroke="#2A3A48" StrokeThickness="1" BackgroundColor="#14202A">
+                                <Border.StrokeShape><RoundRectangle CornerRadius="20" /></Border.StrokeShape>
+                                <VerticalStackLayout Spacing="5">
+                                    <Label Text="{Binding Name}" FontSize="15" FontAttributes="Bold" TextColor="#F4F7FC" />
+                                    <Label Text="{Binding Subtitle}" FontSize="11" TextColor="#A9C4D5" />
+                                    <Button Text="▶" FontSize="15" HeightRequest="38" CornerRadius="12" Command="{Binding RunCommand}" BackgroundColor="#28BDF2" TextColor="#081827" />
+                                </VerticalStackLayout>
+                            </Border>
+                        </DataTemplate>
+                    </BindableLayout.ItemTemplate>
+                </HorizontalStackLayout>
+            </ScrollView>
+        </VerticalStackLayout>
+
+        <Grid ColumnDefinitions="*,*" ColumnSpacing="12">
+            <Border IsVisible="{Binding HasNavigation}" Padding="12" Stroke="#2A3A48" StrokeThickness="1" BackgroundColor="{Binding SurfaceColor}">
+                <Border.StrokeShape><RoundRectangle CornerRadius="22" /></Border.StrokeShape>
+                <VerticalStackLayout Spacing="9">
+                    <Label Text="{Binding NavigationTitle}" Style="{StaticResource FusionSection}" HorizontalTextAlignment="Center" />
+                    <Grid RowDefinitions="Auto,Auto,Auto" ColumnDefinitions="*,*,*" RowSpacing="7" ColumnSpacing="7">
+                        <Button Grid.Row="0" Grid.Column="1" Style="{StaticResource FusionKey}" IsVisible="{Binding HasUp}" Text="▲" Command="{Binding Up.ExecuteCommand}" BackgroundColor="#21303C" TextColor="White" />
+                        <Button Grid.Row="1" Grid.Column="0" Style="{StaticResource FusionKey}" IsVisible="{Binding HasLeft}" Text="◀" Command="{Binding Left.ExecuteCommand}" BackgroundColor="#21303C" TextColor="White" />
+                        <Button Grid.Row="1" Grid.Column="1" Style="{StaticResource FusionKey}" IsVisible="{Binding HasOk}" Text="OK" Command="{Binding Ok.ExecuteCommand}" BackgroundColor="{Binding AccentColor}" TextColor="{Binding OnAccentColor}" />
+                        <Button Grid.Row="1" Grid.Column="2" Style="{StaticResource FusionKey}" IsVisible="{Binding HasRight}" Text="▶" Command="{Binding Right.ExecuteCommand}" BackgroundColor="#21303C" TextColor="White" />
+                        <Button Grid.Row="2" Grid.Column="1" Style="{StaticResource FusionKey}" IsVisible="{Binding HasDown}" Text="▼" Command="{Binding Down.ExecuteCommand}" BackgroundColor="#21303C" TextColor="White" />
+                    </Grid>
+                </VerticalStackLayout>
+            </Border>
+
+            <VerticalStackLayout Grid.Column="1" Spacing="10">
+                <Border IsVisible="{Binding HasAudio}" Padding="10" StrokeThickness="0" BackgroundColor="{Binding SurfaceColor}">
+                    <Border.StrokeShape><RoundRectangle CornerRadius="20" /></Border.StrokeShape>
+                    <VerticalStackLayout Spacing="7">
+                        <Label Text="{Binding VolumeTitle}" Style="{StaticResource FusionSection}" HorizontalTextAlignment="Center" />
+                        <Button Style="{StaticResource FusionKey}" IsVisible="{Binding HasVolumeUp}" Text="+" FontSize="21" Command="{Binding VolumeUp.ExecuteCommand}" BackgroundColor="#21303C" TextColor="White" />
+                        <Button Style="{StaticResource FusionKey}" IsVisible="{Binding HasVolumeDown}" Text="−" FontSize="21" Command="{Binding VolumeDown.ExecuteCommand}" BackgroundColor="#21303C" TextColor="White" />
+                    </VerticalStackLayout>
+                </Border>
+                <Border IsVisible="{Binding HasChannel}" Padding="10" StrokeThickness="0" BackgroundColor="{Binding SurfaceColor}">
+                    <Border.StrokeShape><RoundRectangle CornerRadius="20" /></Border.StrokeShape>
+                    <VerticalStackLayout Spacing="7">
+                        <Label Text="{Binding ChannelsTitle}" Style="{StaticResource FusionSection}" HorizontalTextAlignment="Center" />
+                        <Button Style="{StaticResource FusionKey}" IsVisible="{Binding HasChannelUp}" Text="+" FontSize="21" Command="{Binding ChannelUp.ExecuteCommand}" BackgroundColor="#21303C" TextColor="White" />
+                        <Button Style="{StaticResource FusionKey}" IsVisible="{Binding HasChannelDown}" Text="−" FontSize="21" Command="{Binding ChannelDown.ExecuteCommand}" BackgroundColor="#21303C" TextColor="White" />
+                    </VerticalStackLayout>
+                </Border>
+            </VerticalStackLayout>
+        </Grid>
+
+        <FlexLayout IsVisible="{Binding HasQuickActions}" Wrap="Wrap" Direction="Row" JustifyContent="Center" BindableLayout.ItemsSource="{Binding QuickActions}">
+            <BindableLayout.ItemTemplate>
+                <DataTemplate>
+                    <Button Style="{StaticResource FusionKey}" Text="{Binding Label}" ImageSource="{Binding Icon}" Command="{Binding ExecuteCommand}" BackgroundColor="#21303C" TextColor="White" />
+                </DataTemplate>
+            </BindableLayout.ItemTemplate>
+        </FlexLayout>
+
+        <FlexLayout IsVisible="{Binding HasMedia}" Wrap="Wrap" Direction="Row" JustifyContent="Center" BindableLayout.ItemsSource="{Binding Media}">
+            <BindableLayout.ItemTemplate>
+                <DataTemplate>
+                    <Button Style="{StaticResource FusionKey}" Text="{Binding Label}" ImageSource="{Binding Icon}" Command="{Binding ExecuteCommand}" BackgroundColor="#21303C" TextColor="White" />
+                </DataTemplate>
+            </BindableLayout.ItemTemplate>
+        </FlexLayout>
+
+        <VerticalStackLayout IsVisible="{Binding HasExtras}" Spacing="8">
+            <Label Text="{Binding MoreControlsTitle}" Style="{StaticResource FusionSection}" />
+            <FlexLayout Wrap="Wrap" Direction="Row" JustifyContent="Center" BindableLayout.ItemsSource="{Binding Extras}">
+                <BindableLayout.ItemTemplate>
+                    <DataTemplate>
+                        <Button Style="{StaticResource FusionKey}" Text="{Binding Label}" ImageSource="{Binding Icon}" Command="{Binding ExecuteCommand}" BackgroundColor="#21303C" TextColor="White" />
+                    </DataTemplate>
+                </BindableLayout.ItemTemplate>
+            </FlexLayout>
+        </VerticalStackLayout>
+    </VerticalStackLayout>
+</ContentView>

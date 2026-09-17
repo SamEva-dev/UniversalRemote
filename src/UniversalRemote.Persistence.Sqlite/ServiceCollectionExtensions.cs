@@ -1,7 +1,7 @@
 using Microsoft.Extensions.DependencyInjection;
-using UniversalRemote.Abstractions;
+using UniversalRemote.Remote.Abstractions;
 
-namespace UniversalRemote.Persistence.Sqlite;
+namespace UniversalRemote.Remote.Persistence.Sqlite;
 
 public static class ServiceCollectionExtensions
 {

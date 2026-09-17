@@ -1,9 +1,9 @@
-﻿using System.Collections.Frozen;
+using System.Collections.Frozen;
 using System.Net;
 using System.Net.Sockets;
 using System.Text;
 
-namespace UniversalRemote.Discovery;
+namespace UniversalRemote.Remote.Discovery;
 
 public sealed class MdnsDiscoverySource : IDiscoverySource
 {
@@ -36,7 +36,7 @@ public sealed class MdnsDiscoverySource : IDiscoverySource
             catch (OperationCanceledException) { break; }
             catch (InvalidDataException) { }
         }
-        return BuildCandidates(records);
+        return BuildCandidates(records, options.MdnsServiceTypes);
     }
 
     internal static byte[] BuildPtrQuery(string serviceType)
@@ -114,10 +114,19 @@ public sealed class MdnsDiscoverySource : IDiscoverySource
         return records;
     }
 
-    internal static IReadOnlyList<DiscoveryCandidate> BuildCandidates(IEnumerable<DnsRecord> source)
+    internal static IReadOnlyList<DiscoveryCandidate> BuildCandidates(
+        IEnumerable<DnsRecord> source,
+        IEnumerable<string>? requestedServiceTypes = null)
     {
         var records = source.ToArray();
-        var ptrs = records.Where(x => x.Type == 12 && !string.IsNullOrWhiteSpace(x.Target)).ToArray();
+        var requested = (requestedServiceTypes ?? Array.Empty<string>())
+            .Where(x => !string.IsNullOrWhiteSpace(x))
+            .Select(NormalizeDnsName)
+            .ToFrozenSet(StringComparer.OrdinalIgnoreCase);
+        var ptrs = records
+            .Where(x => x.Type == 12 && !string.IsNullOrWhiteSpace(x.Target))
+            .Where(x => requested.Count == 0 || requested.Contains(NormalizeDnsName(x.Name)))
+            .ToArray();
         var results = new List<DiscoveryCandidate>();
         foreach (var ptr in ptrs)
         {
@@ -147,6 +156,8 @@ public sealed class MdnsDiscoverySource : IDiscoverySource
     }
 
     internal sealed record DnsRecord(string Name, ushort Type, string? Target, string? Address, ushort? Port, string? Text);
+
+    private static string NormalizeDnsName(string value) => value.Trim().TrimEnd('.');
 
     private static string InstanceDisplayName(string instance, string service)
     {

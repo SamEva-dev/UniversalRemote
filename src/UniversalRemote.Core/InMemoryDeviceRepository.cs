@@ -1,7 +1,7 @@
 using System.Collections.Concurrent;
-using UniversalRemote.Abstractions;
+using UniversalRemote.Remote.Abstractions;
 
-namespace UniversalRemote.Core;
+namespace UniversalRemote.Remote.Core;
 
 /// <summary>Thread-safe volatile registry used by samples and tests. Production MAUI uses SQLite.</summary>
 public sealed class InMemoryDeviceRepository : IDeviceRepository, IDeviceRegistrar

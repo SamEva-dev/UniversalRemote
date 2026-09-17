@@ -1,8 +1,8 @@
 using DomainRelay.Abstractions;
 using FluentValidation;
-using UniversalRemote.Discovery;
+using UniversalRemote.Remote.Discovery;
 
-namespace UniversalRemote.Application;
+namespace UniversalRemote.Remote.Application;
 
 public sealed record DiscoverDevices(int TimeoutMilliseconds = 3000) : IRequest<IReadOnlyList<DiscoveredDeviceSummary>>;
 

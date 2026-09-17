@@ -1,9 +1,9 @@
-using UniversalRemote.Abstractions;
-using UniversalRemote.Compatibility;
-using UniversalRemote.Provider.AndroidTv;
+using UniversalRemote.Remote.Abstractions;
+using UniversalRemote.Remote.Compatibility;
+using UniversalRemote.Remote.Provider.AndroidTv;
 using Xunit;
 
-namespace UniversalRemote.Tests;
+namespace UniversalRemote.Remote.Tests;
 
 public sealed class SfrConnectTvQualificationTests
 {

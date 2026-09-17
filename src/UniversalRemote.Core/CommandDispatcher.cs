@@ -1,6 +1,6 @@
-﻿using UniversalRemote.Abstractions;
+﻿using UniversalRemote.Remote.Abstractions;
 
-namespace UniversalRemote.Core;
+namespace UniversalRemote.Remote.Core;
 
 /// <summary>One provider attempt per invocation. No retry/fallback after an ambiguous transport outcome.</summary>
 public sealed class CommandDispatcher : IRemoteControl

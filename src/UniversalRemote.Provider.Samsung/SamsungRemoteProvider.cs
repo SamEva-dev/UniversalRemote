@@ -1,9 +1,9 @@
 using System.Net.WebSockets;
 using System.Security.Cryptography;
 using System.Text;
-using UniversalRemote.Abstractions;
+using UniversalRemote.Remote.Abstractions;
 
-namespace UniversalRemote.Provider.Samsung;
+namespace UniversalRemote.Remote.Provider.Samsung;
 
 public sealed class SamsungRemoteProvider(ISamsungCredentialStore store) : IRemoteProvider
 {

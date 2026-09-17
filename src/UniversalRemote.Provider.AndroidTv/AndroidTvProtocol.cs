@@ -4,7 +4,7 @@ using System.Security.Cryptography;
 using System.Security.Cryptography.X509Certificates;
 using System.Text;
 
-namespace UniversalRemote.Provider.AndroidTv;
+namespace UniversalRemote.Remote.Provider.AndroidTv;
 
 internal static class AndroidTvProtocol
 {

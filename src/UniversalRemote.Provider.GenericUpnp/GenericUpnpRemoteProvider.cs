@@ -1,9 +1,9 @@
 ﻿using System.Collections.Concurrent;
 using System.Globalization;
 using System.Xml.Linq;
-using UniversalRemote.Abstractions;
+using UniversalRemote.Remote.Abstractions;
 
-namespace UniversalRemote.Provider.GenericUpnp;
+namespace UniversalRemote.Remote.Provider.GenericUpnp;
 
 public sealed class GenericUpnpRemoteProvider(HttpClient httpClient) : IRemoteProvider
 {

@@ -1,4 +1,4 @@
-﻿namespace UniversalRemote.Provider.Freebox;
+﻿namespace UniversalRemote.Remote.Provider.Freebox;
 
 public interface IFreeboxRemoteCodeStore
 {

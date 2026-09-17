@@ -1,14 +1,15 @@
 using System.Collections.Concurrent;
+using System.Net;
 using System.Net.Security;
 using System.Net.Sockets;
 using System.Security.Authentication;
 using System.Security.Cryptography;
 using System.Security.Cryptography.X509Certificates;
-using UniversalRemote.Abstractions;
+using UniversalRemote.Remote.Abstractions;
 
-namespace UniversalRemote.Provider.AndroidTv;
+namespace UniversalRemote.Remote.Provider.AndroidTv;
 
-public sealed class AndroidTvPairingProvider(IAndroidTvCredentialStore credentialStore) : IDevicePairingProvider, IAsyncDisposable
+public sealed class AndroidTvPairingProvider(IAndroidTvCredentialStore credentialStore) : IDevicePairingProvider, IManualPairingProvider, IAsyncDisposable
 {
     public const string ProviderId = "androidtv";
     private readonly ConcurrentDictionary<Guid, PendingPairing> pending = new();
@@ -16,15 +17,26 @@ public sealed class AndroidTvPairingProvider(IAndroidTvCredentialStore credentia
 
     public PairingCandidate? Match(PairingProbe probe)
     {
+        ArgumentNullException.ThrowIfNull(probe);
         if (!probe.Services.Any(x => x.Contains(AndroidTvProtocol.ServiceType, StringComparison.OrdinalIgnoreCase))) return null;
-        var host = probe.Addresses.FirstOrDefault() ?? string.Empty;
-        return string.IsNullOrWhiteSpace(host) ? null : new PairingCandidate(Id, host, probe.DisplayName);
+        var host = probe.Addresses.FirstOrDefault(x => TryNormalizeLocalAddress(x, out _)) ?? string.Empty;
+        return string.IsNullOrWhiteSpace(host) ? null : CreateManualCandidate(host, probe.DisplayName);
+    }
+
+    public PairingCandidate? CreateManualCandidate(string deviceKey, string? displayName = null)
+    {
+        if (!TryNormalizeLocalAddress(deviceKey, out var normalized)) return null;
+        var name = string.IsNullOrWhiteSpace(displayName) ? "Android TV / Google TV" : displayName.Trim();
+        return new PairingCandidate(Id, normalized, name);
     }
 
     public async Task<PairingChallenge> StartAsync(PairingCandidate candidate, CancellationToken cancellationToken)
     {
         if (!string.Equals(candidate.ProviderId, Id, StringComparison.Ordinal))
             throw new InvalidOperationException("Pairing candidate does not belong to Android TV.");
+        if (!TryNormalizeLocalAddress(candidate.DeviceKey, out var normalizedAddress))
+            throw new InvalidOperationException("Android TV pairing requires a private local IP address.");
+        candidate = candidate with { DeviceKey = normalizedAddress };
 
         foreach (var item in pending.ToArray())
             if (DateTimeOffset.UtcNow - item.Value.CreatedAt > TimeSpan.FromMinutes(3)
@@ -100,6 +112,35 @@ public sealed class AndroidTvPairingProvider(IAndroidTvCredentialStore credentia
         return new PairingCompletion(
             new DeviceRoute(Id, session.Candidate.DeviceKey, AndroidTvRemoteProvider.Capabilities),
             session.Candidate.DisplayName);
+    }
+
+    private static bool TryNormalizeLocalAddress(string? value, out string address)
+    {
+        address = string.Empty;
+        if (string.IsNullOrWhiteSpace(value)) return false;
+        if (!IPAddress.TryParse(value.Trim(), out var ip)) return false;
+        if (IPAddress.IsLoopback(ip) || ip.Equals(IPAddress.Any) || ip.Equals(IPAddress.IPv6Any)) return false;
+        if (ip.IsIPv4MappedToIPv6) ip = ip.MapToIPv4();
+
+        var allowed = ip.AddressFamily switch
+        {
+            AddressFamily.InterNetwork => IsPrivateIpv4(ip),
+            AddressFamily.InterNetworkV6 => ip.IsIPv6LinkLocal || (ip.GetAddressBytes()[0] & 0xFE) == 0xFC,
+            _ => false
+        };
+        if (!allowed) return false;
+
+        address = ip.ToString();
+        return true;
+    }
+
+    private static bool IsPrivateIpv4(IPAddress ip)
+    {
+        var bytes = ip.GetAddressBytes();
+        return bytes[0] == 10
+            || (bytes[0] == 172 && bytes[1] is >= 16 and <= 31)
+            || (bytes[0] == 192 && bytes[1] == 168)
+            || (bytes[0] == 169 && bytes[1] == 254);
     }
 
     private static void Expect(byte[] message, int field, string stage)

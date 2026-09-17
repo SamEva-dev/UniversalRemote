@@ -4,7 +4,7 @@ using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Text.Json;
 
-namespace UniversalRemote.Provider.Samsung;
+namespace UniversalRemote.Remote.Provider.Samsung;
 
 internal static class SamsungProtocol
 {

@@ -1,8 +1,8 @@
-using UniversalRemote.Abstractions;
-using UniversalRemote.Compatibility;
+using UniversalRemote.Remote.Abstractions;
+using UniversalRemote.Remote.Compatibility;
 using Xunit;
 
-namespace UniversalRemote.Tests;
+namespace UniversalRemote.Remote.Tests;
 
 public sealed class OperatorCompatibilityTests
 {

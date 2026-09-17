@@ -1,7 +1,7 @@
 using Microsoft.Maui.Storage;
 using System.Text.Json;
 using UniversalRemote.Maui.Storage;
-using UniversalRemote.Provider.Samsung;
+using UniversalRemote.Remote.Provider.Samsung;
 namespace UniversalRemote.Maui.Samsung;
 public sealed class SecureSamsungCredentialStore : ISamsungCredentialStore
 {

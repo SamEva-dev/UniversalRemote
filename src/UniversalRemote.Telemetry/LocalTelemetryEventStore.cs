@@ -1,8 +1,8 @@
 using System.Text;
 using System.Text.Json;
-using UniversalRemote.Abstractions;
+using UniversalRemote.Remote.Abstractions;
 
-namespace UniversalRemote.Telemetry;
+namespace UniversalRemote.Remote.Telemetry;
 
 public sealed class LocalTelemetryEventStore : ITelemetryEventStore
 {

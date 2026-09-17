@@ -1,9 +1,9 @@
 using System.Diagnostics;
 using DomainRelay.Abstractions;
 using DomainRelay.Diagnostics;
-using UniversalRemote.Abstractions;
+using UniversalRemote.Remote.Abstractions;
 
-namespace UniversalRemote.Application;
+namespace UniversalRemote.Remote.Application;
 
 /// <summary>Records operation types and outcomes without exception messages or request payloads.</summary>
 public sealed class SanitizedDiagnosticsBehavior<TRequest, TResponse> : IPipelineBehavior<TRequest, TResponse>

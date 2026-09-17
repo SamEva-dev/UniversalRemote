@@ -1,5 +1,5 @@
 using Microsoft.Maui.Storage;
-using UniversalRemote.Telemetry;
+using UniversalRemote.Remote.Telemetry;
 
 namespace UniversalRemote.Maui.Privacy;
 

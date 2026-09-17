@@ -1,6 +1,6 @@
 using Microsoft.Extensions.DependencyInjection;
-using UniversalRemote.Abstractions;
-namespace UniversalRemote.Provider.Freebox;
+using UniversalRemote.Remote.Abstractions;
+namespace UniversalRemote.Remote.Provider.Freebox;
 
 public static class ServiceCollectionExtensions
 {

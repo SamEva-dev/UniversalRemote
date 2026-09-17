@@ -1,15 +1,15 @@
 using System.Net;
 using System.Text;
 using Microsoft.Extensions.DependencyInjection;
-using UniversalRemote.Abstractions;
-using UniversalRemote.Core;
-using UniversalRemote.Hub;
-using UniversalRemote.Hub.Ble;
-using UniversalRemote.Hub.Wifi;
-using UniversalRemote.Provider.GenericIr;
+using UniversalRemote.Remote.Abstractions;
+using UniversalRemote.Remote.Core;
+using UniversalRemote.Remote.Hub;
+using UniversalRemote.Remote.Hub.Ble;
+using UniversalRemote.Remote.Hub.Wifi;
+using UniversalRemote.Remote.Provider.GenericIr;
 using Xunit;
 
-namespace UniversalRemote.Tests;
+namespace UniversalRemote.Remote.Tests;
 
 public sealed class InfraredHubLearningTests
 {

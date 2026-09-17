@@ -1,6 +1,6 @@
-using UniversalRemote.Abstractions;
+using UniversalRemote.Remote.Abstractions;
 
-namespace UniversalRemote.Hub;
+namespace UniversalRemote.Remote.Hub;
 
 /// <summary>Repeatable acceptance recipe for REMOTE-050. Passing it does not automatically promote every hub/device.</summary>
 public sealed class InfraredHubPhysicalRecipe

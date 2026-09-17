@@ -2,7 +2,7 @@
 using System.Security.Cryptography;
 using System.Text;
 
-namespace UniversalRemote.Discovery;
+namespace UniversalRemote.Remote.Discovery;
 
 public sealed class DiscoveryConsolidator : IDiscoveryConsolidator
 {

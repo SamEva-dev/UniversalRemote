@@ -1,9 +1,9 @@
 using System.Buffers;
 using System.Net;
 using System.Text.Json;
-using UniversalRemote.Abstractions;
+using UniversalRemote.Remote.Abstractions;
 
-namespace UniversalRemote.Hub.Wifi;
+namespace UniversalRemote.Remote.Hub.Wifi;
 
 /// <summary>One-attempt learning request. Captured signals are bounded and revalidated before leaving the transport.</summary>
 internal sealed class WifiInfraredHubLearnClient(HttpClient httpClient)

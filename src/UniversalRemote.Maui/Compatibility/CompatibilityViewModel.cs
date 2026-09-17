@@ -3,9 +3,9 @@ using DomainRelay.Abstractions;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Text;
-using UniversalRemote.Application;
-using UniversalRemote.Compatibility;
-using UniversalRemote.Presentation;
+using UniversalRemote.Remote.Application;
+using UniversalRemote.Remote.Compatibility;
+using UniversalRemote.Remote.Presentation;
 
 namespace UniversalRemote.Maui.Compatibility;
 

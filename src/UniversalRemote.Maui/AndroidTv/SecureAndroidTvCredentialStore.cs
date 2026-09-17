@@ -1,6 +1,6 @@
 using System.Text.Json;
 using UniversalRemote.Maui.Storage;
-using UniversalRemote.Provider.AndroidTv;
+using UniversalRemote.Remote.Provider.AndroidTv;
 
 namespace UniversalRemote.Maui.AndroidTv;
 

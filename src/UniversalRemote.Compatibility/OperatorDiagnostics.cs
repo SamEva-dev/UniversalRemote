@@ -2,7 +2,7 @@ using System.Globalization;
 using System.Text;
 using System.Text.Json;
 
-namespace UniversalRemote.Compatibility;
+namespace UniversalRemote.Remote.Compatibility;
 
 public enum CompatibilityRecipeState
 {

@@ -1,7 +1,7 @@
 using System.Collections.Frozen;
-using UniversalRemote.Abstractions;
+using UniversalRemote.Remote.Abstractions;
 
-namespace UniversalRemote.Provider.GenericIr;
+namespace UniversalRemote.Remote.Provider.GenericIr;
 
 public sealed class IrCommand
 {

@@ -1,9 +1,9 @@
 using System.Globalization;
-using UniversalRemote.Abstractions;
-using UniversalRemote.Presentation;
-using UniversalRemote.Theming;
+using UniversalRemote.Remote.Abstractions;
+using UniversalRemote.Remote.Presentation;
+using UniversalRemote.Remote.Theming;
 using Xunit;
-namespace UniversalRemote.Tests;
+namespace UniversalRemote.Remote.Tests;
 public sealed class Sprint8Tests
 {
     [Fact]

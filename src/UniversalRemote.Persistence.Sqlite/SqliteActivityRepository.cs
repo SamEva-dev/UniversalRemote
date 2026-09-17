@@ -1,7 +1,7 @@
 using Microsoft.Data.Sqlite;
-using UniversalRemote.Abstractions;
+using UniversalRemote.Remote.Abstractions;
 
-namespace UniversalRemote.Persistence.Sqlite;
+namespace UniversalRemote.Remote.Persistence.Sqlite;
 
 /// <summary>SQLite-backed Activities. The complete ordered step list is replaced in one transaction.</summary>
 public sealed class SqliteActivityRepository : IActivityRepository

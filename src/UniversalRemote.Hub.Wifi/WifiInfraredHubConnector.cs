@@ -1,7 +1,7 @@
-using UniversalRemote.Abstractions;
-using UniversalRemote.Hub;
+using UniversalRemote.Remote.Abstractions;
+using UniversalRemote.Remote.Hub;
 
-namespace UniversalRemote.Hub.Wifi;
+namespace UniversalRemote.Remote.Hub.Wifi;
 
 /// <summary>Validates a discovered/stored endpoint before making it persistent and returning an IInfraredHub client.</summary>
 internal sealed class WifiInfraredHubConnector(

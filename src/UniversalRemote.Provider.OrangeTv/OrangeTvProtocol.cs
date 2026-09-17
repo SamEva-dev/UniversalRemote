@@ -1,6 +1,6 @@
 using System.Text.Json;
 
-namespace UniversalRemote.Provider.OrangeTv;
+namespace UniversalRemote.Remote.Provider.OrangeTv;
 
 internal sealed record OrangeTvStatus(string? FriendlyName, string? MacAddress, string? StandbyState);
 

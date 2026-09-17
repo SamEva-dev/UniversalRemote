@@ -1,4 +1,4 @@
-namespace UniversalRemote.Provider.LG;
+namespace UniversalRemote.Remote.Provider.LG;
 public sealed record LgCredentials(string Host, string ClientKey, string? ServerCertificateSha256);
 public interface ILgCredentialStore
 {

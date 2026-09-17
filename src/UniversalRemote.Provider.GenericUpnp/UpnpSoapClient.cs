@@ -3,7 +3,7 @@ using System.Net.Http.Headers;
 using System.Text;
 using System.Xml.Linq;
 
-namespace UniversalRemote.Provider.GenericUpnp;
+namespace UniversalRemote.Remote.Provider.GenericUpnp;
 
 internal sealed class UpnpSoapClient(HttpClient httpClient)
 {
