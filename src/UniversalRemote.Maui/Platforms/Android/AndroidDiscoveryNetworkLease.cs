@@ -11,7 +11,7 @@ public sealed class AndroidDiscoveryNetworkLease : IDiscoveryNetworkLease
         cancellationToken.ThrowIfCancellationRequested();
         var wifi = (WifiManager?)global::Android.App.Application.Context.GetSystemService(Context.WifiService)
             ?? throw new InvalidOperationException("Wi-Fi service is unavailable.");
-        var multicastLock = wifi.CreateMulticastLock("UniversalRemote.Discovery")
+        var multicastLock = wifi.CreateMulticastLock("UniversalRemote.Remote.Discovery")
             ?? throw new InvalidOperationException("Multicast lock is unavailable.");
         multicastLock.Acquire();
         return ValueTask.FromResult<IAsyncDisposable>(new Lease(multicastLock));

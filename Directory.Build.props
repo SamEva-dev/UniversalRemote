@@ -13,6 +13,6 @@
     <PackageVersion>$(UniversalRemoteVersion)</PackageVersion>
 
     <!-- Used by UniversalRemote.Maui.csproj. -->
-    <MauiVersion>10.0.0</MauiVersion>
+    <MauiVersion>10.0.60</MauiVersion>
   </PropertyGroup>
 </Project>

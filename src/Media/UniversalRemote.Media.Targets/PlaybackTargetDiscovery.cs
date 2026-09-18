@@ -1,7 +1,7 @@
 using System.Security.Cryptography;
 using System.Text;
-using UniversalRemote.Abstractions;
-using UniversalRemote.Discovery;
+using UniversalRemote.Remote.Abstractions;
+using UniversalRemote.Remote.Discovery;
 using UniversalRemote.Media.Abstractions;
 
 namespace UniversalRemote.Media.Targets;

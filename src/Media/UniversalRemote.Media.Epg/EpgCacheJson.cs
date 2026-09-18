@@ -60,4 +60,4 @@ internal sealed record EpgCacheProgramDto(
 }
 
 [JsonSerializable(typeof(EpgCacheDto))]
-internal sealed partial class EpgCacheJsonContext : JsonSerializerContext;
+internal sealed partial class EpgCacheJsonContext : JsonSerializerContext { }

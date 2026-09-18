@@ -14,7 +14,13 @@ public static class ServiceCollectionExtensions
         {
             client.Timeout = TimeSpan.FromSeconds(35);
             client.DefaultRequestHeaders.UserAgent.ParseAdd("UniversalRemote/1.0");
-        }).RemoveAllLoggers();
+        })
+        .ConfigurePrimaryHttpMessageHandler(() => new System.Net.Http.HttpClientHandler
+        {
+            // Source URLs can contain credentials/tokens. Never forward them through implicit redirects.
+            AllowAutoRedirect = false
+        })
+        .RemoveAllLoggers();
         services.TryAddSingleton<XmlTvParser>();
         services.TryAddSingleton<EpgChannelMatcher>();
         services.TryAddScoped<EpgProviderResolver>();

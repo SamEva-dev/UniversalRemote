@@ -3,7 +3,7 @@
     x:Class="UniversalRemote.Maui.Media.PlaybackPage"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+    xmlns:toolkit="clr-namespace:CommunityToolkit.Maui.Views;assembly=CommunityToolkit.Maui.MediaElement"
     Title="Lecteur"
     BackgroundColor="{StaticResource MediaHorizonBackground}">
 

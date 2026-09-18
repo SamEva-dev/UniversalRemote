@@ -36,12 +36,12 @@ public sealed class AndroidTvTests
     }
 
     [Fact]
-    public void Android_tv_registration_exposes_manual_pairing_provider()
+    public async Task Android_tv_registration_exposes_manual_pairing_provider()
     {
         var services = new Microsoft.Extensions.DependencyInjection.ServiceCollection();
         services.AddSingleton<IAndroidTvCredentialStore, InMemoryAndroidTvCredentialStore>();
         services.AddUniversalRemoteAndroidTv();
-        using var provider = services.BuildServiceProvider();
+        await using var provider = services.BuildServiceProvider();
 
         var manual = provider.GetServices<IManualPairingProvider>().Single(x => x.Id == AndroidTvPairingProvider.ProviderId);
         var automatic = provider.GetServices<IDevicePairingProvider>().Single(x => x.Id == AndroidTvPairingProvider.ProviderId);

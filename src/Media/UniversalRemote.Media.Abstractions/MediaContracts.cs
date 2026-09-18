@@ -92,3 +92,41 @@ public interface IMediaCredentialStore
     Task SetAsync(string credentialReference, MediaSecret secret, CancellationToken cancellationToken = default);
     Task<bool> DeleteAsync(string credentialReference, CancellationToken cancellationToken = default);
 }
+
+public enum MediaSourceSetupFieldKind
+{
+    Text,
+    Uri,
+    Secret
+}
+
+/// <summary>Provider-declared setup field so the UI can configure sources without provider-specific branches.</summary>
+public sealed record MediaSourceSetupField
+{
+    public string Key { get; }
+    public string Label { get; }
+    public string Placeholder { get; }
+    public MediaSourceSetupFieldKind Kind { get; }
+
+    public MediaSourceSetupField(string key, string label, string placeholder, MediaSourceSetupFieldKind kind)
+    {
+        ArgumentException.ThrowIfNullOrWhiteSpace(key);
+        ArgumentException.ThrowIfNullOrWhiteSpace(label);
+        if (!Enum.IsDefined(kind)) throw new ArgumentOutOfRangeException(nameof(kind));
+        Key = key.Trim();
+        Label = label.Trim();
+        Placeholder = placeholder?.Trim() ?? string.Empty;
+        Kind = kind;
+    }
+}
+
+/// <summary>
+/// Provider-owned source setup adapter. It keeps M3U/Xtream validation and credential encoding out of MAUI pages.
+/// </summary>
+public interface IMediaSourceSetupProvider
+{
+    string ProviderId { get; }
+    string DisplayName { get; }
+    IReadOnlyList<MediaSourceSetupField> Fields { get; }
+    MediaSecret CreateSecret(IReadOnlyDictionary<string, string> values);
+}

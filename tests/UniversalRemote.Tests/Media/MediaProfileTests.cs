@@ -12,6 +12,8 @@ public sealed class MediaProfileTests
         var repository = new MemoryProfileRepository();
         var pins = new MemoryPinStore();
         var service = new MediaProfileService(repository, pins);
+        var parent = new MediaProfile(Guid.NewGuid(), "Parents", MediaProfileKind.Adult, isPinProtected: true);
+        await service.SaveAsync(parent, "2580");
         var child = new MediaProfile(
             Guid.NewGuid(), "Enfant", MediaProfileKind.Child,
             new MediaProfileRestrictions(maximumAgeRating: 12, blockUnratedContent: true));
@@ -84,7 +86,8 @@ public sealed class MediaProfileTests
             await repository.SetActiveProfileIdAsync(profile.Id);
             var json = await File.ReadAllTextAsync(path);
 
-            Assert.Contains("Invité", json, StringComparison.Ordinal);
+            using var document = System.Text.Json.JsonDocument.Parse(json);
+            Assert.Equal(profile.DisplayName, document.RootElement.GetProperty("profiles")[0].GetProperty("displayName").GetString());
             Assert.Contains("Restricted", json, StringComparison.Ordinal);
             Assert.DoesNotContain("password", json, StringComparison.OrdinalIgnoreCase);
             Assert.DoesNotContain("username", json, StringComparison.OrdinalIgnoreCase);

@@ -6,6 +6,7 @@ namespace UniversalRemote.Maui.Discovery;
 public sealed class DiscoveryPage : ContentPage
 {
     private readonly DiscoveryViewModel viewModel;
+    private readonly DeviceSetupState setupState;
     private readonly VerticalStackLayout savedDevices = new() { Spacing = 8 };
     private bool pairing;
     private readonly VerticalStackLayout results = new() { Spacing = 12 };
@@ -15,9 +16,10 @@ public sealed class DiscoveryPage : ContentPage
     private readonly Button manualButton = new() { Text = "Ajouter par adresse locale", MinimumHeightRequest = 48 };
     private readonly VerticalStackLayout manualResults = new() { Spacing = 8 };
 
-    public DiscoveryPage(DiscoveryViewModel viewModel)
+    public DiscoveryPage(DiscoveryViewModel viewModel, DeviceSetupState setupState)
     {
         this.viewModel = viewModel;
+        this.setupState = setupState;
         Title = "Appareils";
         BindingContext = viewModel;
         scanButton.Clicked += async (_, _) =>
@@ -158,8 +160,11 @@ public sealed class DiscoveryPage : ContentPage
                 code = await DisplayPromptAsync("Association", challenge.Prompt, "Associer", "Annuler", maxLength: challenge.CodeLength, keyboard: Keyboard.Text).ConfigureAwait(true) ?? string.Empty;
                 if (string.IsNullOrWhiteSpace(code)) { viewModel.ReportPairingCancelled(); return; }
             }
-            await viewModel.CompletePairingAsync(candidate, challenge, code, deadline.Token).ConfigureAwait(true);
+            var paired = await viewModel.CompletePairingAsync(candidate, challenge, code, deadline.Token).ConfigureAwait(true);
             RenderSavedDevices();
+            setupState.Begin(paired);
+            await DisplayAlertAsync("Association réussie", $"{paired.DisplayName} est maintenant associé à UniversalRemote.", "Continuer").ConfigureAwait(true);
+            await Shell.Current.GoToAsync("//device-setup").ConfigureAwait(true);
         }
         catch (Exception) { viewModel.ReportPairingError(); }
         finally { pairing = false; button.IsEnabled = scanButton.IsEnabled = manualButton.IsEnabled = true; }

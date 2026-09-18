@@ -11,10 +11,10 @@
 		<Compile Remove="MainActivity.cs" />
 	</ItemGroup>
 	<ItemGroup>
-		<ProjectReference Include="../../src/UniversalRemote.Provider.Simulator/UniversalRemote.Provider.Simulator.csproj" />
-		<ProjectReference Include="..\..\src\UniversalRemote.Abstractions\UniversalRemote.Abstractions.csproj" />
-		<ProjectReference Include="..\..\src\UniversalRemote.Application\UniversalRemote.Application.csproj" />
-		<ProjectReference Include="..\..\src\UniversalRemote.Provider.GenericIr\UniversalRemote.Provider.GenericIr.csproj" />
+		<ProjectReference Include="../../src/Remote/UniversalRemote.Provider.Simulator/UniversalRemote.Provider.Simulator.csproj" />
+		<ProjectReference Include="..\..\src\Remote\UniversalRemote.Abstractions\UniversalRemote.Abstractions.csproj" />
+		<ProjectReference Include="..\..\src\Remote\UniversalRemote.Application\UniversalRemote.Application.csproj" />
+		<ProjectReference Include="..\..\src\Remote\UniversalRemote.Provider.GenericIr\UniversalRemote.Provider.GenericIr.csproj" />
 		<PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="10.0.0" />
 	</ItemGroup>
 

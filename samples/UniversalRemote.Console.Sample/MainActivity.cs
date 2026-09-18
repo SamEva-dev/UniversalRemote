@@ -1,12 +1,12 @@
 using Android.Views;
 using DomainRelay.Abstractions;
 using Microsoft.Extensions.DependencyInjection;
-using UniversalRemote.Abstractions;
-using UniversalRemote.Application;
-using UniversalRemote.Core;
-using UniversalRemote.Platform.Android;
-using UniversalRemote.Provider.GenericIr;
-using UniversalRemote.Provider.Simulator;
+using UniversalRemote.Remote.Abstractions;
+using UniversalRemote.Remote.Application;
+using UniversalRemote.Remote.Core;
+using UniversalRemote.Remote.Platform.Android;
+using UniversalRemote.Remote.Provider.GenericIr;
+using UniversalRemote.Remote.Provider.Simulator;
 
 namespace UniversalRemote.AndroidIr.Sample;
 

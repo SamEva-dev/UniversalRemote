@@ -8,7 +8,7 @@
   </PropertyGroup>
   <ItemGroup>
     <!-- Compile the exact production protocol sources; no copied implementation. -->
-    <Compile Include="../../src/UniversalRemote.Provider.LG/LgProtocol.cs" Link="LgProtocol.cs" />
-    <Compile Include="../../src/UniversalRemote.Provider.Samsung/SamsungProtocol.cs" Link="SamsungProtocol.cs" />
+    <Compile Include="../../src/Remote/UniversalRemote.Provider.LG/LgProtocol.cs" Link="LgProtocol.cs" />
+    <Compile Include="../../src/Remote/UniversalRemote.Provider.Samsung/SamsungProtocol.cs" Link="SamsungProtocol.cs" />
   </ItemGroup>
 </Project>

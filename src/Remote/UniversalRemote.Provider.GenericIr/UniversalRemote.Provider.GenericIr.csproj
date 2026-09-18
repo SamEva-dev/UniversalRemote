@@ -1,0 +1,15 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <RootNamespace>UniversalRemote.Remote.Provider.GenericIr</RootNamespace>
+    <IsPackable>true</IsPackable>
+    <PackageId>UniversalRemote.Provider.GenericIr</PackageId>
+    <Description>Generic infrared profile provider for UniversalRemote.</Description>
+  </PropertyGroup>
+  <ItemGroup>
+    <ProjectReference Include="../UniversalRemote.Abstractions/UniversalRemote.Abstractions.csproj" />
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="10.0.0" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Profiles/bench.synthetic.tv.json" />
+  </ItemGroup>
+</Project>

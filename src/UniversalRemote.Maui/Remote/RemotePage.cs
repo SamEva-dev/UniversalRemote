@@ -1,5 +1,5 @@
-using UniversalRemote.Presentation;
-using UniversalRemote.Theming;
+using UniversalRemote.Remote.Presentation;
+using UniversalRemote.Remote.Theming;
 namespace UniversalRemote.Maui.Remote;
 
 public sealed partial class RemotePage : ContentPage
@@ -124,7 +124,7 @@ public sealed partial class RemotePage : ContentPage
         var tone = dark ? "light" : "dark";
         var entries = new[]
         {
-            ("remote", RemoteLabels.Text("Télécommande", "Remote"), "home"),
+            ("remote", RemoteLabels.Text("Contrôle", "Control"), "home"),
             ("media", RemoteLabels.Text("Médias", "Media"), "play"),
             ("devices", RemoteLabels.Text("Appareils", "Devices"), "tv"),
             (viewModel.LayoutId == "elite" ? "favorites" : "activities", viewModel.LayoutId == "elite" ? RemoteLabels.Text("Favoris", "Favorites") : RemoteLabels.Text("Activités", "Activities"), "star"),
@@ -136,7 +136,7 @@ public sealed partial class RemotePage : ContentPage
             var entry = entries[i];
             var button = new Button
             {
-                Text = entry.Item2, FontSize = 10, Padding = 2, MinimumHeightRequest = 54,
+                Text = entry.Item2, FontSize = 9, Padding = 1, MinimumHeightRequest = 52,
                 ImageSource = $"ur_{entry.Item3}_{tone}.png", BackgroundColor = Colors.Transparent,
                 TextColor = Color.FromArgb(i == 0 ? theme.Palette.Accent : theme.Palette.Text),
                 ContentLayout = new Button.ButtonContentLayout(Button.ButtonContentLayout.ImagePosition.Top, 3),

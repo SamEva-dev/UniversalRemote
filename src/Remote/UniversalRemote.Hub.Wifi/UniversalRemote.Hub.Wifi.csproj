@@ -1,0 +1,21 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <RootNamespace>UniversalRemote.Remote.Hub.Wifi</RootNamespace>
+    <IsPackable>true</IsPackable>
+    <PackageId>UniversalRemote.Hub.Wifi</PackageId>
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
+    <NoWarn>$(NoWarn);CS1591</NoWarn>
+    <Description>Local Wi-Fi discovery, connection and transport for UniversalRemote external infrared hubs.</Description>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
+  </PropertyGroup>
+  <ItemGroup>
+    <ProjectReference Include="../UniversalRemote.Abstractions/UniversalRemote.Abstractions.csproj" />
+    <ProjectReference Include="../UniversalRemote.Discovery/UniversalRemote.Discovery.csproj" />
+    <ProjectReference Include="../UniversalRemote.Hub/UniversalRemote.Hub.csproj" />
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="10.0.0" />
+    <PackageReference Include="Microsoft.Extensions.Http" Version="10.0.0" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="README.md" Pack="true" PackagePath="/" />
+  </ItemGroup>
+</Project>

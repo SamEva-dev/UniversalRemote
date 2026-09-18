@@ -89,12 +89,13 @@
                         <Label Text="▶" TextColor="#8EDBFF" FontSize="25" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" />
                     </Border>
 
-                    <Grid Grid.Row="2" Grid.ColumnSpan="2" ColumnDefinitions="*,Auto" ColumnSpacing="12" Margin="0,14,0,0">
+                    <Grid Grid.Row="2" Grid.ColumnSpan="2" ColumnDefinitions="*,Auto,Auto" ColumnSpacing="8" Margin="0,14,0,0">
                         <VerticalStackLayout Spacing="2">
                             <Label x:Name="activeProfileLabel" Text="Profil : …" TextColor="#91D8FF" FontAttributes="Bold" FontSize="12" />
                             <Label x:Name="statusLabel" Text="Chargement…" TextColor="#B8CAE0" FontSize="12" MaxLines="2" />
                         </VerticalStackLayout>
-                        <Button x:Name="profilesButton" Grid.Column="1" Text="Profil" Style="{StaticResource MediaHorizonGhostButton}" />
+                        <Button x:Name="sourcesButton" Grid.Column="1" Text="Sources" Style="{StaticResource MediaHorizonGhostButton}" />
+                        <Button x:Name="profilesButton" Grid.Column="2" Text="Profil" Style="{StaticResource MediaHorizonGhostButton}" />
                     </Grid>
                 </Grid>
             </Border>

@@ -11,6 +11,7 @@ public sealed class M3uPlaylistClient
     private readonly HttpClient httpClient;
     private readonly int maximumPlaylistBytes;
 
+    [Microsoft.Extensions.DependencyInjection.ActivatorUtilitiesConstructor]
     public M3uPlaylistClient(HttpClient httpClient)
         : this(httpClient, DefaultMaximumPlaylistBytes)
     {

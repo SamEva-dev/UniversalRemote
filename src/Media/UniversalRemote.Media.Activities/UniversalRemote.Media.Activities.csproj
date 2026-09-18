@@ -10,7 +10,7 @@
     <PackageReadmeFile>README.md</PackageReadmeFile>
   </PropertyGroup>
   <ItemGroup>
-    <ProjectReference Include="../UniversalRemote.Abstractions/UniversalRemote.Abstractions.csproj" />
+    <ProjectReference Include="../../Remote/UniversalRemote.Abstractions/UniversalRemote.Abstractions.csproj" />
     <ProjectReference Include="../UniversalRemote.Media.Abstractions/UniversalRemote.Media.Abstractions.csproj" />
     <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="10.0.0" />
     <None Include="README.md" Pack="true" PackagePath="/" />

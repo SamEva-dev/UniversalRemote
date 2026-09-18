@@ -2,21 +2,32 @@ using UniversalRemote.Media.Abstractions;
 
 namespace UniversalRemote.Maui.Media;
 
-/// <summary>
-/// UI shell for MEDIA 4. Source selection is intentionally left to MEDIA 5 catalogue UX; this page already
-/// renders a provider-independent EpgGuideSnapshot and can be fed by that flow without knowing M3U/Xtream/XMLTV.
-/// </summary>
+/// <summary>Provider-independent TV guide. The page resolves the first configured Media+EPG pair when opened directly.</summary>
 public sealed partial class TvGuidePage : ContentPage
 {
     private readonly IEpgGuideService guideService;
+    private readonly IMediaSourceRepository sources;
+    private readonly IEpgSourceRepository epgSources;
     private MediaSource? mediaSource;
     private EpgSource? epgSource;
+    private bool loading;
 
-    public TvGuidePage(IEpgGuideService guideService)
+    public TvGuidePage(
+        IEpgGuideService guideService,
+        IMediaSourceRepository sources,
+        IEpgSourceRepository epgSources)
     {
         InitializeComponent();
         this.guideService = guideService ?? throw new ArgumentNullException(nameof(guideService));
-        refreshButton.Clicked += async (_, _) => await RefreshAsync(forceRefresh: true);
+        this.sources = sources ?? throw new ArgumentNullException(nameof(sources));
+        this.epgSources = epgSources ?? throw new ArgumentNullException(nameof(epgSources));
+        refreshButton.Clicked += async (_, _) => await ResolveAndRefreshAsync(forceRefresh: true);
+    }
+
+    protected override async void OnAppearing()
+    {
+        base.OnAppearing();
+        await ResolveAndRefreshAsync(forceRefresh: false);
     }
 
     public async Task ShowAsync(MediaSource source, EpgSource guideSource, CancellationToken cancellationToken = default)
@@ -26,15 +37,37 @@ public sealed partial class TvGuidePage : ContentPage
         await RefreshAsync(forceRefresh: false, cancellationToken);
     }
 
+    private async Task ResolveAndRefreshAsync(bool forceRefresh)
+    {
+        if (loading) return;
+        mediaSource = null;
+        epgSource = null;
+
+        var configured = await sources.ListAsync();
+        foreach (var source in configured.Where(x => x.IsEnabled))
+        {
+            var guides = await epgSources.ListForMediaSourceAsync(source.Id);
+            var guide = guides.FirstOrDefault(x => x.IsEnabled);
+            if (guide is null) continue;
+            mediaSource = source;
+            epgSource = guide;
+            break;
+        }
+
+        await RefreshAsync(forceRefresh);
+    }
+
     private async Task RefreshAsync(bool forceRefresh, CancellationToken cancellationToken = default)
     {
+        if (loading) return;
         if (mediaSource is null || epgSource is null)
         {
-            statusLabel.Text = "Configurez une source Media puis une source XMLTV pour afficher le guide.";
+            statusLabel.Text = "Aucun couple Media + XMLTV configuré. Ouvrez Média > Sources.";
             guideList.ItemsSource = null;
             return;
         }
 
+        loading = true;
         refreshButton.IsEnabled = false;
         statusLabel.Text = "Chargement du guide…";
         try
@@ -52,7 +85,7 @@ public sealed partial class TvGuidePage : ContentPage
                     program.Category ?? string.Empty)).ToArray())).ToArray();
             guideList.ItemsSource = rows;
             var matched = guide.Channels.Count(x => x.MatchedGuideId is not null);
-            statusLabel.Text = $"{matched}/{guide.Channels.Count} chaînes associées • cache local actif";
+            statusLabel.Text = $"{mediaSource.DisplayName} • {matched}/{guide.Channels.Count} chaînes associées • cache local actif";
         }
         catch (OperationCanceledException)
         {
@@ -65,6 +98,7 @@ public sealed partial class TvGuidePage : ContentPage
         finally
         {
             refreshButton.IsEnabled = true;
+            loading = false;
         }
     }
 

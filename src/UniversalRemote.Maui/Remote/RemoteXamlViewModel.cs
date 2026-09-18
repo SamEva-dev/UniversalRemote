@@ -6,7 +6,7 @@ namespace UniversalRemote.Maui.Remote;
 
 /// <summary>
 /// Binding model used only by the XAML remote views. It stays provider-neutral and exposes
-/// the semantic controls already projected by UniversalRemote.Presentation.
+/// the semantic controls already projected by UniversalRemote.Remote.Presentation.
 /// </summary>
 public sealed class RemoteXamlViewModel
 {

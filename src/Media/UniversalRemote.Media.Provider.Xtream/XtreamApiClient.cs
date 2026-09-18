@@ -15,6 +15,7 @@ public sealed class XtreamApiClient
     private readonly HttpClient httpClient;
     private readonly int maximumResponseBytes;
 
+    [Microsoft.Extensions.DependencyInjection.ActivatorUtilitiesConstructor]
     public XtreamApiClient(HttpClient httpClient) : this(httpClient, DefaultMaximumResponseBytes) { }
 
     public XtreamApiClient(HttpClient httpClient, int maximumResponseBytes)

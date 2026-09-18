@@ -9,8 +9,8 @@
   <ItemGroup>
     <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="10.0.0" />
     <PackageReference Include="UniversalRemote.Abstractions" Version="$(UniversalRemoteVersion)" Condition="'$(UseLocalProjectReferences)' == 'false'" />
-    <ProjectReference Include="../../src/UniversalRemote.Abstractions/UniversalRemote.Abstractions.csproj" Condition="'$(UseLocalProjectReferences)' != 'false'" />
+    <ProjectReference Include="../../src/Remote/UniversalRemote.Abstractions/UniversalRemote.Abstractions.csproj" Condition="'$(UseLocalProjectReferences)' != 'false'" />
     <PackageReference Include="UniversalRemote.Core" Version="$(UniversalRemoteVersion)" Condition="'$(UseLocalProjectReferences)' == 'false'" />
-    <ProjectReference Include="../../src/UniversalRemote.Core/UniversalRemote.Core.csproj" Condition="'$(UseLocalProjectReferences)' != 'false'" />
+    <ProjectReference Include="../../src/Remote/UniversalRemote.Core/UniversalRemote.Core.csproj" Condition="'$(UseLocalProjectReferences)' != 'false'" />
   </ItemGroup>
 </Project>

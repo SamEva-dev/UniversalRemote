@@ -1,6 +1,6 @@
 using System.Text.Json;
 using System.Text.Json.Serialization;
-using UniversalRemote.Abstractions;
+using UniversalRemote.Remote.Abstractions;
 using UniversalRemote.Media.Abstractions;
 
 namespace UniversalRemote.Media.Activities;

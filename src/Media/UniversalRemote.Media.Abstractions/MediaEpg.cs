@@ -206,3 +206,12 @@ public interface IEpgCache
     Task SetAsync(EpgGuideSnapshot snapshot, CancellationToken cancellationToken = default);
     Task ClearAsync(Guid mediaSourceId, Guid epgSourceId, CancellationToken cancellationToken = default);
 }
+
+/// <summary>Persistence contract for non-secret EPG source metadata.</summary>
+public interface IEpgSourceRepository
+{
+    Task<EpgSource?> FindAsync(Guid id, CancellationToken cancellationToken = default);
+    Task<IReadOnlyList<EpgSource>> ListForMediaSourceAsync(Guid mediaSourceId, CancellationToken cancellationToken = default);
+    Task<EpgSource> SaveAsync(EpgSource source, CancellationToken cancellationToken = default);
+    Task<bool> DeleteAsync(Guid id, CancellationToken cancellationToken = default);
+}

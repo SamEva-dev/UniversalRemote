@@ -1,0 +1,14 @@
+<Project Sdk="Microsoft.NET.Sdk">
+	<PropertyGroup>
+    <RootNamespace>UniversalRemote.Remote.Provider.Simulator</RootNamespace>
+		<IsPackable>false</IsPackable>
+		<GenerateDocumentationFile>true</GenerateDocumentationFile>
+		<NoWarn>$(NoWarn);CS1591</NoWarn>
+		<Description>UniversalRemote Provider.Simulator preview SDK.</Description>
+		<PackageReadmeFile>README.md</PackageReadmeFile>
+	</PropertyGroup>
+	<ItemGroup>
+		<ProjectReference Include="../UniversalRemote.Abstractions/UniversalRemote.Abstractions.csproj" />
+		<None Include="../../../README.md" Pack="true" PackagePath="/" />
+	</ItemGroup>
+</Project>

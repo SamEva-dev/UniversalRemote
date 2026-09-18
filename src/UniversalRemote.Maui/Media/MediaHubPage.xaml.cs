@@ -1,6 +1,6 @@
-using UniversalRemote.Abstractions;
+using UniversalRemote.Remote.Abstractions;
 using UniversalRemote.Media.Abstractions;
-using RemoteDevice = UniversalRemote.Abstractions.Device;
+using RemoteDevice = UniversalRemote.Remote.Abstractions.Device;
 
 namespace UniversalRemote.Maui.Media;
 
@@ -32,6 +32,7 @@ public sealed partial class MediaHubPage : ContentPage
 
         controlButton.Clicked += async (_, _) => await Shell.Current.GoToAsync("//remote");
         refreshButton.Clicked += async (_, _) => await RefreshAsync();
+        sourcesButton.Clicked += async (_, _) => await Shell.Current.GoToAsync("//media-sources");
         profilesButton.Clicked += async (_, _) => await Shell.Current.GoToAsync("//media-profiles");
         liveButton.Clicked += async (_, _) => await Shell.Current.GoToAsync("//media-live");
         moviesButton.Clicked += async (_, _) => await Shell.Current.GoToAsync("//media-movies");

@@ -82,12 +82,13 @@ public sealed class DiscoveryViewModel(IMediator mediator, DeviceSelectionState 
         return await mediator.Send(new StartPairing(candidate.ProviderId, candidate.DeviceKey, candidate.DisplayName), ct);
     }
 
-    public async Task CompletePairingAsync(PairingCandidate candidate, PairingChallenge challenge, string code, CancellationToken ct = default)
+    public async Task<PairedDeviceSummary> CompletePairingAsync(PairingCandidate candidate, PairingChallenge challenge, string code, CancellationToken ct = default)
     {
         var result = await mediator.Send(new CompletePairing(candidate.ProviderId, challenge.Id, code, candidate.DisplayName), ct);
         selection.ActiveDeviceId = result.DeviceId;
         await RefreshSavedDevicesAsync(ct);
-        Status = $"{result.DisplayName} associé. Ouvre l’onglet Télécommande pour le piloter.";
+        Status = $"{result.DisplayName} associé avec succès.";
+        return result;
     }
 
     public void ReportPairingCancelled() => Status = "Association annulée.";

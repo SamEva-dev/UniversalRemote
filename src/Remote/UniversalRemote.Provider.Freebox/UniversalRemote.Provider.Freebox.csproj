@@ -1,0 +1,13 @@
+<Project Sdk="Microsoft.NET.Sdk">
+	<PropertyGroup>
+    <RootNamespace>UniversalRemote.Remote.Provider.Freebox</RootNamespace>
+		<IsPackable>true</IsPackable>
+		<PackageId>UniversalRemote.Provider.Freebox</PackageId>
+		<Description>Freebox Revolution network remote provider for UniversalRemote.</Description>
+	</PropertyGroup>
+	<ItemGroup>
+		<ProjectReference Include="../UniversalRemote.Abstractions/UniversalRemote.Abstractions.csproj" />
+		<PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="10.0.0" />
+		<PackageReference Include="Microsoft.Extensions.Http" Version="10.0.0" />
+	</ItemGroup>
+</Project>

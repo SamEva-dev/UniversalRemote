@@ -1,0 +1,12 @@
+<Project Sdk="Microsoft.NET.Sdk">
+	<PropertyGroup>
+    <RootNamespace>UniversalRemote.Remote.Theming</RootNamespace>
+		<IsPackable>true</IsPackable>
+		<GenerateDocumentationFile>true</GenerateDocumentationFile>
+		<NoWarn>$(NoWarn);CS1591</NoWarn>
+		<Description>Theme and layout contracts for UniversalRemote renderers.</Description>
+	</PropertyGroup>
+	<ItemGroup>
+		<ProjectReference Include="../UniversalRemote.Presentation/UniversalRemote.Presentation.csproj" />
+	</ItemGroup>
+</Project>

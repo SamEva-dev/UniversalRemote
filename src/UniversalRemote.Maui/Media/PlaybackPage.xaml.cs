@@ -1,5 +1,5 @@
 using Microsoft.Maui.ApplicationModel;
-using UniversalRemote.Abstractions;
+using UniversalRemote.Remote.Abstractions;
 using UniversalRemote.Media.Abstractions;
 using UniversalRemote.Media.Control;
 

@@ -17,36 +17,41 @@
       <Deploy Solution="Debug|*" />
     </Project>
   </Folder>
+  <Folder Name="/src/Remote/">
+    <Project Path="src/Remote/UniversalRemote.Abstractions/UniversalRemote.Abstractions.csproj" Id="07df9502-3b1f-48c0-b6af-c8f25701a0ac" />
+    <Project Path="src/Remote/UniversalRemote.Application/UniversalRemote.Application.csproj" Id="ca9f23b0-b617-44e4-8aa2-63c4238bc46a" />
+    <Project Path="src/Remote/UniversalRemote.Compatibility/UniversalRemote.Compatibility.csproj" Id="59b47ab7-324e-4323-b28a-c8fc06a78e47" />
+    <Project Path="src/Remote/UniversalRemote.Core/UniversalRemote.Core.csproj" Id="f5665047-e8de-4ae8-a6e6-3045c92b39a6" />
+    <Project Path="src/Remote/UniversalRemote.Discovery/UniversalRemote.Discovery.csproj" Id="7267f11a-1973-4b5c-86ef-5a7e97c9104e" />
+    <Project Path="src/Remote/UniversalRemote.Hub.Ble/UniversalRemote.Hub.Ble.csproj" Id="50c60ddd-01d8-43c7-866b-a2b857d4b03b" />
+    <Project Path="src/Remote/UniversalRemote.Hub.Wifi/UniversalRemote.Hub.Wifi.csproj" Id="b80d038f-9327-4bd7-a66c-3e2e5344fda2" />
+    <Project Path="src/Remote/UniversalRemote.Hub/UniversalRemote.Hub.csproj" Id="4b190e7a-87f3-41ae-bdfc-f4f6dc90ad13" />
+    <Project Path="src/Remote/UniversalRemote.Persistence.Sqlite/UniversalRemote.Persistence.Sqlite.csproj" Id="5f1acc94-c33b-4cd4-8726-ebd4b57ae974" />
+    <Project Path="src/Remote/UniversalRemote.Platform.Android/UniversalRemote.Platform.Android.csproj" Id="e415d5e2-e859-4823-8b33-a630c68da70e" />
+    <Project Path="src/Remote/UniversalRemote.Presentation/UniversalRemote.Presentation.csproj" Id="a264b314-855c-427d-9759-aa2543973cfe" />
+    <Project Path="src/Remote/UniversalRemote.Provider.AndroidTv/UniversalRemote.Provider.AndroidTv.csproj" Id="43194082-1764-45cb-95af-cb2da92ac31d" />
+    <Project Path="src/Remote/UniversalRemote.Provider.Freebox/UniversalRemote.Provider.Freebox.csproj" Id="fa4ebfdc-ae2a-4b41-a37f-abf651bac9da" />
+    <Project Path="src/Remote/UniversalRemote.Provider.GenericIr/UniversalRemote.Provider.GenericIr.csproj" Id="2fb8556a-7b9a-44d0-a832-7f853fb822e1" />
+    <Project Path="src/Remote/UniversalRemote.Provider.GenericUpnp/UniversalRemote.Provider.GenericUpnp.csproj" Id="2d4c57d5-335e-45d2-9423-5f91fa14bc6f" />
+    <Project Path="src/Remote/UniversalRemote.Provider.LG/UniversalRemote.Provider.LG.csproj" Id="9579632f-9be7-45ea-a57d-a8e284a02803" />
+    <Project Path="src/Remote/UniversalRemote.Provider.OrangeTv/UniversalRemote.Provider.OrangeTv.csproj" Id="08437866-0660-475f-b1b3-d76b51ba7f80" />
+    <Project Path="src/Remote/UniversalRemote.Provider.Samsung/UniversalRemote.Provider.Samsung.csproj" Id="25cac8c9-a3c3-46f8-af75-fe94fb91371c" />
+    <Project Path="src/Remote/UniversalRemote.Provider.Simulator/UniversalRemote.Provider.Simulator.csproj" Id="f7e180d8-435a-42d3-b0d0-6ea01b3196b9" />
+    <Project Path="src/Remote/UniversalRemote.Telemetry/UniversalRemote.Telemetry.csproj" Id="d9392f82-121d-495d-a77c-8ae05df6816e" />
+    <Project Path="src/Remote/UniversalRemote.Theming/UniversalRemote.Theming.csproj" Id="e73a0652-66e8-4e09-a50c-9eb8194474c6" />
+    <Project Path="src/Remote/UniversalRemote.SdkQuickstart/UniversalRemote.SdkQuickstart.csproj" />
+  </Folder>
   <Folder Name="/src/Media/">
+    <Project Path="src/Media/UniversalRemote.Media.Activities/UniversalRemote.Media.Activities.csproj" />
+    <Project Path="src/Media/UniversalRemote.Media.Control/UniversalRemote.Media.Control.csproj" />
+    <Project Path="src/Media/UniversalRemote.Media.Profiles/UniversalRemote.Media.Profiles.csproj" />
+    <Project Path="src/Media/UniversalRemote.Media.Targets/UniversalRemote.Media.Targets.csproj" />
     <Project Path="src/Media/UniversalRemote.Media.Abstractions/UniversalRemote.Media.Abstractions.csproj" Id="31aad82c-2f47-4eaa-aba6-817e14a8f3ca" />
     <Project Path="src/Media/UniversalRemote.Media.Core/UniversalRemote.Media.Core.csproj" Id="66527091-41fd-41a9-909e-1352b278e2a2" />
     <Project Path="src/Media/UniversalRemote.Media.Epg/UniversalRemote.Media.Epg.csproj" Id="e51cc727-f3d5-4303-b8d7-510e103c9fe9" />
     <Project Path="src/Media/UniversalRemote.Media.Playback/UniversalRemote.Media.Playback.csproj" Id="3a34698b-6375-484d-8159-df32d6262bcd" />
     <Project Path="src/Media/UniversalRemote.Media.Provider.M3U/UniversalRemote.Media.Provider.M3U.csproj" Id="33e87399-8f0d-479b-b1f0-abc6681cdef2" />
     <Project Path="src/Media/UniversalRemote.Media.Provider.Xtream/UniversalRemote.Media.Provider.Xtream.csproj" Id="5bdf09df-eb46-451f-a867-de0fa03d1d83" />
-  </Folder>
-  <Folder Name="/src/remote/">
-    <Project Path="src/UniversalRemote.Abstractions/UniversalRemote.Abstractions.csproj" Id="07df9502-3b1f-48c0-b6af-c8f25701a0ac" />
-    <Project Path="src/UniversalRemote.Application/UniversalRemote.Application.csproj" Id="ca9f23b0-b617-44e4-8aa2-63c4238bc46a" />
-    <Project Path="src/UniversalRemote.Compatibility/UniversalRemote.Compatibility.csproj" Id="59b47ab7-324e-4323-b28a-c8fc06a78e47" />
-    <Project Path="src/UniversalRemote.Core/UniversalRemote.Core.csproj" Id="f5665047-e8de-4ae8-a6e6-3045c92b39a6" />
-    <Project Path="src/UniversalRemote.Discovery/UniversalRemote.Discovery.csproj" Id="7267f11a-1973-4b5c-86ef-5a7e97c9104e" />
-    <Project Path="src/UniversalRemote.Hub.Ble/UniversalRemote.Hub.Ble.csproj" Id="50c60ddd-01d8-43c7-866b-a2b857d4b03b" />
-    <Project Path="src/UniversalRemote.Hub.Wifi/UniversalRemote.Hub.Wifi.csproj" Id="b80d038f-9327-4bd7-a66c-3e2e5344fda2" />
-    <Project Path="src/UniversalRemote.Hub/UniversalRemote.Hub.csproj" Id="4b190e7a-87f3-41ae-bdfc-f4f6dc90ad13" />
-    <Project Path="src/UniversalRemote.Persistence.Sqlite/UniversalRemote.Persistence.Sqlite.csproj" Id="5f1acc94-c33b-4cd4-8726-ebd4b57ae974" />
-    <Project Path="src/UniversalRemote.Platform.Android/UniversalRemote.Platform.Android.csproj" Id="e415d5e2-e859-4823-8b33-a630c68da70e" />
-    <Project Path="src/UniversalRemote.Presentation/UniversalRemote.Presentation.csproj" Id="a264b314-855c-427d-9759-aa2543973cfe" />
-    <Project Path="src/UniversalRemote.Provider.AndroidTv/UniversalRemote.Provider.AndroidTv.csproj" Id="43194082-1764-45cb-95af-cb2da92ac31d" />
-    <Project Path="src/UniversalRemote.Provider.Freebox/UniversalRemote.Provider.Freebox.csproj" Id="fa4ebfdc-ae2a-4b41-a37f-abf651bac9da" />
-    <Project Path="src/UniversalRemote.Provider.GenericIr/UniversalRemote.Provider.GenericIr.csproj" Id="2fb8556a-7b9a-44d0-a832-7f853fb822e1" />
-    <Project Path="src/UniversalRemote.Provider.GenericUpnp/UniversalRemote.Provider.GenericUpnp.csproj" Id="2d4c57d5-335e-45d2-9423-5f91fa14bc6f" />
-    <Project Path="src/UniversalRemote.Provider.LG/UniversalRemote.Provider.LG.csproj" Id="9579632f-9be7-45ea-a57d-a8e284a02803" />
-    <Project Path="src/UniversalRemote.Provider.OrangeTv/UniversalRemote.Provider.OrangeTv.csproj" Id="08437866-0660-475f-b1b3-d76b51ba7f80" />
-    <Project Path="src/UniversalRemote.Provider.Samsung/UniversalRemote.Provider.Samsung.csproj" Id="25cac8c9-a3c3-46f8-af75-fe94fb91371c" />
-    <Project Path="src/UniversalRemote.Provider.Simulator/UniversalRemote.Provider.Simulator.csproj" Id="f7e180d8-435a-42d3-b0d0-6ea01b3196b9" />
-    <Project Path="src/UniversalRemote.Telemetry/UniversalRemote.Telemetry.csproj" Id="d9392f82-121d-495d-a77c-8ae05df6816e" />
-    <Project Path="src/UniversalRemote.Theming/UniversalRemote.Theming.csproj" Id="e73a0652-66e8-4e09-a50c-9eb8194474c6" />
   </Folder>
   <Folder Name="/tests/">
     <Project Path="tests/UniversalRemote.Tests/UniversalRemote.Tests.csproj" Id="bbd610af-1c53-4329-baf5-ee945dce1f63" />

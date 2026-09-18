@@ -1,0 +1,15 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <RootNamespace>UniversalRemote.Remote.Platform.Android</RootNamespace>
+    <TargetFramework>net10.0-android</TargetFramework>
+    <IsPackable>true</IsPackable>
+    <PackageId>UniversalRemote.Platform.Android</PackageId>
+    <Description>Android platform adapters for UniversalRemote, including ConsumerIrManager and Bluetooth Low Energy hub radio.</Description>
+    <SupportedOSPlatformVersion>21.0</SupportedOSPlatformVersion>
+  </PropertyGroup>
+  <ItemGroup>
+    <ProjectReference Include="../UniversalRemote.Abstractions/UniversalRemote.Abstractions.csproj" />
+    <ProjectReference Include="../UniversalRemote.Hub.Ble/UniversalRemote.Hub.Ble.csproj" />
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="10.0.0" />
+  </ItemGroup>
+</Project>

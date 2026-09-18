@@ -260,4 +260,4 @@ internal sealed class MediaHistoryDto
 
 [JsonSourceGenerationOptions(WriteIndented = false, PropertyNamingPolicy = JsonKnownNamingPolicy.CamelCase)]
 [JsonSerializable(typeof(MediaLibraryDocument))]
-internal partial class MediaLibraryJsonContext : JsonSerializerContext;
+internal partial class MediaLibraryJsonContext : JsonSerializerContext { }

@@ -13,21 +13,21 @@
 
 	<ItemGroup>
 	  <PackageReference Include="UniversalRemote.Compatibility" Version="$(Version)" Condition="'$(UseLocalProjectReferences)' == 'false'" />
-    <ProjectReference Include="../../src/UniversalRemote.Compatibility/UniversalRemote.Compatibility.csproj" Condition="'$(UseLocalProjectReferences)' != 'false'" />
+    <ProjectReference Include="../../src/Remote/UniversalRemote.Compatibility/UniversalRemote.Compatibility.csproj" Condition="'$(UseLocalProjectReferences)' != 'false'" />
 	  <PackageReference Include="UniversalRemote.Core" Version="$(Version)" Condition="'$(UseLocalProjectReferences)' == 'false'" />
-    <ProjectReference Include="../../src/UniversalRemote.Core/UniversalRemote.Core.csproj" Condition="'$(UseLocalProjectReferences)' != 'false'" />
+    <ProjectReference Include="../../src/Remote/UniversalRemote.Core/UniversalRemote.Core.csproj" Condition="'$(UseLocalProjectReferences)' != 'false'" />
 	  <PackageReference Include="UniversalRemote.Hub.Ble" Version="$(Version)" Condition="'$(UseLocalProjectReferences)' == 'false'" />
-    <ProjectReference Include="../../src/UniversalRemote.Hub.Ble/UniversalRemote.Hub.Ble.csproj" Condition="'$(UseLocalProjectReferences)' != 'false'" />
+    <ProjectReference Include="../../src/Remote/UniversalRemote.Hub.Ble/UniversalRemote.Hub.Ble.csproj" Condition="'$(UseLocalProjectReferences)' != 'false'" />
 	  <PackageReference Include="UniversalRemote.Hub.Wifi" Version="$(Version)" Condition="'$(UseLocalProjectReferences)' == 'false'" />
-    <ProjectReference Include="../../src/UniversalRemote.Hub.Wifi/UniversalRemote.Hub.Wifi.csproj" Condition="'$(UseLocalProjectReferences)' != 'false'" />
+    <ProjectReference Include="../../src/Remote/UniversalRemote.Hub.Wifi/UniversalRemote.Hub.Wifi.csproj" Condition="'$(UseLocalProjectReferences)' != 'false'" />
 	  <PackageReference Include="UniversalRemote.Hub" Version="$(Version)" Condition="'$(UseLocalProjectReferences)' == 'false'" />
-    <ProjectReference Include="../../src/UniversalRemote.Hub/UniversalRemote.Hub.csproj" Condition="'$(UseLocalProjectReferences)' != 'false'" />
+    <ProjectReference Include="../../src/Remote/UniversalRemote.Hub/UniversalRemote.Hub.csproj" Condition="'$(UseLocalProjectReferences)' != 'false'" />
 	  <PackageReference Include="UniversalRemote.Persistence.Sqlite" Version="$(Version)" Condition="'$(UseLocalProjectReferences)' == 'false'" />
-    <ProjectReference Include="../../src/UniversalRemote.Persistence.Sqlite/UniversalRemote.Persistence.Sqlite.csproj" Condition="'$(UseLocalProjectReferences)' != 'false'" />
+    <ProjectReference Include="../../src/Remote/UniversalRemote.Persistence.Sqlite/UniversalRemote.Persistence.Sqlite.csproj" Condition="'$(UseLocalProjectReferences)' != 'false'" />
 	  <PackageReference Include="UniversalRemote.Provider.GenericIr" Version="$(Version)" Condition="'$(UseLocalProjectReferences)' == 'false'" />
-    <ProjectReference Include="../../src/UniversalRemote.Provider.GenericIr/UniversalRemote.Provider.GenericIr.csproj" Condition="'$(UseLocalProjectReferences)' != 'false'" />
+    <ProjectReference Include="../../src/Remote/UniversalRemote.Provider.GenericIr/UniversalRemote.Provider.GenericIr.csproj" Condition="'$(UseLocalProjectReferences)' != 'false'" />
 	  <PackageReference Include="UniversalRemote.Theming" Version="$(Version)" Condition="'$(UseLocalProjectReferences)' == 'false'" />
-    <ProjectReference Include="../../src/UniversalRemote.Theming/UniversalRemote.Theming.csproj" Condition="'$(UseLocalProjectReferences)' != 'false'" />
+    <ProjectReference Include="../../src/Remote/UniversalRemote.Theming/UniversalRemote.Theming.csproj" Condition="'$(UseLocalProjectReferences)' != 'false'" />
 	</ItemGroup>
 
 </Project>

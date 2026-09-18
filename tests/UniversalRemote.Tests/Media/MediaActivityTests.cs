@@ -1,4 +1,4 @@
-using UniversalRemote.Abstractions;
+using UniversalRemote.Remote.Abstractions;
 using UniversalRemote.Media.Abstractions;
 using UniversalRemote.Media.Activities;
 using Xunit;

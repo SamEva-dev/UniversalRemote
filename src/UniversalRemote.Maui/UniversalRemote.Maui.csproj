@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
 
 	<PropertyGroup>
 		<TargetFramework />
@@ -74,26 +74,27 @@
 
 	<ItemGroup>
 		<PackageReference Include="Microsoft.Maui.Controls" Version="$(MauiVersion)" />
+        <PackageReference Include="CommunityToolkit.Maui.MediaElement" Version="10.0.0" />
 		<PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="10.0.0" />
 	</ItemGroup>
 	
 	<ItemGroup>
-		<ProjectReference Include="../UniversalRemote.Application/UniversalRemote.Application.csproj" />
+		<ProjectReference Include="../Remote/UniversalRemote.Application/UniversalRemote.Application.csproj" />
 		<ProjectReference Include="../Remote/UniversalRemote.Compatibility/UniversalRemote.Compatibility.csproj" />
 		<ProjectReference Include="../Remote/UniversalRemote.Hub/UniversalRemote.Hub.csproj" />
 		<ProjectReference Include="../Remote/UniversalRemote.Hub.Wifi/UniversalRemote.Hub.Wifi.csproj" />
 		<ProjectReference Include="../Remote/UniversalRemote.Hub.Ble/UniversalRemote.Hub.Ble.csproj" />
-		<ProjectReference Include="../UniversalRemote.Discovery/UniversalRemote.Discovery.csproj" />
-		<ProjectReference Include="../UniversalRemote.Theming/UniversalRemote.Theming.csproj" />
-		<ProjectReference Include="../UniversalRemote.Telemetry/UniversalRemote.Telemetry.csproj" />
+		<ProjectReference Include="../Remote/UniversalRemote.Discovery/UniversalRemote.Discovery.csproj" />
+		<ProjectReference Include="../Remote/UniversalRemote.Theming/UniversalRemote.Theming.csproj" />
+		<ProjectReference Include="../Remote/UniversalRemote.Telemetry/UniversalRemote.Telemetry.csproj" />
 		<ProjectReference Include="../Remote/UniversalRemote.Persistence.Sqlite/UniversalRemote.Persistence.Sqlite.csproj" />
-		<ProjectReference Include="../UniversalRemote.Provider.Simulator/UniversalRemote.Provider.Simulator.csproj" />
+		<ProjectReference Include="../Remote/UniversalRemote.Provider.Simulator/UniversalRemote.Provider.Simulator.csproj" />
 		<ProjectReference Include="../Remote/UniversalRemote.Provider.AndroidTv/UniversalRemote.Provider.AndroidTv.csproj" />
 		<ProjectReference Include="../Remote/UniversalRemote.Provider.Freebox/UniversalRemote.Provider.Freebox.csproj" />
-		<ProjectReference Include="../UniversalRemote.Provider.LG/UniversalRemote.Provider.LG.csproj" />
-		<ProjectReference Include="../UniversalRemote.Provider.Samsung/UniversalRemote.Provider.Samsung.csproj" />
-		<ProjectReference Include="../UniversalRemote.Provider.GenericUpnp/UniversalRemote.Provider.GenericUpnp.csproj" />
-    <ProjectReference Include="../UniversalRemote.Provider.OrangeTv/UniversalRemote.Provider.OrangeTv.csproj" />
+		<ProjectReference Include="../Remote/UniversalRemote.Provider.LG/UniversalRemote.Provider.LG.csproj" />
+		<ProjectReference Include="../Remote/UniversalRemote.Provider.Samsung/UniversalRemote.Provider.Samsung.csproj" />
+		<ProjectReference Include="../Remote/UniversalRemote.Provider.GenericUpnp/UniversalRemote.Provider.GenericUpnp.csproj" />
+    <ProjectReference Include="../Remote/UniversalRemote.Provider.OrangeTv/UniversalRemote.Provider.OrangeTv.csproj" />
 		<ProjectReference Include="../Remote/UniversalRemote.Provider.GenericIr/UniversalRemote.Provider.GenericIr.csproj" />
 		<ProjectReference Include="../Remote/UniversalRemote.Platform.Android/UniversalRemote.Platform.Android.csproj" Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'android'" />
 		<ProjectReference Include="..\Media\UniversalRemote.Media.Abstractions\UniversalRemote.Media.Abstractions.csproj" />
@@ -105,4 +106,10 @@
 	</ItemGroup>
 	
 
+  <ItemGroup>
+    <ProjectReference Include="../Media/UniversalRemote.Media.Activities/UniversalRemote.Media.Activities.csproj" />
+    <ProjectReference Include="../Media/UniversalRemote.Media.Control/UniversalRemote.Media.Control.csproj" />
+    <ProjectReference Include="../Media/UniversalRemote.Media.Profiles/UniversalRemote.Media.Profiles.csproj" />
+    <ProjectReference Include="../Media/UniversalRemote.Media.Targets/UniversalRemote.Media.Targets.csproj" />
+  </ItemGroup>
 </Project>

@@ -1,6 +1,6 @@
 using Microsoft.Extensions.DependencyInjection;
-using UniversalRemote.Abstractions;
-using UniversalRemote.Discovery;
+using UniversalRemote.Remote.Abstractions;
+using UniversalRemote.Remote.Discovery;
 using UniversalRemote.Media.Abstractions;
 using UniversalRemote.Media.Targets;
 using Xunit;

@@ -6,12 +6,12 @@
 
     <ContentView.Resources>
         <Style x:Key="HorizonKey" TargetType="Button">
-            <Setter Property="MinimumHeightRequest" Value="54" />
+            <Setter Property="MinimumHeightRequest" Value="50" />
             <Setter Property="MinimumWidthRequest" Value="54" />
             <Setter Property="CornerRadius" Value="18" />
-            <Setter Property="FontSize" Value="14" />
-            <Setter Property="Padding" Value="12,10" />
-            <Setter Property="Margin" Value="4" />
+            <Setter Property="FontSize" Value="13" />
+            <Setter Property="Padding" Value="10,8" />
+            <Setter Property="Margin" Value="3" />
         </Style>
         <Style x:Key="HorizonSection" TargetType="Label">
             <Setter Property="FontSize" Value="13" />
@@ -20,10 +20,10 @@
         </Style>
     </ContentView.Resources>
 
-    <VerticalStackLayout Padding="16,16,16,28" Spacing="16" BackgroundColor="{Binding BackgroundColor}">
+    <VerticalStackLayout Padding="12,12,12,22" Spacing="14" BackgroundColor="{Binding BackgroundColor}">
         <Border Padding="0" Stroke="#285D78" StrokeThickness="1" BackgroundColor="#0C3147">
             <Border.StrokeShape><RoundRectangle CornerRadius="28" /></Border.StrokeShape>
-            <Grid HeightRequest="190">
+            <Grid HeightRequest="158">
                 <Image Source="horizon_landscape.png" Aspect="AspectFill" Opacity="0.72" />
                 <Grid BackgroundColor="#55031E30" Padding="18" RowDefinitions="*,Auto" ColumnDefinitions="*,Auto">
                     <VerticalStackLayout VerticalOptions="End" Spacing="3">
@@ -33,7 +33,7 @@
                     <Button Grid.Column="1" Grid.RowSpan="2" VerticalOptions="End"
                             Style="{StaticResource HorizonKey}"
                             IsVisible="{Binding HasPower}"
-                            WidthRequest="62" HeightRequest="62" CornerRadius="31"
+                            WidthRequest="56" HeightRequest="56" CornerRadius="28"
                             ImageSource="ur_power_light.png" Text=""
                             Command="{Binding Power.ExecuteCommand}"
                             BackgroundColor="{Binding AccentColor}" TextColor="{Binding OnAccentColor}" />
@@ -48,7 +48,7 @@
                 <FlexLayout Wrap="Wrap" Direction="Row" JustifyContent="Center" BindableLayout.ItemsSource="{Binding Favorites}">
                     <BindableLayout.ItemTemplate>
                         <DataTemplate>
-                            <Button Style="{StaticResource HorizonKey}" Text="{Binding Label}" ImageSource="{Binding Icon}" Command="{Binding ExecuteCommand}" BackgroundColor="#173E55" TextColor="White" />
+                            <Button Style="{StaticResource HorizonKey}" Text="{Binding Label}" ImageSource="{Binding Icon}" Command="{Binding ExecuteCommand}" BackgroundColor="#173E55" TextColor="White" FlexLayout.Basis="46%" />
                         </DataTemplate>
                     </BindableLayout.ItemTemplate>
                 </FlexLayout>
@@ -58,13 +58,13 @@
         <FlexLayout IsVisible="{Binding HasQuickActions}" Wrap="Wrap" Direction="Row" JustifyContent="Center" BindableLayout.ItemsSource="{Binding QuickActions}">
             <BindableLayout.ItemTemplate>
                 <DataTemplate>
-                    <Button Style="{StaticResource HorizonKey}" Text="{Binding Label}" ImageSource="{Binding Icon}" Command="{Binding ExecuteCommand}" BackgroundColor="#173E55" TextColor="White" />
+                    <Button Style="{StaticResource HorizonKey}" Text="{Binding Label}" ImageSource="{Binding Icon}" Command="{Binding ExecuteCommand}" BackgroundColor="#173E55" TextColor="White" FlexLayout.Basis="46%" />
                 </DataTemplate>
             </BindableLayout.ItemTemplate>
         </FlexLayout>
 
-        <Grid ColumnDefinitions="1.15*,0.85*" ColumnSpacing="12">
-            <Border IsVisible="{Binding HasNavigation}" Padding="14" Stroke="#285D78" StrokeThickness="1" BackgroundColor="{Binding SurfaceColor}">
+        <Grid ColumnDefinitions="1.08*,0.92*" ColumnSpacing="10">
+            <Border IsVisible="{Binding HasNavigation}" Padding="12" Stroke="#285D78" StrokeThickness="1" BackgroundColor="{Binding SurfaceColor}" VerticalOptions="Start">
                 <Border.StrokeShape><RoundRectangle CornerRadius="24" /></Border.StrokeShape>
                 <VerticalStackLayout Spacing="10">
                     <Label Text="{Binding NavigationTitle}" Style="{StaticResource HorizonSection}" HorizontalTextAlignment="Center" />
@@ -78,7 +78,7 @@
                 </VerticalStackLayout>
             </Border>
 
-            <VerticalStackLayout Grid.Column="1" Spacing="12">
+            <VerticalStackLayout Grid.Column="1" Spacing="10" VerticalOptions="Start">
                 <Border IsVisible="{Binding HasAudio}" Padding="10" StrokeThickness="0" BackgroundColor="{Binding SurfaceColor}">
                     <Border.StrokeShape><RoundRectangle CornerRadius="20" /></Border.StrokeShape>
                     <VerticalStackLayout Spacing="7">
@@ -103,7 +103,7 @@
             <FlexLayout Wrap="Wrap" Direction="Row" JustifyContent="Center" BindableLayout.ItemsSource="{Binding Media}">
                 <BindableLayout.ItemTemplate>
                     <DataTemplate>
-                        <Button Style="{StaticResource HorizonKey}" Text="{Binding Label}" ImageSource="{Binding Icon}" Command="{Binding ExecuteCommand}" BackgroundColor="#173E55" TextColor="White" />
+                        <Button Style="{StaticResource HorizonKey}" Text="{Binding Label}" ImageSource="{Binding Icon}" Command="{Binding ExecuteCommand}" BackgroundColor="#173E55" TextColor="White" FlexLayout.Basis="46%" />
                     </DataTemplate>
                 </BindableLayout.ItemTemplate>
             </FlexLayout>
@@ -114,7 +114,7 @@
             <FlexLayout Wrap="Wrap" Direction="Row" BindableLayout.ItemsSource="{Binding Extras}">
                 <BindableLayout.ItemTemplate>
                     <DataTemplate>
-                        <Button Style="{StaticResource HorizonKey}" Text="{Binding Label}" ImageSource="{Binding Icon}" Command="{Binding ExecuteCommand}" BackgroundColor="#173E55" TextColor="White" />
+                        <Button Style="{StaticResource HorizonKey}" Text="{Binding Label}" ImageSource="{Binding Icon}" Command="{Binding ExecuteCommand}" BackgroundColor="#173E55" TextColor="White" FlexLayout.Basis="46%" />
                     </DataTemplate>
                 </BindableLayout.ItemTemplate>
             </FlexLayout>

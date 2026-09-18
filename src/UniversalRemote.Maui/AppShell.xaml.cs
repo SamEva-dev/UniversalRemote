@@ -1,3 +1,4 @@
+using Microsoft.Extensions.DependencyInjection;
 using UniversalRemote.Maui.Activities;
 using UniversalRemote.Maui.Compatibility;
 using UniversalRemote.Maui.Discovery;
@@ -12,61 +13,41 @@ namespace UniversalRemote.Maui;
 
 public sealed partial class AppShell : Shell
 {
-    public AppShell(
-        RemotePage remotePage,
-        DiscoveryPage discoveryPage,
-        RoomsPage roomsPage,
-        FavoritesPage favoritesPage,
-        ActivitiesPage activitiesPage,
-        CompatibilityPage compatibilityPage,
-        HubPage hubPage,
-        PrivacyPage privacyPage,
-        MediaHubPage mediaHubPage,
-        LiveTvPage liveTvPage,
-        MoviesPage moviesPage,
-        SeriesPage seriesPage,
-        MediaSearchPage mediaSearchPage,
-        MediaLibraryPage mediaLibraryPage,
-        MediaDetailsPage mediaDetailsPage,
-        PlaybackTargetPage playbackTargetPage,
-        PlaybackPage playbackPage,
-        TvGuidePage tvGuidePage,
-        MediaActivitiesPage mediaActivitiesPage,
-        MediaProfilesPage mediaProfilesPage)
+    private readonly IServiceProvider services;
+
+    public AppShell(IServiceProvider services)
     {
+        this.services = services ?? throw new ArgumentNullException(nameof(services));
         InitializeComponent();
 
-#if ANDROID
-        // .NET MAUI 10 Android can crash while constructing the native Shell flyout
-        // before the first page is shown (ShellFlyoutTemplatedContentRenderer.LoadView).
-        // UniversalRemote does not need the native drawer to route pages, so disable it
-        // on Android and expose the same destinations through the toolbar overflow menu.
-        // Windows keeps the normal Shell flyout behavior.
+        // IMPORTANT Android/MAUI 10:
+        // Keep the native flyout disabled before the handler is created (also set in XAML),
+        // and do not eagerly construct every page during application startup.
         FlyoutBehavior = FlyoutBehavior.Disabled;
-#endif
 
-        AddRootPage("Appareils", "devices", discoveryPage);
-        AddRootPage("Pièces", "rooms", roomsPage);
-        AddRootPage("Favoris", "favorites", favoritesPage);
-        AddRootPage("Activités", "activities", activitiesPage);
-        AddRootPage("Compatibilité", "compatibility", compatibilityPage);
-        AddRootPage("Hub IR", "ir-hub", hubPage);
-        AddRootPage("Confidentialité", "privacy", privacyPage);
-        AddRootPage("Média", "media", mediaHubPage);
-        AddRootPage("TV en direct", "media-live", liveTvPage);
-        AddRootPage("Films", "media-movies", moviesPage);
-        AddRootPage("Séries", "media-series", seriesPage);
-        AddRootPage("Recherche Media", "media-search", mediaSearchPage);
-        AddRootPage("Bibliothèque Media", "media-library", mediaLibraryPage);
-        AddRootPage("Détail Media", "media-details", mediaDetailsPage);
-        AddRootPage("Où regarder ?", "playback-targets", playbackTargetPage);
-        AddRootPage("Guide TV", "tv-guide", tvGuidePage);
-        AddRootPage("Scénarios Media", "media-activities", mediaActivitiesPage);
-        AddRootPage("Profils Media", "media-profiles", mediaProfilesPage);
-        AddRootPage("Lecteur", "media-player", playbackPage);
-        AddRootPage("Télécommande", "remote", remotePage);
+        AddRootPage<DiscoveryPage>("Appareils", "devices", eager: true);
+        AddRootPage<DeviceSetupPage>("Finaliser l’appareil", "device-setup");
+        AddRootPage<RoomsPage>("Pièces", "rooms");
+        AddRootPage<FavoritesPage>("Favoris", "favorites");
+        AddRootPage<ActivitiesPage>("Activités", "activities");
+        AddRootPage<CompatibilityPage>("Compatibilité", "compatibility");
+        AddRootPage<HubPage>("Hub IR", "ir-hub");
+        AddRootPage<PrivacyPage>("Confidentialité", "privacy");
+        AddRootPage<MediaHubPage>("Média", "media");
+        AddRootPage<MediaSourcesPage>("Sources Media", "media-sources");
+        AddRootPage<LiveTvPage>("TV en direct", "media-live");
+        AddRootPage<MoviesPage>("Films", "media-movies");
+        AddRootPage<SeriesPage>("Séries", "media-series");
+        AddRootPage<MediaSearchPage>("Recherche Media", "media-search");
+        AddRootPage<MediaLibraryPage>("Bibliothèque Media", "media-library");
+        AddRootPage<MediaDetailsPage>("Détail Media", "media-details");
+        AddRootPage<PlaybackTargetPage>("Où regarder ?", "playback-targets");
+        AddRootPage<TvGuidePage>("Guide TV", "tv-guide");
+        AddRootPage<MediaActivitiesPage>("Scénarios Media", "media-activities");
+        AddRootPage<MediaProfilesPage>("Profils Media", "media-profiles");
+        AddRootPage<PlaybackPage>("Lecteur", "media-player");
+        AddRootPage<RemotePage>("Télécommande", "remote");
 
-        // MEDIA 10: Control ↔ Media stays one tap away on every supported UI shell.
         AddModeNavigationToolbarItem("Contrôle", "remote", 0);
         AddModeNavigationToolbarItem("Médias", "media", 1);
 
@@ -75,14 +56,24 @@ public sealed partial class AppShell : Shell
 #endif
     }
 
-    private void AddRootPage(string title, string route, Page page)
+    private void AddRootPage<TPage>(string title, string route, bool eager = false)
+        where TPage : Page
     {
-        Items.Add(new ShellContent
+        var content = new ShellContent
         {
             Title = title,
-            Route = route,
-            Content = page
-        });
+            Route = route
+        };
+
+        // Only the first page is needed for the first frame. All other pages are materialized
+        // the first time they are opened. This prevents one optional page/XAML/DI graph from
+        // terminating the whole Android process during startup.
+        if (eager)
+            content.Content = services.GetRequiredService<TPage>();
+        else
+            content.ContentTemplate = new DataTemplate(() => services.GetRequiredService<TPage>());
+
+        Items.Add(content);
     }
 
     private void AddModeNavigationToolbarItem(string title, string route, int priority)
@@ -94,15 +85,7 @@ public sealed partial class AppShell : Shell
             Priority = priority
         };
 
-        item.Clicked += async (_, _) =>
-        {
-            try { await GoToAsync($"//{route}"); }
-            catch (Exception)
-            {
-                await DisplayAlertAsync("Navigation", "Impossible d’ouvrir cette page. Réessayez.", "OK");
-            }
-        };
-
+        item.Clicked += async (_, _) => await NavigateRootAsync(route);
         ToolbarItems.Add(item);
     }
 
@@ -120,6 +103,7 @@ public sealed partial class AppShell : Shell
         AddNavigationToolbarItem("Lecteur", "media-player", 8);
         AddNavigationToolbarItem("Scénarios Media", "media-activities", 9);
         AddNavigationToolbarItem("Profils Media", "media-profiles", 10);
+        AddNavigationToolbarItem("Sources Media", "media-sources", 11);
     }
 
     private void AddNavigationToolbarItem(string title, string route, int priority)
@@ -131,22 +115,21 @@ public sealed partial class AppShell : Shell
             Priority = priority
         };
 
-        item.Clicked += async (_, _) =>
-        {
-            try
-            {
-                await GoToAsync($"//{route}");
-            }
-            catch (Exception)
-            {
-                await DisplayAlertAsync(
-                    "Navigation",
-                    "Impossible d’ouvrir cette page. Réessayez.",
-                    "OK");
-            }
-        };
-
+        item.Clicked += async (_, _) => await NavigateRootAsync(route);
         ToolbarItems.Add(item);
     }
 #endif
+
+    private async Task NavigateRootAsync(string route)
+    {
+        try
+        {
+            await GoToAsync($"//{route}");
+        }
+        catch (Exception ex)
+        {
+            StartupDiagnostics.Record($"Navigation:{route}", ex);
+            await DisplayAlertAsync("Navigation", "Impossible d’ouvrir cette page. Réessayez.", "OK");
+        }
+    }
 }
