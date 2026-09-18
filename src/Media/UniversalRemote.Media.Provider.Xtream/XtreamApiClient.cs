@@ -5,12 +5,13 @@ using System.Text.Json;
 namespace UniversalRemote.Media.Provider.Xtream;
 
 /// <summary>
-/// Minimal tolerant client for the de-facto Xtream Player API. Request URLs can contain credentials,
+/// Tolerant client for the de-facto Xtream Player API. Request URLs can contain credentials,
 /// therefore failures are intentionally rethrown without request URI or inner exception details.
 /// </summary>
 public sealed class XtreamApiClient
 {
     public const int DefaultMaximumResponseBytes = 32 * 1024 * 1024;
+    private const int MaximumRedirects = 3;
 
     private readonly HttpClient httpClient;
     private readonly int maximumResponseBytes;
@@ -30,13 +31,29 @@ public sealed class XtreamApiClient
     {
         using var document = await GetAsync(credentials, action: null, parameters: null, cancellationToken).ConfigureAwait(false);
         var root = document.RootElement;
-        if (root.ValueKind != JsonValueKind.Object || !root.TryGetProperty("user_info", out var userInfo) || userInfo.ValueKind != JsonValueKind.Object)
-            throw new XtreamAuthenticationException("The Xtream server returned an invalid authentication response.");
+        if (root.ValueKind != JsonValueKind.Object)
+            throw new XtreamApiException(
+                "The Xtream server returned an invalid authentication payload.",
+                failureKind: XtreamApiFailureKind.InvalidPayload);
 
+        // Most Xtream panels expose { user_info: { auth, status } }. Some compatible panels expose
+        // the same fields directly at the root, so accept both shapes.
+        var userInfo = root.TryGetProperty("user_info", out var nested) && nested.ValueKind == JsonValueKind.Object
+            ? nested
+            : root;
+
+        var hasAuth = userInfo.TryGetProperty("auth", out _);
         var authenticated = XtreamJson.IsTruthy(userInfo, "auth");
         var status = XtreamJson.String(userInfo, "status");
-        if (!authenticated || (status is not null && !status.Equals("Active", StringComparison.OrdinalIgnoreCase)))
-            throw new XtreamAuthenticationException("The Xtream account is not authenticated or active.");
+        var activeStatus = status is not null &&
+            (status.Equals("Active", StringComparison.OrdinalIgnoreCase) ||
+             status.Equals("Enabled", StringComparison.OrdinalIgnoreCase));
+
+        // Compatibility: a few panels omit "auth" but explicitly report an Active/Enabled status.
+        if ((!hasAuth && activeStatus) || (authenticated && (status is null || activeStatus)))
+            return;
+
+        throw new XtreamAuthenticationException("The Xtream account is not authenticated or active.");
     }
 
     internal async Task<IReadOnlyList<XtreamCategory>> GetCategoriesAsync(
@@ -46,7 +63,9 @@ public sealed class XtreamApiClient
     {
         using var document = await GetAsync(credentials, action, null, cancellationToken).ConfigureAwait(false);
         if (document.RootElement.ValueKind != JsonValueKind.Array)
-            throw new XtreamApiException("The Xtream server returned an invalid category payload.");
+            throw new XtreamApiException(
+                "The Xtream server returned an invalid category payload.",
+                failureKind: XtreamApiFailureKind.InvalidPayload);
 
         var results = new List<XtreamCategory>();
         foreach (var element in document.RootElement.EnumerateArray())
@@ -67,7 +86,9 @@ public sealed class XtreamApiClient
     {
         using var document = await GetAsync(credentials, action, null, cancellationToken).ConfigureAwait(false);
         if (document.RootElement.ValueKind != JsonValueKind.Array)
-            throw new XtreamApiException("The Xtream server returned an invalid stream payload.");
+            throw new XtreamApiException(
+                "The Xtream server returned an invalid stream payload.",
+                failureKind: XtreamApiFailureKind.InvalidPayload);
 
         var results = new List<XtreamStream>();
         foreach (var element in document.RootElement.EnumerateArray())
@@ -92,7 +113,9 @@ public sealed class XtreamApiClient
     {
         using var document = await GetAsync(credentials, "get_series", null, cancellationToken).ConfigureAwait(false);
         if (document.RootElement.ValueKind != JsonValueKind.Array)
-            throw new XtreamApiException("The Xtream server returned an invalid series payload.");
+            throw new XtreamApiException(
+                "The Xtream server returned an invalid series payload.",
+                failureKind: XtreamApiFailureKind.InvalidPayload);
 
         var results = new List<XtreamSeries>();
         foreach (var element in document.RootElement.EnumerateArray())
@@ -123,7 +146,9 @@ public sealed class XtreamApiClient
 
         var root = document.RootElement;
         if (root.ValueKind != JsonValueKind.Object)
-            throw new XtreamApiException("The Xtream server returned an invalid series detail payload.");
+            throw new XtreamApiException(
+                "The Xtream server returned an invalid series detail payload.",
+                failureKind: XtreamApiFailureKind.InvalidPayload);
 
         var title = root.TryGetProperty("info", out var info) && info.ValueKind == JsonValueKind.Object
             ? XtreamJson.String(info, "name") ?? XtreamJson.String(info, "title") ?? "Series"
@@ -144,39 +169,88 @@ public sealed class XtreamApiClient
         cancellationToken.ThrowIfCancellationRequested();
 
         var endpoint = BuildEndpoint(credentials, action, parameters);
-        HttpResponseMessage response;
-        try
+        for (var redirectCount = 0; redirectCount <= MaximumRedirects; redirectCount++)
         {
-            using var request = new HttpRequestMessage(HttpMethod.Get, endpoint);
-            response = await httpClient.SendAsync(request, HttpCompletionOption.ResponseHeadersRead, cancellationToken).ConfigureAwait(false);
-        }
-        catch (OperationCanceledException) when (!cancellationToken.IsCancellationRequested)
-        {
-            throw new XtreamApiException("The Xtream server request timed out.");
-        }
-        catch (HttpRequestException)
-        {
-            throw new XtreamApiException("The Xtream server could not be reached.");
-        }
-
-        using (response)
-        {
-            if (!response.IsSuccessStatusCode)
-                throw new XtreamApiException("The Xtream server returned an HTTP error.", response.StatusCode);
-            if (response.Content.Headers.ContentLength is long declared && declared > maximumResponseBytes)
-                throw new XtreamApiException("The Xtream server response exceeds the configured size limit.");
-
-            await using var stream = await response.Content.ReadAsStreamAsync(cancellationToken).ConfigureAwait(false);
-            var payload = await ReadLimitedAsync(stream, maximumResponseBytes, cancellationToken).ConfigureAwait(false);
+            HttpResponseMessage response;
             try
             {
-                return JsonDocument.Parse(payload);
+                using var request = new HttpRequestMessage(HttpMethod.Get, endpoint);
+                request.Headers.Accept.ParseAdd("application/json, text/json, */*");
+                response = await httpClient.SendAsync(request, HttpCompletionOption.ResponseHeadersRead, cancellationToken).ConfigureAwait(false);
             }
-            catch (JsonException)
+            catch (OperationCanceledException) when (!cancellationToken.IsCancellationRequested)
             {
-                throw new XtreamApiException("The Xtream server returned invalid JSON.");
+                throw new XtreamApiException(
+                    "The Xtream server request timed out.",
+                    failureKind: XtreamApiFailureKind.Timeout);
+            }
+            catch (HttpRequestException)
+            {
+                throw new XtreamApiException(
+                    "The Xtream server could not be reached.",
+                    failureKind: XtreamApiFailureKind.Network);
+            }
+
+            using (response)
+            {
+                if (IsRedirect(response.StatusCode))
+                {
+                    if (redirectCount == MaximumRedirects || response.Headers.Location is null)
+                        throw new XtreamApiException(
+                            "The Xtream server returned an unsupported redirect.",
+                            response.StatusCode,
+                            XtreamApiFailureKind.Redirect);
+
+                    var redirected = response.Headers.Location.IsAbsoluteUri
+                        ? response.Headers.Location
+                        : new Uri(endpoint, response.Headers.Location);
+
+                    // Never forward credentials to another host automatically. Same-host redirects are common
+                    // when a panel normalizes HTTP/HTTPS or an API path, and are safe to follow explicitly.
+                    if (!redirected.Host.Equals(endpoint.Host, StringComparison.OrdinalIgnoreCase))
+                        throw new XtreamApiException(
+                            "The Xtream server redirects to another host.",
+                            response.StatusCode,
+                            XtreamApiFailureKind.Redirect);
+
+                    if (string.IsNullOrEmpty(redirected.Query))
+                    {
+                        redirected = new UriBuilder(redirected) { Query = endpoint.Query.TrimStart('?') }.Uri;
+                    }
+
+                    endpoint = redirected;
+                    continue;
+                }
+
+                if (!response.IsSuccessStatusCode)
+                    throw new XtreamApiException(
+                        "The Xtream server returned an HTTP error.",
+                        response.StatusCode,
+                        XtreamApiFailureKind.HttpStatus);
+
+                if (response.Content.Headers.ContentLength is long declared && declared > maximumResponseBytes)
+                    throw new XtreamApiException(
+                        "The Xtream server response exceeds the configured size limit.",
+                        failureKind: XtreamApiFailureKind.ResponseTooLarge);
+
+                await using var stream = await response.Content.ReadAsStreamAsync(cancellationToken).ConfigureAwait(false);
+                var payload = await ReadLimitedAsync(stream, maximumResponseBytes, cancellationToken).ConfigureAwait(false);
+                try
+                {
+                    return JsonDocument.Parse(payload);
+                }
+                catch (JsonException)
+                {
+                    throw new XtreamApiException(
+                        "The Xtream server returned a non-JSON response.",
+                        failureKind: XtreamApiFailureKind.InvalidJson);
+                }
             }
         }
+
+        throw new XtreamApiException(
+            "The Xtream server redirect limit was exceeded.",
+            failureKind: XtreamApiFailureKind.Redirect);
     }
 
     private static Uri BuildEndpoint(
@@ -184,7 +258,7 @@ public sealed class XtreamApiClient
         string? action,
         IReadOnlyDictionary<string, string>? parameters)
     {
-        var endpoint = new Uri(credentials.ServerBaseUri, "player_api.php");
+        var endpoint = BuildPlayerApiUri(credentials.ServerBaseUri);
         var values = new List<KeyValuePair<string, string>>
         {
             new("username", credentials.Username),
@@ -194,9 +268,37 @@ public sealed class XtreamApiClient
         if (parameters is not null) values.AddRange(parameters);
 
         var query = string.Join("&", values.Select(x => $"{Uri.EscapeDataString(x.Key)}={Uri.EscapeDataString(x.Value)}"));
-        var builder = new UriBuilder(endpoint) { Query = query };
-        return builder.Uri;
+        return new UriBuilder(endpoint) { Query = query }.Uri;
     }
+
+    private static Uri BuildPlayerApiUri(Uri serverBaseUri)
+    {
+        var path = serverBaseUri.AbsolutePath.TrimEnd('/');
+        if (path.EndsWith("/player_api.php", StringComparison.OrdinalIgnoreCase) ||
+            path.EndsWith("/get.php", StringComparison.OrdinalIgnoreCase))
+        {
+            var slash = path.LastIndexOf('/');
+            path = slash <= 0 ? string.Empty : path[..slash];
+        }
+
+        var apiPath = string.IsNullOrWhiteSpace(path)
+            ? "/player_api.php"
+            : $"{path}/player_api.php";
+
+        return new UriBuilder(serverBaseUri)
+        {
+            Path = apiPath,
+            Query = string.Empty,
+            Fragment = string.Empty
+        }.Uri;
+    }
+
+    private static bool IsRedirect(HttpStatusCode statusCode)
+        => statusCode is HttpStatusCode.MovedPermanently
+            or HttpStatusCode.Redirect
+            or HttpStatusCode.RedirectMethod
+            or HttpStatusCode.TemporaryRedirect
+            or HttpStatusCode.PermanentRedirect;
 
     private static IReadOnlyDictionary<int, Uri?> ParseSeasonArtwork(JsonElement root)
     {
@@ -260,7 +362,9 @@ public sealed class XtreamApiClient
                 var read = await stream.ReadAsync(buffer.AsMemory(0, buffer.Length), cancellationToken).ConfigureAwait(false);
                 if (read == 0) break;
                 if (output.Length + read > maximumBytes)
-                    throw new XtreamApiException("The Xtream server response exceeds the configured size limit.");
+                    throw new XtreamApiException(
+                        "The Xtream server response exceeds the configured size limit.",
+                        failureKind: XtreamApiFailureKind.ResponseTooLarge);
                 output.Write(buffer, 0, read);
             }
             return output.ToArray();

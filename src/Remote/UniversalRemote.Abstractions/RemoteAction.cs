@@ -32,6 +32,11 @@ public static class RemoteActions
     public static readonly RemoteAction ChannelUp = new("channel.up");
     public static readonly RemoteAction ChannelDown = new("channel.down");
     public static readonly RemoteAction PlayPause = new("media.playpause");
+    public static readonly RemoteAction Play = new("media.play");
+    public static readonly RemoteAction Pause = new("media.pause");
+    public static readonly RemoteAction Stop = new("media.stop");
+    public static readonly RemoteAction Previous = new("media.previous");
+    public static readonly RemoteAction Next = new("media.next");
     public static readonly RemoteAction Rewind = new("media.rewind");
     public static readonly RemoteAction FastForward = new("media.fastforward");
     public static readonly RemoteAction Record = new("media.record");
@@ -41,6 +46,10 @@ public static class RemoteActions
     public static readonly RemoteAction Hdmi2 = new("input.hdmi2");
     public static readonly RemoteAction Apps = new("apps.open");
     public static readonly RemoteAction Guide = new("navigation.guide");
+    public static readonly RemoteAction Epg = new("navigation.epg");
+    public static readonly RemoteAction Settings = new("navigation.settings");
+    public static readonly RemoteAction Favorite = new("navigation.favorite");
+    public static readonly RemoteAction Shift = new("key.shift");
     public static readonly RemoteAction Exit = new("navigation.exit");
     public static readonly RemoteAction Delete = new("text.delete");
     public static readonly RemoteAction Red = new("key.red");

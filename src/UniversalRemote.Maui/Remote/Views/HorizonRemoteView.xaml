@@ -5,119 +5,214 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
 
     <ContentView.Resources>
-        <Style x:Key="HorizonKey" TargetType="Button">
-            <Setter Property="MinimumHeightRequest" Value="50" />
-            <Setter Property="MinimumWidthRequest" Value="54" />
-            <Setter Property="CornerRadius" Value="18" />
-            <Setter Property="FontSize" Value="13" />
-            <Setter Property="Padding" Value="10,8" />
-            <Setter Property="Margin" Value="3" />
+        <Style x:Key="HorizonActionButton" TargetType="Button">
+            <Setter Property="BackgroundColor" Value="#123D55" />
+            <Setter Property="TextColor" Value="#FFFFFF" />
+            <Setter Property="BorderColor" Value="#1C526E" />
+            <Setter Property="BorderWidth" Value="1" />
+            <Setter Property="CornerRadius" Value="13" />
+            <Setter Property="FontSize" Value="10" />
+            <Setter Property="Padding" Value="4,2" />
+            <Setter Property="HeightRequest" Value="44" />
+            <Setter Property="MinimumHeightRequest" Value="44" />
         </Style>
-        <Style x:Key="HorizonSection" TargetType="Label">
-            <Setter Property="FontSize" Value="13" />
+
+        <Style x:Key="HorizonAppButton" TargetType="Button">
+            <Setter Property="CornerRadius" Value="7" />
+            <Setter Property="FontSize" Value="9" />
             <Setter Property="FontAttributes" Value="Bold" />
-            <Setter Property="TextColor" Value="#DCEFFF" />
+            <Setter Property="Padding" Value="3,1" />
+            <Setter Property="HeightRequest" Value="34" />
+            <Setter Property="MinimumHeightRequest" Value="34" />
+            <Setter Property="TextColor" Value="#FFFFFF" />
+            <Setter Property="BorderWidth" Value="0" />
+        </Style>
+
+        <Style x:Key="HorizonMediaButton" TargetType="ImageButton">
+            <Setter Property="BackgroundColor" Value="#193D50" />
+            <Setter Property="BorderColor" Value="#2F5B70" />
+            <Setter Property="BorderWidth" Value="1" />
+            <Setter Property="CornerRadius" Value="9" />
+            <Setter Property="Padding" Value="8" />
+            <Setter Property="HeightRequest" Value="34" />
+            <Setter Property="MinimumHeightRequest" Value="34" />
+        </Style>
+
+        <Style x:Key="HorizonRoundKey" TargetType="Button">
+            <Setter Property="BackgroundColor" Value="#173A4D" />
+            <Setter Property="TextColor" Value="#FFFFFF" />
+            <Setter Property="BorderColor" Value="#2A586E" />
+            <Setter Property="BorderWidth" Value="1" />
+            <Setter Property="CornerRadius" Value="20" />
+            <Setter Property="Padding" Value="0" />
+            <Setter Property="FontSize" Value="11" />
+            <Setter Property="HeightRequest" Value="40" />
+            <Setter Property="WidthRequest" Value="40" />
+            <Setter Property="MinimumHeightRequest" Value="40" />
+            <Setter Property="MinimumWidthRequest" Value="40" />
+        </Style>
+
+        <Style x:Key="HorizonRockerKey" TargetType="Button">
+            <Setter Property="BackgroundColor" Value="#173A4D" />
+            <Setter Property="TextColor" Value="#FFFFFF" />
+            <Setter Property="BorderColor" Value="#2A586E" />
+            <Setter Property="BorderWidth" Value="1" />
+            <Setter Property="CornerRadius" Value="13" />
+            <Setter Property="Padding" Value="0" />
+            <Setter Property="FontSize" Value="18" />
+            <Setter Property="HeightRequest" Value="31" />
+            <Setter Property="MinimumHeightRequest" Value="31" />
         </Style>
     </ContentView.Resources>
 
-    <VerticalStackLayout Padding="12,12,12,22" Spacing="14" BackgroundColor="{Binding BackgroundColor}">
-        <Border Padding="0" Stroke="#285D78" StrokeThickness="1" BackgroundColor="#0C3147">
-            <Border.StrokeShape><RoundRectangle CornerRadius="28" /></Border.StrokeShape>
-            <Grid HeightRequest="158">
-                <Image Source="horizon_landscape.png" Aspect="AspectFill" Opacity="0.72" />
-                <Grid BackgroundColor="#55031E30" Padding="18" RowDefinitions="*,Auto" ColumnDefinitions="*,Auto">
-                    <VerticalStackLayout VerticalOptions="End" Spacing="3">
-                        <Label Text="HORIZON" FontSize="11" FontAttributes="Bold" TextColor="#6ED9FF" />
-                        <Label Text="{Binding DisplayName}" FontSize="25" FontAttributes="Bold" TextColor="White" />
+    <VerticalStackLayout
+        BackgroundColor="#06283A"
+        Padding="40,7,40,9"
+        Spacing="7">
+
+        <!-- Barre supérieure Horizon -->
+        <Grid ColumnDefinitions="*,Auto" ColumnSpacing="8">
+            <Label Text="{Binding HorizonRoomTitle}"
+                   TextColor="#FFFFFF"
+                   FontSize="12"
+                   FontAttributes="Bold"
+                   VerticalOptions="Center" />
+            <Image Grid.Column="1"
+                   Source="ur_gear_light.svg"
+                   WidthRequest="17"
+                   HeightRequest="17"
+                   VerticalOptions="Center" />
+        </Grid>
+
+        <!-- Carte appareil compacte -->
+        <Border HeightRequest="100"
+                Stroke="#164D68"
+                StrokeThickness="1"
+                Padding="0"
+                BackgroundColor="#0A3348">
+            <Border.StrokeShape>
+                <RoundRectangle CornerRadius="16" />
+            </Border.StrokeShape>
+            <Grid>
+                <Image Source="horizon_landscape.svg" Aspect="AspectFill" Opacity="0.95" />
+                <BoxView Color="#72001B2A" VerticalOptions="End" HeightRequest="42" />
+                <Grid VerticalOptions="End" Padding="10,4,8,5" ColumnDefinitions="*,Auto">
+                    <VerticalStackLayout Spacing="0" VerticalOptions="Center">
+                        <Label Text="{Binding DisplayName}" FontSize="10" FontAttributes="Bold" TextColor="#FFFFFF" LineBreakMode="TailTruncation" />
+                        <Label Text="{Binding DeviceStatusText}" FontSize="8" TextColor="#D8F7FF" />
                     </VerticalStackLayout>
-                    <Button Grid.Column="1" Grid.RowSpan="2" VerticalOptions="End"
-                            Style="{StaticResource HorizonKey}"
-                            IsVisible="{Binding HasPower}"
-                            WidthRequest="56" HeightRequest="56" CornerRadius="28"
-                            ImageSource="ur_power_light.png" Text=""
-                            Command="{Binding Power.ExecuteCommand}"
-                            BackgroundColor="{Binding AccentColor}" TextColor="{Binding OnAccentColor}" />
+                    <ImageButton Grid.Column="1"
+                                 IsVisible="{Binding HasPower}"
+                                 Source="ur_power_light.svg"
+                                 Command="{Binding Power.ExecuteCommand}"
+                                 BackgroundColor="#7A0E3448"
+                                 WidthRequest="30"
+                                 HeightRequest="30"
+                                 Padding="7"
+                                 CornerRadius="15" />
                 </Grid>
             </Grid>
         </Border>
 
-        <Border IsVisible="{Binding HasFavorites}" Padding="12" Stroke="#285D78" StrokeThickness="1" BackgroundColor="{Binding SurfaceColor}">
-            <Border.StrokeShape><RoundRectangle CornerRadius="20" /></Border.StrokeShape>
-            <VerticalStackLayout Spacing="8">
-                <Label Text="{Binding FavoritesTitle}" Style="{StaticResource HorizonSection}" />
-                <FlexLayout Wrap="Wrap" Direction="Row" JustifyContent="Center" BindableLayout.ItemsSource="{Binding Favorites}">
-                    <BindableLayout.ItemTemplate>
-                        <DataTemplate>
-                            <Button Style="{StaticResource HorizonKey}" Text="{Binding Label}" ImageSource="{Binding Icon}" Command="{Binding ExecuteCommand}" BackgroundColor="#173E55" TextColor="White" FlexLayout.Basis="46%" />
-                        </DataTemplate>
-                    </BindableLayout.ItemTemplate>
-                </FlexLayout>
-            </VerticalStackLayout>
-        </Border>
-
-        <FlexLayout IsVisible="{Binding HasQuickActions}" Wrap="Wrap" Direction="Row" JustifyContent="Center" BindableLayout.ItemsSource="{Binding QuickActions}">
-            <BindableLayout.ItemTemplate>
-                <DataTemplate>
-                    <Button Style="{StaticResource HorizonKey}" Text="{Binding Label}" ImageSource="{Binding Icon}" Command="{Binding ExecuteCommand}" BackgroundColor="#173E55" TextColor="White" FlexLayout.Basis="46%" />
-                </DataTemplate>
-            </BindableLayout.ItemTemplate>
-        </FlexLayout>
-
-        <Grid ColumnDefinitions="1.08*,0.92*" ColumnSpacing="10">
-            <Border IsVisible="{Binding HasNavigation}" Padding="12" Stroke="#285D78" StrokeThickness="1" BackgroundColor="{Binding SurfaceColor}" VerticalOptions="Start">
-                <Border.StrokeShape><RoundRectangle CornerRadius="24" /></Border.StrokeShape>
-                <VerticalStackLayout Spacing="10">
-                    <Label Text="{Binding NavigationTitle}" Style="{StaticResource HorizonSection}" HorizontalTextAlignment="Center" />
-                    <Grid RowDefinitions="Auto,Auto,Auto" ColumnDefinitions="*,*,*" RowSpacing="8" ColumnSpacing="8">
-                        <Button Grid.Row="0" Grid.Column="1" Style="{StaticResource HorizonKey}" IsVisible="{Binding HasUp}" Text="▲" Command="{Binding Up.ExecuteCommand}" BackgroundColor="#214F69" TextColor="White" />
-                        <Button Grid.Row="1" Grid.Column="0" Style="{StaticResource HorizonKey}" IsVisible="{Binding HasLeft}" Text="◀" Command="{Binding Left.ExecuteCommand}" BackgroundColor="#214F69" TextColor="White" />
-                        <Button Grid.Row="1" Grid.Column="1" Style="{StaticResource HorizonKey}" IsVisible="{Binding HasOk}" Text="OK" Command="{Binding Ok.ExecuteCommand}" BackgroundColor="{Binding AccentColor}" TextColor="{Binding OnAccentColor}" />
-                        <Button Grid.Row="1" Grid.Column="2" Style="{StaticResource HorizonKey}" IsVisible="{Binding HasRight}" Text="▶" Command="{Binding Right.ExecuteCommand}" BackgroundColor="#214F69" TextColor="White" />
-                        <Button Grid.Row="2" Grid.Column="1" Style="{StaticResource HorizonKey}" IsVisible="{Binding HasDown}" Text="▼" Command="{Binding Down.ExecuteCommand}" BackgroundColor="#214F69" TextColor="White" />
-                    </Grid>
-                </VerticalStackLayout>
-            </Border>
-
-            <VerticalStackLayout Grid.Column="1" Spacing="10" VerticalOptions="Start">
-                <Border IsVisible="{Binding HasAudio}" Padding="10" StrokeThickness="0" BackgroundColor="{Binding SurfaceColor}">
-                    <Border.StrokeShape><RoundRectangle CornerRadius="20" /></Border.StrokeShape>
-                    <VerticalStackLayout Spacing="7">
-                        <Label Text="{Binding VolumeTitle}" Style="{StaticResource HorizonSection}" HorizontalTextAlignment="Center" />
-                        <Button Style="{StaticResource HorizonKey}" IsVisible="{Binding HasVolumeUp}" Text="+" FontSize="22" Command="{Binding VolumeUp.ExecuteCommand}" BackgroundColor="#214F69" TextColor="White" />
-                        <Button Style="{StaticResource HorizonKey}" IsVisible="{Binding HasVolumeDown}" Text="−" FontSize="22" Command="{Binding VolumeDown.ExecuteCommand}" BackgroundColor="#214F69" TextColor="White" />
-                    </VerticalStackLayout>
-                </Border>
-                <Border IsVisible="{Binding HasChannel}" Padding="10" StrokeThickness="0" BackgroundColor="{Binding SurfaceColor}">
-                    <Border.StrokeShape><RoundRectangle CornerRadius="20" /></Border.StrokeShape>
-                    <VerticalStackLayout Spacing="7">
-                        <Label Text="{Binding ChannelsTitle}" Style="{StaticResource HorizonSection}" HorizontalTextAlignment="Center" />
-                        <Button Style="{StaticResource HorizonKey}" IsVisible="{Binding HasChannelUp}" Text="+" FontSize="22" Command="{Binding ChannelUp.ExecuteCommand}" BackgroundColor="#214F69" TextColor="White" />
-                        <Button Style="{StaticResource HorizonKey}" IsVisible="{Binding HasChannelDown}" Text="−" FontSize="22" Command="{Binding ChannelDown.ExecuteCommand}" BackgroundColor="#214F69" TextColor="White" />
-                    </VerticalStackLayout>
-                </Border>
-            </VerticalStackLayout>
+        <!-- Commandes Horizon de référence -->
+        <Grid ColumnDefinitions="*,*" RowDefinitions="Auto,Auto" ColumnSpacing="7" RowSpacing="7">
+            <Button Grid.Row="0" Grid.Column="0" IsVisible="{Binding HasPower}" Command="{Binding Power.ExecuteCommand}"
+                    Style="{StaticResource HorizonActionButton}" Text="Marche / Arrêt" ImageSource="ur_power_light.svg" ContentLayout="Left,5" />
+            <Button Grid.Row="0" Grid.Column="1" IsVisible="{Binding HasInputSelect}" Command="{Binding InputSelect.ExecuteCommand}"
+                    Style="{StaticResource HorizonActionButton}" Text="Sources" ImageSource="ur_source_light.svg" ContentLayout="Left,5" />
+            <Button Grid.Row="1" Grid.Column="0" IsVisible="{Binding HasMenu}" Command="{Binding Menu.ExecuteCommand}"
+                    Style="{StaticResource HorizonActionButton}" Text="Menu" ImageSource="ur_menu_light.svg" ContentLayout="Left,5" />
+            <Button Grid.Row="1" Grid.Column="1" IsVisible="{Binding HasBack}" Command="{Binding Back.ExecuteCommand}"
+                    Style="{StaticResource HorizonActionButton}" Text="Retour" ImageSource="ur_back_light.svg" ContentLayout="Left,5" />
         </Grid>
 
-        <VerticalStackLayout IsVisible="{Binding HasMedia}" Spacing="8">
-            <Label Text="{Binding MediaTitle}" Style="{StaticResource HorizonSection}" />
-            <FlexLayout Wrap="Wrap" Direction="Row" JustifyContent="Center" BindableLayout.ItemsSource="{Binding Media}">
+        <!-- Applications -->
+        <VerticalStackLayout IsVisible="{Binding HasApps}" Spacing="4">
+            <Label Text="Applications" FontSize="10" FontAttributes="Bold" TextColor="#FFFFFF" />
+            <FlexLayout Direction="Row" Wrap="Wrap" JustifyContent="SpaceBetween" AlignItems="Center" BindableLayout.ItemsSource="{Binding Apps}">
                 <BindableLayout.ItemTemplate>
                     <DataTemplate>
-                        <Button Style="{StaticResource HorizonKey}" Text="{Binding Label}" ImageSource="{Binding Icon}" Command="{Binding ExecuteCommand}" BackgroundColor="#173E55" TextColor="White" FlexLayout.Basis="46%" />
+                        <Button Text="{Binding Label}" Command="{Binding ExecuteCommand}" Style="{StaticResource HorizonAppButton}"
+                                BackgroundColor="#0B1C27" FlexLayout.Basis="31%" Margin="0,0,0,4" />
                     </DataTemplate>
                 </BindableLayout.ItemTemplate>
             </FlexLayout>
         </VerticalStackLayout>
 
-        <VerticalStackLayout IsVisible="{Binding HasExtras}" Spacing="8">
-            <Label Text="{Binding MoreControlsTitle}" Style="{StaticResource HorizonSection}" />
-            <FlexLayout Wrap="Wrap" Direction="Row" BindableLayout.ItemsSource="{Binding Extras}">
-                <BindableLayout.ItemTemplate>
-                    <DataTemplate>
-                        <Button Style="{StaticResource HorizonKey}" Text="{Binding Label}" ImageSource="{Binding Icon}" Command="{Binding ExecuteCommand}" BackgroundColor="#173E55" TextColor="White" FlexLayout.Basis="46%" />
-                    </DataTemplate>
-                </BindableLayout.ItemTemplate>
-            </FlexLayout>
-        </VerticalStackLayout>
+        <!-- Bloc de commandes inspiré de la télécommande physique fournie -->
+        <Border BackgroundColor="#0B2432" Stroke="#214B60" StrokeThickness="1" Padding="7">
+            <Border.StrokeShape>
+                <RoundRectangle CornerRadius="16" />
+            </Border.StrokeShape>
+            <VerticalStackLayout Spacing="6">
+
+                <!-- REC / PLAY / PAUSE / STOP -->
+                <Grid ColumnDefinitions="*,*,*,*" ColumnSpacing="6">
+                    <ImageButton Grid.Column="0" IsVisible="{Binding HasRecord}" Command="{Binding Record.ExecuteCommand}" Source="ur_media_record.svg" Style="{StaticResource HorizonMediaButton}" />
+                    <ImageButton Grid.Column="1" IsVisible="{Binding HasPlay}" Command="{Binding Play.ExecuteCommand}" Source="ur_media_play.svg" Style="{StaticResource HorizonMediaButton}" />
+                    <ImageButton Grid.Column="2" IsVisible="{Binding HasPause}" Command="{Binding Pause.ExecuteCommand}" Source="ur_media_pause.svg" Style="{StaticResource HorizonMediaButton}" />
+                    <ImageButton Grid.Column="3" IsVisible="{Binding HasStop}" Command="{Binding Stop.ExecuteCommand}" Source="ur_media_stop.svg" Style="{StaticResource HorizonMediaButton}" />
+                </Grid>
+
+                <!-- PREV / REW / FF / NEXT -->
+                <Grid ColumnDefinitions="*,*,*,*" ColumnSpacing="6">
+                    <ImageButton Grid.Column="0" IsVisible="{Binding HasPrevious}" Command="{Binding Previous.ExecuteCommand}" Source="ur_media_previous.svg" Style="{StaticResource HorizonMediaButton}" />
+                    <ImageButton Grid.Column="1" IsVisible="{Binding HasRewind}" Command="{Binding Rewind.ExecuteCommand}" Source="ur_media_rewind.svg" Style="{StaticResource HorizonMediaButton}" />
+                    <ImageButton Grid.Column="2" IsVisible="{Binding HasFastForward}" Command="{Binding FastForward.ExecuteCommand}" Source="ur_media_fastforward.svg" Style="{StaticResource HorizonMediaButton}" />
+                    <ImageButton Grid.Column="3" IsVisible="{Binding HasNext}" Command="{Binding Next.ExecuteCommand}" Source="ur_media_next.svg" Style="{StaticResource HorizonMediaButton}" />
+                </Grid>
+
+                <!-- SHIFT / direction / GUIDE-EPG -->
+                <Grid ColumnDefinitions="48,*,48" ColumnSpacing="7" HeightRequest="126">
+                    <VerticalStackLayout Grid.Column="0" Spacing="8" VerticalOptions="Center">
+                        <Button IsVisible="{Binding HasShift}" Command="{Binding Shift.ExecuteCommand}" Text="SHIFT" Style="{StaticResource HorizonRoundKey}" FontSize="7" />
+                        <Button IsVisible="{Binding HasMenu}" Command="{Binding Menu.ExecuteCommand}" Text="MENU" Style="{StaticResource HorizonRoundKey}" FontSize="7" />
+                    </VerticalStackLayout>
+
+                    <Border Grid.Column="1" BackgroundColor="#102F40" Stroke="#315E72" StrokeThickness="1" Padding="4" HorizontalOptions="Center" VerticalOptions="Center">
+                        <Border.StrokeShape><RoundRectangle CornerRadius="62" /></Border.StrokeShape>
+                        <Grid RowDefinitions="40,48,40" ColumnDefinitions="40,48,40" RowSpacing="0" ColumnSpacing="0">
+                            <Button Grid.Row="0" Grid.Column="1" IsVisible="{Binding HasUp}" Command="{Binding Up.ExecuteCommand}" Text="▲" Style="{StaticResource HorizonRoundKey}" BackgroundColor="Transparent" BorderWidth="0" />
+                            <Button Grid.Row="1" Grid.Column="0" IsVisible="{Binding HasLeft}" Command="{Binding Left.ExecuteCommand}" Text="◀" Style="{StaticResource HorizonRoundKey}" BackgroundColor="Transparent" BorderWidth="0" />
+                            <Button Grid.Row="1" Grid.Column="1" IsVisible="{Binding HasOk}" Command="{Binding Ok.ExecuteCommand}" Text="OK" Style="{StaticResource HorizonRoundKey}" WidthRequest="48" HeightRequest="48" MinimumWidthRequest="48" MinimumHeightRequest="48" CornerRadius="24" BackgroundColor="#183B4F" />
+                            <Button Grid.Row="1" Grid.Column="2" IsVisible="{Binding HasRight}" Command="{Binding Right.ExecuteCommand}" Text="▶" Style="{StaticResource HorizonRoundKey}" BackgroundColor="Transparent" BorderWidth="0" />
+                            <Button Grid.Row="2" Grid.Column="1" IsVisible="{Binding HasDown}" Command="{Binding Down.ExecuteCommand}" Text="▼" Style="{StaticResource HorizonRoundKey}" BackgroundColor="Transparent" BorderWidth="0" />
+                        </Grid>
+                    </Border>
+
+                    <VerticalStackLayout Grid.Column="2" Spacing="3" VerticalOptions="Center">
+                        <Button IsVisible="{Binding HasGuide}" Command="{Binding Guide.ExecuteCommand}" Text="GUIDE" Style="{StaticResource HorizonRoundKey}" FontSize="6" />
+                        <Button IsVisible="{Binding HasEpg}" Command="{Binding Epg.ExecuteCommand}" Text="EPG" Style="{StaticResource HorizonRoundKey}" FontSize="7" />
+                        <Button IsVisible="{Binding HasExit}" Command="{Binding Exit.ExecuteCommand}" Text="EXIT" Style="{StaticResource HorizonRoundKey}" FontSize="7" />
+                    </VerticalStackLayout>
+                </Grid>
+
+                <!-- Volume / FAV + SETUP / Chaînes -->
+                <Grid ColumnDefinitions="64,*,64" ColumnSpacing="10">
+                    <Border Grid.Column="0" BackgroundColor="#102F40" Stroke="#315E72" StrokeThickness="1" Padding="5">
+                        <Border.StrokeShape><RoundRectangle CornerRadius="17" /></Border.StrokeShape>
+                        <VerticalStackLayout Spacing="2">
+                            <Button IsVisible="{Binding HasVolumeUp}" Command="{Binding VolumeUp.ExecuteCommand}" Text="+" Style="{StaticResource HorizonRockerKey}" />
+                            <Label Text="V" TextColor="#D8F7FF" FontSize="9" FontAttributes="Bold" HorizontalTextAlignment="Center" />
+                            <Button IsVisible="{Binding HasVolumeDown}" Command="{Binding VolumeDown.ExecuteCommand}" Text="−" Style="{StaticResource HorizonRockerKey}" />
+                        </VerticalStackLayout>
+                    </Border>
+
+                    <HorizontalStackLayout Grid.Column="1" Spacing="10" HorizontalOptions="Center" VerticalOptions="Center">
+                        <Button IsVisible="{Binding HasFavorite}" Command="{Binding Favorite.ExecuteCommand}" Text="FAV" Style="{StaticResource HorizonRoundKey}" FontSize="8" />
+                        <Button IsVisible="{Binding HasSettings}" Command="{Binding Settings.ExecuteCommand}" Text="SETUP" Style="{StaticResource HorizonRoundKey}" FontSize="6" />
+                    </HorizontalStackLayout>
+
+                    <Border Grid.Column="2" BackgroundColor="#102F40" Stroke="#315E72" StrokeThickness="1" Padding="5">
+                        <Border.StrokeShape><RoundRectangle CornerRadius="17" /></Border.StrokeShape>
+                        <VerticalStackLayout Spacing="2">
+                            <Button IsVisible="{Binding HasChannelUp}" Command="{Binding ChannelUp.ExecuteCommand}" Text="+" Style="{StaticResource HorizonRockerKey}" />
+                            <Label Text="P" TextColor="#D8F7FF" FontSize="9" FontAttributes="Bold" HorizontalTextAlignment="Center" />
+                            <Button IsVisible="{Binding HasChannelDown}" Command="{Binding ChannelDown.ExecuteCommand}" Text="−" Style="{StaticResource HorizonRockerKey}" />
+                        </VerticalStackLayout>
+                    </Border>
+                </Grid>
+            </VerticalStackLayout>
+        </Border>
     </VerticalStackLayout>
 </ContentView>

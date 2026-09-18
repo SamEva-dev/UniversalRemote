@@ -15,7 +15,14 @@ public sealed class AndroidTvRemoteProvider(IAndroidTvCredentialStore credential
         [RemoteActions.PowerToggle, RemoteActions.VolumeUp, RemoteActions.VolumeDown, RemoteActions.MuteToggle,
          RemoteActions.Up, RemoteActions.Down, RemoteActions.Left, RemoteActions.Right, RemoteActions.Ok,
          RemoteActions.Back, RemoteActions.Home,
-         RemoteActions.Menu, RemoteActions.ChannelUp, RemoteActions.ChannelDown, RemoteActions.PlayPause, RemoteActions.Rewind, RemoteActions.FastForward, RemoteActions.Record, RemoteActions.Input, RemoteActions.Tv, RemoteActions.Hdmi1, RemoteActions.Hdmi2, RemoteActions.Apps, RemoteActions.Guide, RemoteActions.Delete, RemoteActions.Red, RemoteActions.Green, RemoteActions.Yellow, RemoteActions.Blue, RemoteActions.Digit0, RemoteActions.Digit1, RemoteActions.Digit2, RemoteActions.Digit3, RemoteActions.Digit4, RemoteActions.Digit5, RemoteActions.Digit6, RemoteActions.Digit7, RemoteActions.Digit8, RemoteActions.Digit9];
+         RemoteActions.Menu, RemoteActions.ChannelUp, RemoteActions.ChannelDown,
+         RemoteActions.PlayPause, RemoteActions.Play, RemoteActions.Pause, RemoteActions.Stop,
+         RemoteActions.Previous, RemoteActions.Rewind, RemoteActions.FastForward, RemoteActions.Next, RemoteActions.Record,
+         RemoteActions.Input, RemoteActions.Tv, RemoteActions.Hdmi1, RemoteActions.Hdmi2, RemoteActions.Apps,
+         RemoteActions.Guide, RemoteActions.Epg, RemoteActions.Settings, RemoteActions.Favorite, RemoteActions.Shift,
+         RemoteActions.Exit, RemoteActions.Delete, RemoteActions.Red, RemoteActions.Green, RemoteActions.Yellow, RemoteActions.Blue,
+         RemoteActions.Digit0, RemoteActions.Digit1, RemoteActions.Digit2, RemoteActions.Digit3, RemoteActions.Digit4,
+         RemoteActions.Digit5, RemoteActions.Digit6, RemoteActions.Digit7, RemoteActions.Digit8, RemoteActions.Digit9];
 
     private static readonly IReadOnlyDictionary<string, int> KeyCodes = new Dictionary<string, int>(StringComparer.Ordinal)
     {
@@ -34,6 +41,11 @@ public sealed class AndroidTvRemoteProvider(IAndroidTvCredentialStore credential
         [RemoteActions.ChannelUp.Id] = 166,
         [RemoteActions.ChannelDown.Id] = 167,
         [RemoteActions.PlayPause.Id] = 85,
+        [RemoteActions.Play.Id] = 126,
+        [RemoteActions.Pause.Id] = 127,
+        [RemoteActions.Stop.Id] = 86,
+        [RemoteActions.Next.Id] = 87,
+        [RemoteActions.Previous.Id] = 88,
         [RemoteActions.Rewind.Id] = 89,
         [RemoteActions.FastForward.Id] = 90,
         [RemoteActions.Record.Id] = 130,
@@ -43,6 +55,11 @@ public sealed class AndroidTvRemoteProvider(IAndroidTvCredentialStore credential
         [RemoteActions.Hdmi2.Id] = 244,
         [RemoteActions.Apps.Id] = 284,
         [RemoteActions.Guide.Id] = 172,
+        [RemoteActions.Epg.Id] = 172,
+        [RemoteActions.Settings.Id] = 176,
+        [RemoteActions.Favorite.Id] = 174,
+        [RemoteActions.Shift.Id] = 59,
+        [RemoteActions.Exit.Id] = 4,
         [RemoteActions.Delete.Id] = 67,
         [RemoteActions.Red.Id] = 183,
         [RemoteActions.Green.Id] = 184,

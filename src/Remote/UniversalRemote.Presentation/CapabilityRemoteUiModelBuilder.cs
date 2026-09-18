@@ -24,10 +24,21 @@ public sealed class CapabilityRemoteUiModelBuilder : IRemoteUiModelBuilder
             [RemoteActions.Menu.Id] = new("navigation", "remote.action.menu", RemoteControlRole.Secondary, 37),
             [RemoteActions.ChannelUp.Id] = new("channel", "remote.action.channelUp", RemoteControlRole.Extra, 40),
             [RemoteActions.ChannelDown.Id] = new("channel", "remote.action.channelDown", RemoteControlRole.Extra, 41),
-            [RemoteActions.PlayPause.Id] = new("media", "remote.action.playPause", RemoteControlRole.Extra, 50),
-            [RemoteActions.Rewind.Id] = new("media", "remote.action.rewind", RemoteControlRole.Extra, 51),
-            [RemoteActions.FastForward.Id] = new("media", "remote.action.fastForward", RemoteControlRole.Extra, 52),
-            [RemoteActions.Record.Id] = new("media", "remote.action.record", RemoteControlRole.Extra, 53)
+            [RemoteActions.Record.Id] = new("media", "remote.action.record", RemoteControlRole.Extra, 50),
+            [RemoteActions.Play.Id] = new("media", "remote.action.play", RemoteControlRole.Extra, 51),
+            [RemoteActions.Pause.Id] = new("media", "remote.action.pause", RemoteControlRole.Extra, 52),
+            [RemoteActions.Stop.Id] = new("media", "remote.action.stop", RemoteControlRole.Extra, 53),
+            [RemoteActions.Previous.Id] = new("media", "remote.action.previous", RemoteControlRole.Extra, 54),
+            [RemoteActions.Rewind.Id] = new("media", "remote.action.rewind", RemoteControlRole.Extra, 55),
+            [RemoteActions.FastForward.Id] = new("media", "remote.action.fastForward", RemoteControlRole.Extra, 56),
+            [RemoteActions.Next.Id] = new("media", "remote.action.next", RemoteControlRole.Extra, 57),
+            [RemoteActions.PlayPause.Id] = new("media", "remote.action.playPause", RemoteControlRole.Extra, 58),
+            [RemoteActions.Guide.Id] = new("navigation", "remote.action.guide", RemoteControlRole.Secondary, 38),
+            [RemoteActions.Epg.Id] = new("navigation", "remote.action.epg", RemoteControlRole.Secondary, 39),
+            [RemoteActions.Exit.Id] = new("navigation", "remote.action.exit", RemoteControlRole.Secondary, 40),
+            [RemoteActions.Settings.Id] = new("navigation", "remote.action.settings", RemoteControlRole.Secondary, 41),
+            [RemoteActions.Favorite.Id] = new("navigation", "remote.action.favorite", RemoteControlRole.Secondary, 42),
+            [RemoteActions.Shift.Id] = new("extras", "remote.action.shift", RemoteControlRole.Extra, 60)
         };
 
     private static readonly string[] SectionOrder = ["power", "navigation", "channel", "audio", "media", "extras"];

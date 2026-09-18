@@ -1,137 +1,213 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentView
     x:Class="UniversalRemote.Maui.Remote.Views.ClassicRemoteView"
-    x:Name="Root"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
 
     <ContentView.Resources>
-        <Style x:Key="ClassicKey" TargetType="Button">
-            <Setter Property="MinimumHeightRequest" Value="54" />
-            <Setter Property="MinimumWidthRequest" Value="54" />
-            <Setter Property="CornerRadius" Value="18" />
-            <Setter Property="FontSize" Value="15" />
-            <Setter Property="Padding" Value="12,10" />
-            <Setter Property="Margin" Value="4" />
+        <Style x:Key="ClassicPillButton" TargetType="Button">
+            <Setter Property="BackgroundColor" Value="#F0F0F0" />
+            <Setter Property="TextColor" Value="#202020" />
+            <Setter Property="BorderColor" Value="#E1E1E1" />
+            <Setter Property="BorderWidth" Value="1" />
+            <Setter Property="CornerRadius" Value="15" />
+            <Setter Property="FontSize" Value="12" />
+            <Setter Property="FontAttributes" Value="Bold" />
+            <Setter Property="Padding" Value="6,2" />
+            <Setter Property="Margin" Value="0" />
+            <Setter Property="HeightRequest" Value="34" />
+            <Setter Property="MinimumHeightRequest" Value="34" />
         </Style>
-        <Style x:Key="ClassicSectionTitle" TargetType="Label">
+
+        <Style x:Key="ClassicNumericButton" TargetType="Button">
+            <Setter Property="BackgroundColor" Value="#F3F3F3" />
+            <Setter Property="TextColor" Value="#1F1F1F" />
+            <Setter Property="BorderColor" Value="#E5E5E5" />
+            <Setter Property="BorderWidth" Value="1" />
+            <Setter Property="CornerRadius" Value="14" />
+            <Setter Property="FontSize" Value="18" />
+            <Setter Property="Padding" Value="0" />
+            <Setter Property="HeightRequest" Value="38" />
+            <Setter Property="MinimumHeightRequest" Value="38" />
+        </Style>
+
+        <Style x:Key="ClassicUtilityButton" TargetType="Button">
+            <Setter Property="BackgroundColor" Value="#F2F2F2" />
+            <Setter Property="TextColor" Value="#202020" />
+            <Setter Property="BorderColor" Value="#E2E2E2" />
+            <Setter Property="BorderWidth" Value="1" />
+            <Setter Property="CornerRadius" Value="16" />
             <Setter Property="FontSize" Value="13" />
             <Setter Property="FontAttributes" Value="Bold" />
-            <Setter Property="Opacity" Value="0.72" />
+            <Setter Property="Padding" Value="6,2" />
+            <Setter Property="HeightRequest" Value="36" />
+            <Setter Property="MinimumHeightRequest" Value="36" />
+        </Style>
+
+        <Style x:Key="ClassicRoundButton" TargetType="Button">
+            <Setter Property="BackgroundColor" Value="#F2F2F2" />
+            <Setter Property="TextColor" Value="#202020" />
+            <Setter Property="BorderColor" Value="#E2E2E2" />
+            <Setter Property="BorderWidth" Value="1" />
+            <Setter Property="CornerRadius" Value="22" />
+            <Setter Property="Padding" Value="0" />
+            <Setter Property="HeightRequest" Value="44" />
+            <Setter Property="WidthRequest" Value="44" />
+            <Setter Property="MinimumHeightRequest" Value="44" />
+            <Setter Property="MinimumWidthRequest" Value="44" />
         </Style>
     </ContentView.Resources>
 
     <VerticalStackLayout
-        Padding="18,16,18,24"
-        Spacing="18"
-        BackgroundColor="{Binding BackgroundColor}">
+        Padding="40,10,40,12"
+        Margin="6"
+        Spacing="8"
+        BackgroundColor="#FFFFFF">
 
-        <Grid ColumnDefinitions="*,Auto" ColumnSpacing="12">
-            <VerticalStackLayout Spacing="2" VerticalOptions="Center">
-                <Label Text="CLASSIC" FontSize="11" FontAttributes="Bold" Opacity="0.55" TextColor="{Binding TextColor}" />
-                <Label Text="{Binding DisplayName}" FontSize="22" FontAttributes="Bold" TextColor="{Binding TextColor}" />
+        <Grid ColumnDefinitions="*,Auto" ColumnSpacing="10">
+            <VerticalStackLayout Spacing="0" VerticalOptions="Center">
+                <Label
+                    Text="{Binding DisplayName}"
+                    FontSize="18"
+                    FontAttributes="Bold"
+                    TextColor="#222222"
+                    LineBreakMode="TailTruncation" />
+                <Label
+                    Text="Salon"
+                    FontSize="11"
+                    TextColor="#6A6A6A" />
             </VerticalStackLayout>
-            <Button Grid.Column="1"
-                    Style="{StaticResource ClassicKey}"
-                    IsVisible="{Binding HasPower}"
-                    Text="{Binding Power.Label}"
-                    ImageSource="{Binding Power.Icon}"
+
+            <Border
+                Grid.Column="1"
+                IsVisible="{Binding HasPower}"
+                WidthRequest="44"
+                HeightRequest="44"
+                BackgroundColor="#FFFFFF"
+                Stroke="#E54A47"
+                StrokeThickness="1.4"
+                Padding="0"
+                HorizontalOptions="End"
+                VerticalOptions="Center">
+                <Border.StrokeShape>
+                    <RoundRectangle CornerRadius="22" />
+                </Border.StrokeShape>
+                <ImageButton
+                    Source="ur_power_red.svg"
                     Command="{Binding Power.ExecuteCommand}"
-                    AutomationId="remote-classic-power"
-                    BackgroundColor="#D42E29"
-                    TextColor="White"
-                    CornerRadius="28" />
-        </Grid>
-
-        <Border IsVisible="{Binding HasFavorites}"
-                Padding="12"
-                BackgroundColor="{Binding SurfaceColor}"
-                Stroke="#D5D8DB"
-                StrokeThickness="1">
-            <Border.StrokeShape><RoundRectangle CornerRadius="18" /></Border.StrokeShape>
-            <VerticalStackLayout Spacing="8">
-                <Label Text="{Binding FavoritesTitle}" Style="{StaticResource ClassicSectionTitle}" TextColor="{Binding TextColor}" />
-                <FlexLayout Wrap="Wrap" Direction="Row" JustifyContent="Center" BindableLayout.ItemsSource="{Binding Favorites}">
-                    <BindableLayout.ItemTemplate>
-                        <DataTemplate>
-                            <Button Style="{StaticResource ClassicKey}"
-                                    Text="{Binding Label}"
-                                    ImageSource="{Binding Icon}"
-                                    Command="{Binding ExecuteCommand}"
-                                    AutomationId="{Binding AutomationId}"
-                                    BackgroundColor="{Binding BackgroundColor}"
-                                    TextColor="{Binding TextColor}" />
-                        </DataTemplate>
-                    </BindableLayout.ItemTemplate>
-                </FlexLayout>
-            </VerticalStackLayout>
-        </Border>
-
-        <VerticalStackLayout IsVisible="{Binding HasNavigation}" Spacing="10">
-            <Label Text="{Binding NavigationTitle}" Style="{StaticResource ClassicSectionTitle}" TextColor="{Binding TextColor}" HorizontalTextAlignment="Center" />
-            <Grid RowDefinitions="Auto,Auto,Auto,Auto" ColumnDefinitions="*,*,*" RowSpacing="8" ColumnSpacing="8" MaximumWidthRequest="330" HorizontalOptions="Center">
-                <Button Grid.Row="0" Grid.Column="1" Style="{StaticResource ClassicKey}" IsVisible="{Binding HasUp}" Text="▲" Command="{Binding Up.ExecuteCommand}" BackgroundColor="{Binding Up.BackgroundColor}" TextColor="{Binding Up.TextColor}" />
-                <Button Grid.Row="1" Grid.Column="0" Style="{StaticResource ClassicKey}" IsVisible="{Binding HasLeft}" Text="◀" Command="{Binding Left.ExecuteCommand}" BackgroundColor="{Binding Left.BackgroundColor}" TextColor="{Binding Left.TextColor}" />
-                <Button Grid.Row="1" Grid.Column="1" Style="{StaticResource ClassicKey}" IsVisible="{Binding HasOk}" Text="OK" Command="{Binding Ok.ExecuteCommand}" BackgroundColor="{Binding AccentColor}" TextColor="{Binding OnAccentColor}" CornerRadius="28" />
-                <Button Grid.Row="1" Grid.Column="2" Style="{StaticResource ClassicKey}" IsVisible="{Binding HasRight}" Text="▶" Command="{Binding Right.ExecuteCommand}" BackgroundColor="{Binding Right.BackgroundColor}" TextColor="{Binding Right.TextColor}" />
-                <Button Grid.Row="2" Grid.Column="1" Style="{StaticResource ClassicKey}" IsVisible="{Binding HasDown}" Text="▼" Command="{Binding Down.ExecuteCommand}" BackgroundColor="{Binding Down.BackgroundColor}" TextColor="{Binding Down.TextColor}" />
-                <Button Grid.Row="3" Grid.Column="0" Style="{StaticResource ClassicKey}" IsVisible="{Binding HasBack}" Text="{Binding Back.Label}" ImageSource="{Binding Back.Icon}" Command="{Binding Back.ExecuteCommand}" BackgroundColor="{Binding Back.BackgroundColor}" TextColor="{Binding Back.TextColor}" />
-                <Button Grid.Row="3" Grid.Column="2" Style="{StaticResource ClassicKey}" IsVisible="{Binding HasHome}" Text="{Binding Home.Label}" ImageSource="{Binding Home.Icon}" Command="{Binding Home.ExecuteCommand}" BackgroundColor="{Binding Home.BackgroundColor}" TextColor="{Binding Home.TextColor}" />
-            </Grid>
-        </VerticalStackLayout>
-
-        <Grid ColumnDefinitions="*,*" ColumnSpacing="12">
-            <Border IsVisible="{Binding HasAudio}" Padding="10" BackgroundColor="{Binding SurfaceColor}" StrokeThickness="0">
-                <Border.StrokeShape><RoundRectangle CornerRadius="18" /></Border.StrokeShape>
-                <VerticalStackLayout Spacing="8">
-                    <Label Text="{Binding VolumeTitle}" Style="{StaticResource ClassicSectionTitle}" TextColor="{Binding TextColor}" HorizontalTextAlignment="Center" />
-                    <Button Style="{StaticResource ClassicKey}" IsVisible="{Binding HasVolumeUp}" Text="VOL +" Command="{Binding VolumeUp.ExecuteCommand}" BackgroundColor="{Binding VolumeUp.BackgroundColor}" TextColor="{Binding VolumeUp.TextColor}" />
-                    <Button Style="{StaticResource ClassicKey}" IsVisible="{Binding HasMute}" Text="{Binding Mute.Label}" ImageSource="{Binding Mute.Icon}" Command="{Binding Mute.ExecuteCommand}" BackgroundColor="{Binding Mute.BackgroundColor}" TextColor="{Binding Mute.TextColor}" />
-                    <Button Style="{StaticResource ClassicKey}" IsVisible="{Binding HasVolumeDown}" Text="VOL −" Command="{Binding VolumeDown.ExecuteCommand}" BackgroundColor="{Binding VolumeDown.BackgroundColor}" TextColor="{Binding VolumeDown.TextColor}" />
-                </VerticalStackLayout>
-            </Border>
-            <Border Grid.Column="1" IsVisible="{Binding HasChannel}" Padding="10" BackgroundColor="{Binding SurfaceColor}" StrokeThickness="0">
-                <Border.StrokeShape><RoundRectangle CornerRadius="18" /></Border.StrokeShape>
-                <VerticalStackLayout Spacing="8">
-                    <Label Text="{Binding ChannelsTitle}" Style="{StaticResource ClassicSectionTitle}" TextColor="{Binding TextColor}" HorizontalTextAlignment="Center" />
-                    <Button Style="{StaticResource ClassicKey}" IsVisible="{Binding HasChannelUp}" Text="CH +" Command="{Binding ChannelUp.ExecuteCommand}" BackgroundColor="{Binding ChannelUp.BackgroundColor}" TextColor="{Binding ChannelUp.TextColor}" />
-                    <BoxView HeightRequest="10" Opacity="0" />
-                    <Button Style="{StaticResource ClassicKey}" IsVisible="{Binding HasChannelDown}" Text="CH −" Command="{Binding ChannelDown.ExecuteCommand}" BackgroundColor="{Binding ChannelDown.BackgroundColor}" TextColor="{Binding ChannelDown.TextColor}" />
-                </VerticalStackLayout>
+                    BackgroundColor="Transparent"
+                    Padding="10"
+                    Aspect="AspectFit"
+                    AutomationId="remote-classic-power" />
             </Border>
         </Grid>
 
-        <VerticalStackLayout IsVisible="{Binding HasQuickActions}" Spacing="8">
-            <Label Text="{Binding ShortcutsTitle}" Style="{StaticResource ClassicSectionTitle}" TextColor="{Binding TextColor}" />
-            <FlexLayout Wrap="Wrap" Direction="Row" JustifyContent="Center" BindableLayout.ItemsSource="{Binding QuickActions}">
-                <BindableLayout.ItemTemplate>
-                    <DataTemplate>
-                        <Button Style="{StaticResource ClassicKey}" Text="{Binding Label}" ImageSource="{Binding Icon}" Command="{Binding ExecuteCommand}" BackgroundColor="{Binding BackgroundColor}" TextColor="{Binding TextColor}" />
-                    </DataTemplate>
-                </BindableLayout.ItemTemplate>
-            </FlexLayout>
-        </VerticalStackLayout>
+        <Grid ColumnDefinitions="*,*,*,*" ColumnSpacing="7">
+            <Button Grid.Column="0"
+                    IsVisible="{Binding HasInputTv}"
+                    Command="{Binding InputTv.ExecuteCommand}"
+                    Text="{Binding InputTv.Label}"
+                    Style="{StaticResource ClassicPillButton}" />
+            <Button Grid.Column="1"
+                    IsVisible="{Binding HasInputSelect}"
+                    Command="{Binding InputSelect.ExecuteCommand}"
+                    Text="{Binding InputSelect.Label}"
+                    Style="{StaticResource ClassicPillButton}" />
+            <Button Grid.Column="2"
+                    IsVisible="{Binding HasInputHdmiPrimary}"
+                    Command="{Binding InputHdmiPrimary.ExecuteCommand}"
+                    Text="{Binding InputHdmiPrimary.Label}"
+                    Style="{StaticResource ClassicPillButton}" />
+            <Button Grid.Column="3"
+                    IsVisible="{Binding HasAppsOpen}"
+                    Command="{Binding AppsOpen.ExecuteCommand}"
+                    Text="Apps"
+                    Style="{StaticResource ClassicPillButton}" />
+        </Grid>
 
-        <VerticalStackLayout IsVisible="{Binding HasMedia}" Spacing="8">
-            <Label Text="{Binding MediaTitle}" Style="{StaticResource ClassicSectionTitle}" TextColor="{Binding TextColor}" />
-            <FlexLayout Wrap="Wrap" Direction="Row" JustifyContent="Center" BindableLayout.ItemsSource="{Binding Media}">
-                <BindableLayout.ItemTemplate>
-                    <DataTemplate>
-                        <Button Style="{StaticResource ClassicKey}" Text="{Binding Label}" ImageSource="{Binding Icon}" Command="{Binding ExecuteCommand}" BackgroundColor="{Binding BackgroundColor}" TextColor="{Binding TextColor}" />
-                    </DataTemplate>
-                </BindableLayout.ItemTemplate>
-            </FlexLayout>
-        </VerticalStackLayout>
+        <Grid ColumnDefinitions="*,*,*" RowDefinitions="Auto,Auto,Auto,Auto" ColumnSpacing="7" RowSpacing="7">
+            <Button Grid.Row="0" Grid.Column="0" IsVisible="{Binding HasDigit1}" Command="{Binding Digit1.ExecuteCommand}" Text="1" Style="{StaticResource ClassicNumericButton}" />
+            <Button Grid.Row="0" Grid.Column="1" IsVisible="{Binding HasDigit2}" Command="{Binding Digit2.ExecuteCommand}" Text="2" Style="{StaticResource ClassicNumericButton}" />
+            <Button Grid.Row="0" Grid.Column="2" IsVisible="{Binding HasDigit3}" Command="{Binding Digit3.ExecuteCommand}" Text="3" Style="{StaticResource ClassicNumericButton}" />
 
-        <VerticalStackLayout IsVisible="{Binding HasExtras}" Spacing="8">
-            <Label Text="{Binding MoreControlsTitle}" Style="{StaticResource ClassicSectionTitle}" TextColor="{Binding TextColor}" />
-            <FlexLayout Wrap="Wrap" Direction="Row" JustifyContent="Center" BindableLayout.ItemsSource="{Binding Extras}">
-                <BindableLayout.ItemTemplate>
-                    <DataTemplate>
-                        <Button Style="{StaticResource ClassicKey}" Text="{Binding Label}" Command="{Binding ExecuteCommand}" BackgroundColor="{Binding BackgroundColor}" TextColor="{Binding TextColor}" />
-                    </DataTemplate>
-                </BindableLayout.ItemTemplate>
-            </FlexLayout>
-        </VerticalStackLayout>
+            <Button Grid.Row="1" Grid.Column="0" IsVisible="{Binding HasDigit4}" Command="{Binding Digit4.ExecuteCommand}" Text="4" Style="{StaticResource ClassicNumericButton}" />
+            <Button Grid.Row="1" Grid.Column="1" IsVisible="{Binding HasDigit5}" Command="{Binding Digit5.ExecuteCommand}" Text="5" Style="{StaticResource ClassicNumericButton}" />
+            <Button Grid.Row="1" Grid.Column="2" IsVisible="{Binding HasDigit6}" Command="{Binding Digit6.ExecuteCommand}" Text="6" Style="{StaticResource ClassicNumericButton}" />
+
+            <Button Grid.Row="2" Grid.Column="0" IsVisible="{Binding HasDigit7}" Command="{Binding Digit7.ExecuteCommand}" Text="7" Style="{StaticResource ClassicNumericButton}" />
+            <Button Grid.Row="2" Grid.Column="1" IsVisible="{Binding HasDigit8}" Command="{Binding Digit8.ExecuteCommand}" Text="8" Style="{StaticResource ClassicNumericButton}" />
+            <Button Grid.Row="2" Grid.Column="2" IsVisible="{Binding HasDigit9}" Command="{Binding Digit9.ExecuteCommand}" Text="9" Style="{StaticResource ClassicNumericButton}" />
+
+            <Button Grid.Row="3" Grid.Column="0" IsVisible="{Binding HasDigitSeparator}" Command="{Binding DigitSeparator.ExecuteCommand}" Text="−" Style="{StaticResource ClassicNumericButton}" />
+            <Button Grid.Row="3" Grid.Column="1" IsVisible="{Binding HasDigitZero}" Command="{Binding DigitZero.ExecuteCommand}" Text="0" Style="{StaticResource ClassicNumericButton}" />
+            <Button Grid.Row="3" Grid.Column="2" IsVisible="{Binding HasDelete}" Command="{Binding Delete.ExecuteCommand}" Text="⌫" Style="{StaticResource ClassicNumericButton}" FontSize="17" />
+        </Grid>
+
+        <Grid ColumnDefinitions="62,*,62" ColumnSpacing="10">
+            <Border BackgroundColor="#FFFFFF" Stroke="#E4E4E4" StrokeThickness="1" Padding="6,8">
+                <Border.StrokeShape>
+                    <RoundRectangle CornerRadius="18" />
+                </Border.StrokeShape>
+                <VerticalStackLayout Spacing="5" VerticalOptions="Center">
+                    <Button IsVisible="{Binding HasVolumeUp}"
+                            Command="{Binding VolumeUp.ExecuteCommand}"
+                            Text="+"
+                            Style="{StaticResource ClassicRoundButton}"
+                            HeightRequest="34" WidthRequest="34" MinimumHeightRequest="34" MinimumWidthRequest="34" FontSize="18" HorizontalOptions="Center" />
+                    <Label Text="VOL" FontSize="10" FontAttributes="Bold" TextColor="#555555" HorizontalTextAlignment="Center" />
+                    <Button IsVisible="{Binding HasVolumeDown}"
+                            Command="{Binding VolumeDown.ExecuteCommand}"
+                            Text="−"
+                            Style="{StaticResource ClassicRoundButton}"
+                            HeightRequest="34" WidthRequest="34" MinimumHeightRequest="34" MinimumWidthRequest="34" FontSize="18" HorizontalOptions="Center" />
+                </VerticalStackLayout>
+            </Border>
+
+            <Border Grid.Column="1" BackgroundColor="#FFFFFF" Stroke="#E4E4E4" StrokeThickness="1" Padding="12,8">
+                <Border.StrokeShape>
+                    <RoundRectangle CornerRadius="26" />
+                </Border.StrokeShape>
+                <Grid RowDefinitions="Auto,Auto,Auto" ColumnDefinitions="Auto,Auto,Auto" RowSpacing="7" ColumnSpacing="7" HorizontalOptions="Center" VerticalOptions="Center">
+                    <Button Grid.Row="0" Grid.Column="1" IsVisible="{Binding HasUp}" Command="{Binding Up.ExecuteCommand}" Text="▲" Style="{StaticResource ClassicRoundButton}" HeightRequest="40" WidthRequest="40" MinimumHeightRequest="40" MinimumWidthRequest="40" FontSize="15" />
+                    <Button Grid.Row="1" Grid.Column="0" IsVisible="{Binding HasLeft}" Command="{Binding Left.ExecuteCommand}" Text="◀" Style="{StaticResource ClassicRoundButton}" HeightRequest="40" WidthRequest="40" MinimumHeightRequest="40" MinimumWidthRequest="40" FontSize="15" />
+                    <Button Grid.Row="1" Grid.Column="1" IsVisible="{Binding HasOk}" Command="{Binding Ok.ExecuteCommand}" Text="OK" Style="{StaticResource ClassicRoundButton}" HeightRequest="48" WidthRequest="48" MinimumHeightRequest="48" MinimumWidthRequest="48" FontSize="15" BackgroundColor="#F7F7F7" />
+                    <Button Grid.Row="1" Grid.Column="2" IsVisible="{Binding HasRight}" Command="{Binding Right.ExecuteCommand}" Text="▶" Style="{StaticResource ClassicRoundButton}" HeightRequest="40" WidthRequest="40" MinimumHeightRequest="40" MinimumWidthRequest="40" FontSize="15" />
+                    <Button Grid.Row="2" Grid.Column="1" IsVisible="{Binding HasDown}" Command="{Binding Down.ExecuteCommand}" Text="▼" Style="{StaticResource ClassicRoundButton}" HeightRequest="40" WidthRequest="40" MinimumHeightRequest="40" MinimumWidthRequest="40" FontSize="15" />
+                </Grid>
+            </Border>
+
+            <Border Grid.Column="2" BackgroundColor="#FFFFFF" Stroke="#E4E4E4" StrokeThickness="1" Padding="6,8">
+                <Border.StrokeShape>
+                    <RoundRectangle CornerRadius="18" />
+                </Border.StrokeShape>
+                <VerticalStackLayout Spacing="5" VerticalOptions="Center">
+                    <Button IsVisible="{Binding HasChannelUp}"
+                            Command="{Binding ChannelUp.ExecuteCommand}"
+                            Text="+"
+                            Style="{StaticResource ClassicRoundButton}"
+                            HeightRequest="34" WidthRequest="34" MinimumHeightRequest="34" MinimumWidthRequest="34" FontSize="18" HorizontalOptions="Center" />
+                    <Label Text="CH" FontSize="10" FontAttributes="Bold" TextColor="#555555" HorizontalTextAlignment="Center" />
+                    <Button IsVisible="{Binding HasChannelDown}"
+                            Command="{Binding ChannelDown.ExecuteCommand}"
+                            Text="−"
+                            Style="{StaticResource ClassicRoundButton}"
+                            HeightRequest="34" WidthRequest="34" MinimumHeightRequest="34" MinimumWidthRequest="34" FontSize="18" HorizontalOptions="Center" />
+                </VerticalStackLayout>
+            </Border>
+        </Grid>
+
+        <Grid ColumnDefinitions="*,*" RowDefinitions="Auto,Auto" ColumnSpacing="8" RowSpacing="7">
+            <Button Grid.Row="0" Grid.Column="0" IsVisible="{Binding HasMenu}" Command="{Binding Menu.ExecuteCommand}" Text="Menu" Style="{StaticResource ClassicUtilityButton}" />
+            <Button Grid.Row="0" Grid.Column="1" IsVisible="{Binding HasGuide}" Command="{Binding Guide.ExecuteCommand}" Text="Guide" Style="{StaticResource ClassicUtilityButton}" />
+            <Button Grid.Row="1" Grid.Column="0" IsVisible="{Binding HasBack}" Command="{Binding Back.ExecuteCommand}" Text="Retour" Style="{StaticResource ClassicUtilityButton}" />
+            <Button Grid.Row="1" Grid.Column="1" IsVisible="{Binding HasExit}" Command="{Binding Exit.ExecuteCommand}" Text="Exit" Style="{StaticResource ClassicUtilityButton}" />
+        </Grid>
+
+        <Grid ColumnDefinitions="*,*,*,*" ColumnSpacing="16" HorizontalOptions="Center" Margin="0,2,0,0">
+            <Button Grid.Column="0" IsVisible="{Binding HasRedKey}" Command="{Binding RedKey.ExecuteCommand}" Style="{StaticResource ClassicRoundButton}" BackgroundColor="#EE4036" BorderWidth="0" WidthRequest="28" HeightRequest="28" MinimumWidthRequest="28" MinimumHeightRequest="28" Text="" HorizontalOptions="Center" />
+            <Button Grid.Column="1" IsVisible="{Binding HasGreenKey}" Command="{Binding GreenKey.ExecuteCommand}" Style="{StaticResource ClassicRoundButton}" BackgroundColor="#22AF59" BorderWidth="0" WidthRequest="28" HeightRequest="28" MinimumWidthRequest="28" MinimumHeightRequest="28" Text="" HorizontalOptions="Center" />
+            <Button Grid.Column="2" IsVisible="{Binding HasYellowKey}" Command="{Binding YellowKey.ExecuteCommand}" Style="{StaticResource ClassicRoundButton}" BackgroundColor="#F3C237" BorderWidth="0" WidthRequest="28" HeightRequest="28" MinimumWidthRequest="28" MinimumHeightRequest="28" Text="" HorizontalOptions="Center" />
+            <Button Grid.Column="3" IsVisible="{Binding HasBlueKey}" Command="{Binding BlueKey.ExecuteCommand}" Style="{StaticResource ClassicRoundButton}" BackgroundColor="#1D95E0" BorderWidth="0" WidthRequest="28" HeightRequest="28" MinimumWidthRequest="28" MinimumHeightRequest="28" Text="" HorizontalOptions="Center" />
+        </Grid>
     </VerticalStackLayout>
 </ContentView>

@@ -155,6 +155,49 @@ public sealed class MediaXtreamTests
         Assert.DoesNotContain("very-secret", episode.ToString(), StringComparison.Ordinal);
     }
 
+
+    [Fact]
+    public async Task Authentication_accepts_active_status_when_compatible_panel_omits_auth_flag()
+    {
+        var source = new MediaSource(Guid.NewGuid(), "Maison", XtreamMediaProvider.ProviderId, "secure:xtream:status-only");
+        var provider = CreateProvider(
+            new FixtureCredentialStore(ValidSecret()),
+            new RawJsonHandler("""{"user_info":{"status":"Active"}}"""));
+
+        var result = await provider.GetCatalogAsync(source, new MediaCatalogRequest(Array.Empty<MediaItemKind>()));
+
+        Assert.Empty(result.Items);
+    }
+
+    [Fact]
+    public async Task Authentication_accepts_root_level_auth_shape_used_by_some_compatible_panels()
+    {
+        var source = new MediaSource(Guid.NewGuid(), "Maison", XtreamMediaProvider.ProviderId, "secure:xtream:root-auth");
+        var provider = CreateProvider(
+            new FixtureCredentialStore(ValidSecret()),
+            new RawJsonHandler("""{"auth":1,"status":"Active"}"""));
+
+        var result = await provider.GetCatalogAsync(source, new MediaCatalogRequest(Array.Empty<MediaItemKind>()));
+
+        Assert.Empty(result.Items);
+    }
+
+    [Fact]
+    public async Task Invalid_json_is_classified_without_echoing_credentials()
+    {
+        var source = new MediaSource(Guid.NewGuid(), "Maison", XtreamMediaProvider.ProviderId, "secure:xtream:html");
+        var provider = CreateProvider(
+            new FixtureCredentialStore(ValidSecret()),
+            new RawJsonHandler("<html>portal</html>", "text/html"));
+
+        var error = await Assert.ThrowsAsync<XtreamApiException>(() =>
+            provider.GetCatalogAsync(source, new MediaCatalogRequest(Array.Empty<MediaItemKind>())));
+
+        Assert.Equal(XtreamApiFailureKind.InvalidJson, error.FailureKind);
+        Assert.DoesNotContain("very-secret", error.ToString(), StringComparison.Ordinal);
+        Assert.DoesNotContain("demo-user", error.ToString(), StringComparison.Ordinal);
+    }
+
     [Fact]
     public void Dependency_injection_registers_catalogue_and_series_provider_as_same_scoped_instance()
     {
@@ -190,6 +233,16 @@ public sealed class MediaXtreamTests
 
         public Task<bool> DeleteAsync(string credentialReference, CancellationToken cancellationToken = default)
             => Task.FromResult(true);
+    }
+
+
+    private sealed class RawJsonHandler(string payload, string contentType = "application/json") : HttpMessageHandler
+    {
+        protected override Task<HttpResponseMessage> SendAsync(HttpRequestMessage request, CancellationToken cancellationToken)
+            => Task.FromResult(new HttpResponseMessage(HttpStatusCode.OK)
+            {
+                Content = new StringContent(payload, Encoding.UTF8, contentType)
+            });
     }
 
     private sealed class FixtureHttpHandler(bool authenticated = true, HttpStatusCode statusCode = HttpStatusCode.OK) : HttpMessageHandler

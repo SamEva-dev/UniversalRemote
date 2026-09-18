@@ -32,6 +32,10 @@ public sealed class RemoteXamlViewModel
     {
         LayoutId = layoutId;
         DisplayName = model.DisplayName;
+        var selectedDevice = context?.Devices.FirstOrDefault(device => device.Id == model.DeviceId);
+        RoomName = string.IsNullOrWhiteSpace(selectedDevice?.Room) ? RemoteLabels.Text("Salon", "Living room") : selectedDevice!.Room;
+        HorizonRoomTitle = RemoteLabels.Text($"Mon {RoomName}", $"My {RoomName}");
+        DeviceStatusText = RemoteLabels.Text("Connecté", "Connected");
         BackgroundColor = Color.FromArgb(theme.Palette.Background);
         SurfaceColor = Color.FromArgb(theme.Palette.Surface);
         TextColor = Color.FromArgb(theme.Palette.Text);
@@ -55,11 +59,45 @@ public sealed class RemoteXamlViewModel
         Back = Find("navigation.back");
         Home = Find("navigation.home");
         Menu = Find("navigation.menu");
+        Guide = Find("navigation.guide");
+        Epg = Find("navigation.epg");
+        Settings = Find("navigation.settings");
+        Favorite = Find("navigation.favorite");
+        Shift = Find("key.shift");
+        Exit = Find("navigation.exit");
+        InputSelect = Find("input.select");
+        InputTv = Find("input.tv");
+        InputHdmiPrimary = Find("input.hdmi1") ?? Find("input.hdmi2");
+        AppsOpen = Find("apps.open");
+        Digit1 = Find("digit.1");
+        Digit2 = Find("digit.2");
+        Digit3 = Find("digit.3");
+        Digit4 = Find("digit.4");
+        Digit5 = Find("digit.5");
+        Digit6 = Find("digit.6");
+        Digit7 = Find("digit.7");
+        Digit8 = Find("digit.8");
+        Digit9 = Find("digit.9");
+        DigitSeparator = Find("digit.separator");
+        DigitZero = Find("digit.0");
+        Delete = Find("text.delete");
+        RedKey = Find("key.red");
+        GreenKey = Find("key.green");
+        YellowKey = Find("key.yellow");
+        BlueKey = Find("key.blue");
         VolumeUp = Find("volume.up");
         VolumeDown = Find("volume.down");
         Mute = Find("audio.mute.toggle");
         ChannelUp = Find("channel.up");
         ChannelDown = Find("channel.down");
+        Record = Find("media.record");
+        Play = Find("media.play") ?? Find("media.playpause");
+        Pause = Find("media.pause") ?? Find("media.playpause");
+        Stop = Find("media.stop");
+        Previous = Find("media.previous");
+        Rewind = Find("media.rewind");
+        FastForward = Find("media.fastforward");
+        Next = Find("media.next");
 
         AllControls = controls;
         Favorites = model.Favorites
@@ -109,6 +147,9 @@ public sealed class RemoteXamlViewModel
 
     public string LayoutId { get; }
     public string DisplayName { get; }
+    public string RoomName { get; }
+    public string HorizonRoomTitle { get; }
+    public string DeviceStatusText { get; }
     public string FavoritesTitle => RemoteLabels.Text("Favoris", "Favorites");
     public string NavigationTitle => RemoteLabels.Text("Navigation", "Navigation");
     public string VolumeTitle => RemoteLabels.Text("Volume", "Volume");
@@ -139,11 +180,45 @@ public sealed class RemoteXamlViewModel
     public RemoteXamlControlItem? Back { get; }
     public RemoteXamlControlItem? Home { get; }
     public RemoteXamlControlItem? Menu { get; }
+    public RemoteXamlControlItem? Guide { get; }
+    public RemoteXamlControlItem? Epg { get; }
+    public RemoteXamlControlItem? Settings { get; }
+    public RemoteXamlControlItem? Favorite { get; }
+    public RemoteXamlControlItem? Shift { get; }
+    public RemoteXamlControlItem? Exit { get; }
+    public RemoteXamlControlItem? InputSelect { get; }
+    public RemoteXamlControlItem? InputTv { get; }
+    public RemoteXamlControlItem? InputHdmiPrimary { get; }
+    public RemoteXamlControlItem? AppsOpen { get; }
+    public RemoteXamlControlItem? Digit1 { get; }
+    public RemoteXamlControlItem? Digit2 { get; }
+    public RemoteXamlControlItem? Digit3 { get; }
+    public RemoteXamlControlItem? Digit4 { get; }
+    public RemoteXamlControlItem? Digit5 { get; }
+    public RemoteXamlControlItem? Digit6 { get; }
+    public RemoteXamlControlItem? Digit7 { get; }
+    public RemoteXamlControlItem? Digit8 { get; }
+    public RemoteXamlControlItem? Digit9 { get; }
+    public RemoteXamlControlItem? DigitSeparator { get; }
+    public RemoteXamlControlItem? DigitZero { get; }
+    public RemoteXamlControlItem? Delete { get; }
+    public RemoteXamlControlItem? RedKey { get; }
+    public RemoteXamlControlItem? GreenKey { get; }
+    public RemoteXamlControlItem? YellowKey { get; }
+    public RemoteXamlControlItem? BlueKey { get; }
     public RemoteXamlControlItem? VolumeUp { get; }
     public RemoteXamlControlItem? VolumeDown { get; }
     public RemoteXamlControlItem? Mute { get; }
     public RemoteXamlControlItem? ChannelUp { get; }
     public RemoteXamlControlItem? ChannelDown { get; }
+    public RemoteXamlControlItem? Record { get; }
+    public RemoteXamlControlItem? Play { get; }
+    public RemoteXamlControlItem? Pause { get; }
+    public RemoteXamlControlItem? Stop { get; }
+    public RemoteXamlControlItem? Previous { get; }
+    public RemoteXamlControlItem? Rewind { get; }
+    public RemoteXamlControlItem? FastForward { get; }
+    public RemoteXamlControlItem? Next { get; }
 
     public IReadOnlyList<RemoteXamlControlItem> AllControls { get; }
     public IReadOnlyList<RemoteXamlControlItem> Favorites { get; }
@@ -169,11 +244,45 @@ public sealed class RemoteXamlViewModel
     public bool HasBack => Back is not null;
     public bool HasHome => Home is not null;
     public bool HasMenu => Menu is not null;
+    public bool HasGuide => Guide is not null;
+    public bool HasEpg => Epg is not null;
+    public bool HasSettings => Settings is not null;
+    public bool HasFavorite => Favorite is not null;
+    public bool HasShift => Shift is not null;
+    public bool HasExit => Exit is not null;
+    public bool HasInputSelect => InputSelect is not null;
+    public bool HasInputTv => InputTv is not null;
+    public bool HasInputHdmiPrimary => InputHdmiPrimary is not null;
+    public bool HasAppsOpen => AppsOpen is not null;
+    public bool HasDigit1 => Digit1 is not null;
+    public bool HasDigit2 => Digit2 is not null;
+    public bool HasDigit3 => Digit3 is not null;
+    public bool HasDigit4 => Digit4 is not null;
+    public bool HasDigit5 => Digit5 is not null;
+    public bool HasDigit6 => Digit6 is not null;
+    public bool HasDigit7 => Digit7 is not null;
+    public bool HasDigit8 => Digit8 is not null;
+    public bool HasDigit9 => Digit9 is not null;
+    public bool HasDigitSeparator => DigitSeparator is not null;
+    public bool HasDigitZero => DigitZero is not null;
+    public bool HasDelete => Delete is not null;
+    public bool HasRedKey => RedKey is not null;
+    public bool HasGreenKey => GreenKey is not null;
+    public bool HasYellowKey => YellowKey is not null;
+    public bool HasBlueKey => BlueKey is not null;
     public bool HasVolumeUp => VolumeUp is not null;
     public bool HasVolumeDown => VolumeDown is not null;
     public bool HasMute => Mute is not null;
     public bool HasChannelUp => ChannelUp is not null;
     public bool HasChannelDown => ChannelDown is not null;
+    public bool HasRecord => Record is not null;
+    public bool HasPlay => Play is not null;
+    public bool HasPause => Pause is not null;
+    public bool HasStop => Stop is not null;
+    public bool HasPrevious => Previous is not null;
+    public bool HasRewind => Rewind is not null;
+    public bool HasFastForward => FastForward is not null;
+    public bool HasNext => Next is not null;
     public bool HasFavorites => Favorites.Count > 0;
     public bool HasMedia => Media.Count > 0;
     public bool HasAudio => Audio.Count > 0;
@@ -251,6 +360,14 @@ public sealed class RemoteXamlControlItem
         "input.select" => $"ur_source_{tone}.png",
         "apps.open" => $"ur_apps_{tone}.png",
         "media.playpause" => $"ur_play_{tone}.png",
+        "media.play" => "ur_media_play.svg",
+        "media.pause" => "ur_media_pause.svg",
+        "media.stop" => "ur_media_stop.svg",
+        "media.record" => "ur_media_record.svg",
+        "media.previous" => "ur_media_previous.svg",
+        "media.rewind" => "ur_media_rewind.svg",
+        "media.fastforward" => "ur_media_fastforward.svg",
+        "media.next" => "ur_media_next.svg",
         _ => null
     };
 }

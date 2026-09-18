@@ -29,6 +29,7 @@
                     <VerticalStackLayout x:Name="xtreamFields" Spacing="8">
                         <Label Text="DNS / URL du serveur" Style="{StaticResource MediaHorizonSubtleText}" />
                         <Entry x:Name="serverEntry" Placeholder="http://serveur.exemple.com:8080" Keyboard="Url" TextColor="{StaticResource MediaHorizonText}" PlaceholderColor="#8294AA" />
+                        <Label Text="Utilisez l’adresse exacte fournie par votre service (http/https et port inclus). Si vous saisissez seulement le DNS, UniversalRemote utilisera HTTP par défaut." Style="{StaticResource MediaHorizonMutedText}" FontSize="11" />
                         <Label Text="Nom d’utilisateur" Style="{StaticResource MediaHorizonSubtleText}" />
                         <Entry x:Name="usernameEntry" Placeholder="Username" TextColor="{StaticResource MediaHorizonText}" PlaceholderColor="#8294AA" />
                         <Label Text="Mot de passe" Style="{StaticResource MediaHorizonSubtleText}" />
